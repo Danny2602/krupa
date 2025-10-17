@@ -35,7 +35,7 @@ function Inicio(){
                                 investigaciones científicas e información interesante para esas personas.<br/>
                                 Les invitamos explorar este mundo de artículos, videos, fotos y 
                                 presentaciones para tener un mejor conocimiento de todo lo que 
-                                KRUPA O&P puede hacer para ti.</Typography>
+                                BioMotion puede hacer para ti.</Typography>
                             </Grid>
                             <Grid item size={{xs:12,md:6}} style={{border:'1px solid black'}}>
                                 <GroupImage images={image} ></GroupImage>
@@ -55,7 +55,7 @@ function Inicio(){
                                 investigaciones científicas e información interesante para esas personas.<br/>
                                 Les invitamos explorar este mundo de artículos, videos, fotos y 
                                 presentaciones para tener un mejor conocimiento de todo lo que 
-                                KRUPA O&P puede hacer para ti.</Typography>
+                                BioMotion puede hacer para ti.</Typography>
                             </Grid>
                         </>
                         
@@ -75,7 +75,7 @@ function Inicio(){
                         <Stack spacing={2} style={{textAlign:'center',alignItems:'center', justifyContent:'center'}}>
 
                             <Typography variant="h1" sx={{fontWeight: "bold",color: "#000",position: "relative",fontSize:'4vh'}}>
-                                Los productos de KRUPA O&P se encuentran en los siguientes establecimientos:
+                                Los productos de BioMotion se encuentran en los siguientes establecimientos:
                             </Typography>
                             <Kbutton size='medium' variant="contained" color="primary" style={{width:'80%',fontWeight:'bold'}} text="Ver establecimientos"></Kbutton>
                         </Stack>

@@ -94,7 +94,7 @@ function Card() {
                   <h3 style={{ textAlign: 'justify', fontSize: isMobile ? '1.5vh': '2.5vh', textShadow: '2px 2px 4px #000000' }}>
                     Ser la mejor empresa que ofrece soluciones y responde
                     directo a las necesidades ortopédicas, protésicas, y
-                    ortesicas en Ecuador. {isMobile ? (<>vacio</>): (<>Krupa O&P va a ser el distribuidor
+                    ortesicas en Ecuador. {isMobile ? (<>vacio</>): (<>BioMotion va a ser el distribuidor
                     de productos O&P más completo del país con una alta variedad
                     de marcas de calidad y disponibilidad a través de un inventario
                     creciente. 
@@ -108,15 +108,15 @@ function Card() {
                   </h3>
                 ) : images[mainIdx].label === "Nosotros" ? (
                   <h3 style={{ textAlign: 'justify',fontSize: isMobile ? '1.5vh': '2.5vh', textShadow: '2px 2px 4px #000000' }}>
-                    Krupa O&P es un distribuidor sumamente eficaz de tecnología 
+                    BioMotion es un distribuidor sumamente eficaz de tecnología 
                     ortopédica, protésica y órtesica. Nacimos en 2011 en Quito, 
-                    Ecuador.{isMobile ? (<></>) : (<>Krupa O&P es una compañía dedicada a ser el mejor proveedor 
+                    Ecuador.{isMobile ? (<></>) : (<>BioMotion es una compañía dedicada a ser el mejor proveedor 
                     de productos O&P en Ecuador.</>)} <br></br>
                     
                   </h3>
                 ) : images[mainIdx].label === "¿Por qué?" ? (
                   <h3 style={{ textAlign: 'justify', fontSize: isMobile ? '1.5vh': '2.5vh',textShadow:'2px 2px 4px #000000' }}>
-                    El equipo de Krupa O&P tiene más de 25 años sumados de experiencia 
+                    El equipo de BioMotion tiene más de 25 años sumados de experiencia 
                     en mejorar aceso global a tecnología ortopédico y servicios ortesicos 
                     y protésicos.<br></br> {isMobile ? (<></>) : (<>Desde nuestro punto de vista, existe una falta de selección de productos
                     y tecnologías de calidad para el paciente en Ecuador. Creemos que cualquier
@@ -131,7 +131,7 @@ function Card() {
                   </h3>
                 ) : images[mainIdx].label === "Valores" ? (
                   <h3 style={{ textAlign: 'justify', fontSize: isMobile ? '1.5vh': '2.5vh',textShadow:'2px 2px 4px #000000' }}>
-                    Nuestros principios son la base de KRUPA O&P.Estos valores nos ayudan proveer
+                    Nuestros principios son la base de BioMotion.Estos valores nos ayudan proveer
                     las mejores soluciones en el campo de rehabilitación, órtesis y prótesis.<br /> 
                     {isMobile ? (<></>) : (<>El enfoque de nuestros principios es el cliente:
                     <ul>

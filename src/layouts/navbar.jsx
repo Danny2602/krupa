@@ -63,7 +63,7 @@ function Navbar({gifs, setGifs}) {
                     
                 }} >
                 <Toolbar sx={{ flexWrap: "wrap", justifyContent: "space-between" }}>
-                    <img src={scrollPosition ? logo4:logo2} alt="Logo" style={{ height: 40 }} />
+                    {/* <img src={scrollPosition ? logo4:logo2} alt="Logo" style={{ height: 40 }} /> */}
                     <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
                         {isMobile ? (
                             <>
