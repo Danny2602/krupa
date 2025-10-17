@@ -26,7 +26,7 @@ function Inicio(){
                 <Grid container spacing={4} padding={0} style={{marginTop:'20px',textAlign:'center',alignItems:'center',justifyContent:'center',display:'flex'}}> 
                     {isMovile ? (
                         <>
-                            <Grid item size={{xs:12,md:6}} style={{border:'1px solid black'}}>
+                            <Grid item size={{xs:12,md:6}} style={{}}>
                                 <Typography sx={{textAlign:'justify'}} fontWeight={'bold'}>
                                 Sabemos que los pacientes y profesionales de la salud 
                                 esten constamente en la busqueda de información para mejorar 
@@ -37,7 +37,7 @@ function Inicio(){
                                 presentaciones para tener un mejor conocimiento de todo lo que 
                                 BioMotion puede hacer para ti.</Typography>
                             </Grid>
-                            <Grid item size={{xs:12,md:6}} style={{border:'1px solid black'}}>
+                            <Grid item size={{xs:12,md:6}} style={{}}>
                                 <GroupImage images={image} ></GroupImage>
                             </Grid>
                         </>
