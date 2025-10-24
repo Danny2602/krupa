@@ -17,8 +17,10 @@ function Inicio(){
     const isMovile = useMediaQuery('(max-width:900px)');
     return(
         <>
-      
-            <Card />
+            <div className='w-full h-[70vh] sm:h-[90vh] xl:h-[95vh] md:h-[70vh] lg:h-[95vh]'>
+                <Card />
+            </div>
+            
             
             <Box sx={{'& button':{m:1}}} style={{width:'90%', alignItems:'center', margin:'0 auto',marginTop:'7vh',textAlign:'center'}}>
                 <TextMove title1='Investigación e innovación' title1Size= {isMovile ? '2vh':'5vh'} title2='al servicio de la salud' title2Size={isMovile ? '1.5vh':'3vh'}></TextMove>

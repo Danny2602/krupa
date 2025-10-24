@@ -81,9 +81,9 @@ function Card() {
     .filter(img => img.idx !== mainIdx);
 
   return (
-    <Box sx={{ flexGrow: 1}} padding={1}>
-      <Grid container spacing={1}>
-        <Grid item size={{ xs: 12, md: 10.5 }}>
+    <Box sx={{ flexGrow: 1}} padding={1} >
+      <Grid container spacing={1} className='min-h-180'>
+        <Grid item size={{ xs: 12, md: 10.5 }} >
           <ImageItemCenter image={images[mainIdx].src} sx={{ height: '100%', boxSizing: 'border-box' }}>
             <Grid container padding={7} alignItems="center" justifyContent="center" style={{ height: '100%' }}>
               <Grid item size={{ xs: 12, md: 6 }}>
