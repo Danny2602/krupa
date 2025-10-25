@@ -1,71 +1,104 @@
+import React, { useState } from "react";
+import { motion, useMotionValue, useTransform } from "framer-motion";
 
-import '@/assets/styles/imgStyle.css'
-import { Height, Transform } from '@mui/icons-material';
-import { Box, Button, Grid,Stack,Typography,Paper,styled,useMediaQuery } from '@mui/material'
-import { useState,useEffect } from 'react';
+const GroupImage = ({images}) => {
+  const [cards, setCards] = useState(images);
 
-
-
-const Item = styled(Paper)(({ theme, isActive,isMovile, normalBg,hoverBg }) => ({
-  ...theme.typography.body2,
-  
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: "white",
-  ...(isMovile ? {backgroundImage: isActive ? hoverBg : normalBg,}
-    :{
-      backgroundImage: isActive ? hoverBg : normalBg,
-        transition: "all 0.8s ease-in-out", // 👈 suave
-        transform: isActive ? "scale(1.1)" : "scale(1)",
-        width: isActive ? "23vh !important" : "11vh",
-        zIndex: isActive ? 2:0,
-    }   
-  )
-  
-}));
-const ImageItemCenter = ({ image,isMovile,isActive,size={}, children,style={} ,...props }) => (
+  return (
+    <div
+      className="grid h-[500px] w-full place-items-center "
      
-  <Item
-    {...props}
-    isMovile={isMovile}
-    isActive={isActive}
-    normalBg={`linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(${image})`}
-    hoverBg={`url(${image})`} // solo imagen al hover
-    className="imgItemCenter"
-    size={size}
-    style={{
-      ...props.style,
-      ...style
-    }}
-  >
-    {children}
-  </Item>
-  
-);
+    >
+      {cards.map((card) => {
+        return (
+          <Card key={card.id} cards={cards} setCards={setCards} {...card} />
+        );
+      })}
+    </div>
+  );
+};
 
-function GroupImage({images}){
-    const [activeIndex, setActiveIndex] = useState(0);
-  const isMovile = useMediaQuery("(max-width:900px)");
+const Card = ({ id, url, setCards, cards }) => {
+  const x = useMotionValue(0);
+console.log('x es igual' + x);
 
-  // Cambiar de imagen activa automáticamente
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % images.length);
-    }, 2000); // 👈 cada 2s cambia la activa
-    return () => clearInterval(interval);
-  }, [images.length]);
-    return(<>
-    
-        <Grid container padding={0} margin={0}>
-            {images.map((image,index) =>(
-                        <ImageItemCenter key={index} item isActive={index === activeIndex} isMovile={isMovile} size={{xs:0.1,md:0.1}} style={{width:isMovile ? '4vh': '11vh',height:isMovile ? '': '50vh'}} image={images[index]}>
-                        </ImageItemCenter>
-                    )
-                )
-            }  
+const opacity = useTransform(x, [-150, 0, 150], [0, 1, 0]);
 
-        </Grid>
-        
-    </>)
-}
-export {GroupImage};
+const isFront = id === cards[cards.length - 1].id;
+
+const rotate = useTransform(x, (value) => {
+  const offset = isFront ? 0 : id % 2 ? 6 : -6;
+  return `${value + offset}deg`;
+});
+
+const handleDragEnd = () => {
+  if (Math.abs(x.get()) > 100) {
+    setCards((pv) => pv.filter((v) => v.id !== id));
+  }
+};
+
+  return (
+    <motion.img
+      src={url}
+      alt="Placeholder alt"
+      className="h-96 w-72 origin-bottom rounded-lg bg-white object-cover hover:cursor-grab active:cursor-grabbing"
+      style={{
+        gridRow: 1,
+        gridColumn: 1,
+        x,
+        opacity,
+        rotate,
+        transition: "0.125s transform",
+        boxShadow: isFront
+          ? "0 20px 25px -5px rgb(0 0 0 / 0.5), 0 8px 10px -6px rgb(0 0 0 / 0.5)"
+          : undefined,
+      }}
+      animate={{
+        scale: isFront ? 1 : 0.98,
+      }}
+      drag={isFront ? "x" : false}
+      dragConstraints={{
+        left: 0,
+        right: 0,
+      }}
+      onDragEnd={handleDragEnd}
+    />
+  );
+};
+
+export { GroupImage };
+
+const cardData = [
+  {
+    id: 1,
+    url: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=2370&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    id: 2,
+    url: "https://images.unsplash.com/photo-1512374382149-233c42b6a83b?q=80&w=2235&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    id: 3,
+    url: "https://images.unsplash.com/photo-1539185441755-769473a23570?q=80&w=2342&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    id: 4,
+    url: "https://images.unsplash.com/photo-1549298916-b41d501d3772?q=80&w=2224&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    id: 5,
+    url: "https://images.unsplash.com/photo-1516478177764-9fe5bd7e9717?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    id: 6,
+    url: "https://images.unsplash.com/photo-1570464197285-9949814674a7?q=80&w=2273&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    id: 7,
+    url: "https://images.unsplash.com/photo-1578608712688-36b5be8823dc?q=80&w=2187&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    id: 8,
+    url: "https://images.unsplash.com/photo-1505784045224-1247b2b29cf3?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+];

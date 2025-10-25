@@ -45,7 +45,7 @@ export default function CustomizedList({title,options}) {
                         : {
                             '&:hover, &:focus': {
                                 '& svg': {
-                                opacity: 0,
+                                opacity: 1,
                                 },
                             },
                         },
@@ -56,7 +56,7 @@ export default function CustomizedList({title,options}) {
                   sx={[
                     {
                       mr: -1,
-                      opacity: 0,
+                      opacity: 1,
                       transition: '0.2s',
                     },
                     open

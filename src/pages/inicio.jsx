@@ -11,8 +11,10 @@ import image10 from '@/assets/images/image10.jpg'
 import image11 from '@/assets/images/image11.jpg'
 import image12 from '@/assets/images/image12.jpg'
 import { Kbutton } from '@/components/kbutton'
+
+import { CarouselScroll } from '@/components/carouselScroll'
 import { GroupImage } from '@/components/groupImage'
-const image=[image7,image8,image9,image10,image11,image12]
+const image=[{id:1,url:image6},{id:2,url:image7},{id:3,url:image8},{id:4,url:image9},{id:5,url:image10},{id:6,url:image11},{id:7,url:image12},]
 function Inicio(){
     const isMovile = useMediaQuery('(max-width:900px)');
     return(
@@ -40,13 +42,13 @@ function Inicio(){
                                 BioMotion puede hacer para ti.</Typography>
                             </Grid>
                             <Grid item size={{xs:12,md:6}} style={{}}>
-                                <GroupImage images={image} ></GroupImage>
+                              
                             </Grid>
                         </>
                     ) : (
                         <>
                             <Grid item size={{xs:12,md:6.5}} >
-                                <GroupImage images={image}></GroupImage>
+                                <GroupImage images={image} />
                             </Grid>
                             <Grid item size={{xs:12,md:5.5}} >
                                 <Typography sx={{textAlign:'justify',fontWeight:'bold', fontSize:'2.5vh'}}  >

@@ -63,7 +63,7 @@ function Navbar({gifs, setGifs}) {
                     backdropFilter: scrollPosition ? 'blur(10px)' : 'none',
                     
                     
-                }} >
+                }}  >
                 <Toolbar sx={{ flexWrap: "wrap", justifyContent: "space-between" }}>
                     {/* <img src={scrollPosition ? logo4:logo2} alt="Logo" style={{ height: 40 }} /> */}
                     <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
@@ -102,40 +102,51 @@ function Navbar({gifs, setGifs}) {
                                 </Drawer>
                             </>
                         ) : (
-                            <Tabs
-                                value={tabSelected}
-                                onChange={handleTabChange}
-                                textColor="inherit" 
-                                indicatorColor={scrollPosition ? 'secondary':'primary'}
-                                sx={{ minWidth: 300,}}
-                            >
-                                {navOptions.map((option, idx) => (
-                                <Tab
-                                    key={option}
-                                    label={option}
-                                    sx={{
-                                        fontWeight: "bold",
-                                        color: scrollPosition ? "#fff" : "gray",
-                                        "&.Mui-selected": {
-                                        color: scrollPosition ? "#ffffffff" : "primary.main", // 👈 color especial al estar seleccionado
-                                        },
-                                    }}
+                        <div className="flex items-center justify-between w-[95vw] ">
+                                <div className="flex items-center ">
+                                    <Tabs
+                                    value={tabSelected}
+                                    onChange={handleTabChange}
+                                    textColor="inherit"
+                                    indicatorColor={scrollPosition ? "secondary" : "primary"}
+                                    sx={{ minWidth: 300 }}
+                                    >
+                                    {navOptions.map((option) => (
+                                        <Tab
+                                        key={option}
+                                        label={option}
+                                        sx={{
+                                            fontWeight: "bold",
+                                            color: scrollPosition ? "#fff" : "gray",
+                                            "&.Mui-selected": {
+                                            color: scrollPosition
+                                                ? "rgba(255,255,255,1)"
+                                                : "primary.main",
+                                            },
+                                        }}
+                                        />
+                                    ))}
+                                    </Tabs>
+
+                                    <SelectedGroups
+                                    selectOptions={selectOptions}
+                                    title="Ortesis y Prótesis"
                                     />
-                                ))}                              
-                                    <SelectedGroups selectOptions={selectOptions} title={'Ortesis y Prótesis'}></SelectedGroups>
-                                    <Grid container spacing={1} paddingLeft={8} paddingTop={2}>
-                                {/* <Kbutton variant="contained" size="medium" startIcon={<ContactMailIcon />} text={'Contactanos'} 
-                                onMouseEnter={() => setIsHovered(true)}
-                                onMouseLeave={() => setIsHovered(false)}
-                                sx={{   bgcolor: '#010f4aff', 
-                                        textTransform: 'none',
-                                        
-                                        borderRadius:'10vh',
-                                        }}>             
-                            </Kbutton> */}
-                                    <KbuttonBlob startIcon={<ContactMailIcon />} text={'Contactanos'} height="5vh" width="25vh" color="rgba(6, 32, 151, 0.7)"/>
-                            </Grid>
-                        </Tabs>
+                                </div>
+
+                            {/* Botón a la derecha */}
+                                <div className="">
+                                    <KbuttonBlob
+                                    startIcon={<ContactMailIcon />}
+                                    text="Contactanos"
+                                    height="5vh"
+                                    width="25vh"
+                                    color="rgba(6, 32, 151, 0.7)"
+                                    />
+                                </div>
+                            </div>
+
+
                             
                         )}
                         
