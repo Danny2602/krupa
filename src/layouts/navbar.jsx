@@ -26,10 +26,12 @@ import { Kbutton,KbuttonBlob } from "../components/kbutton.jsx";
 import { SelectedGroups } from "@/components/selectedGroups.jsx";
 // estilos selected
 import useScrollAndMobile from "@/hooks/useScrollAndMovile.js";
+//icono descargados
+import RodillaIcon from '@/assets/icons/rodillaIcon.png'
 const selectOptions = [
     {icon: <SearchIcon />, label: 'Columna'},
     {icon: <SearchIcon />, label: 'Miembros Superiores'},
-    {icon: <SearchIcon />, label: 'Rodilla'},
+    {icon: <img src={RodillaIcon} alt="Rodilla" className="w-7 h-7" />, label: 'Rodilla'},
     {icon: <SearchIcon />, label: 'Pie y Tobillo'},
 ];
 
@@ -121,7 +123,7 @@ function Navbar({gifs, setGifs}) {
                                     />
                                 ))}                              
                                     <SelectedGroups selectOptions={selectOptions} title={'Ortesis y Prótesis'}></SelectedGroups>
-                            <Grid container spacing={1} paddingLeft={8} paddingTop={2}>
+                                    <Grid container spacing={1} paddingLeft={8} paddingTop={2}>
                                 {/* <Kbutton variant="contained" size="medium" startIcon={<ContactMailIcon />} text={'Contactanos'} 
                                 onMouseEnter={() => setIsHovered(true)}
                                 onMouseLeave={() => setIsHovered(false)}
