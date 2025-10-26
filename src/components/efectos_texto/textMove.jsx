@@ -50,15 +50,16 @@ const TextMove = ({
   }, [interval]);
 
   return (
-    <Grid container justifyContent="center" alignItems="center" sx={{ height: "10vh" }}>
+    <Grid container justifyContent="center" alignItems="center" sx={{ height: "10vh" }} >
       <Box
         sx={{
-          width: { xs: "90%", sm: "60%", md: "40%" },
+          width: {  xs: "100%", sm: "60%", md: "70%" },
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           position: "relative",
         }}
+        
       >
         {/* Title */}
         <Box

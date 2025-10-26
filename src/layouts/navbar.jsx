@@ -1,5 +1,6 @@
 import React, { useState,useEffect } from "react";
 import CustomizedList from "@/components/selected.jsx";
+import { motion } from "motion/react";
 import {
     AppBar,
     Toolbar,
@@ -108,10 +109,13 @@ function Navbar({gifs, setGifs}) {
                                     value={tabSelected}
                                     onChange={handleTabChange}
                                     textColor="inherit"
-                                    indicatorColor={scrollPosition ? "secondary" : "primary"}
+                                    indicatorColor={scrollPosition ? "primary" : "primary"}
+
                                     sx={{ minWidth: 300 }}
+                                    
                                     >
                                     {navOptions.map((option) => (
+                                        
                                         <Tab
                                         key={option}
                                         label={option}
@@ -123,14 +127,24 @@ function Navbar({gifs, setGifs}) {
                                                 ? "rgba(255,255,255,1)"
                                                 : "primary.main",
                                             },
+                                            "&:hover": {
+                                            backgroundColor: scrollPosition
+                                                ? "rgba(255,255,255,1)"
+                                                : "primary.main",
+                                                color: scrollPosition ? "gray" : "white",
+                                                borderRadius: "5px",
+                                                transition: "all 0.3s ease",
+                                            },
+                                            
                                         }}
+                                        
                                         />
                                     ))}
                                     </Tabs>
 
                                     <SelectedGroups
-                                    selectOptions={selectOptions}
-                                    title="Ortesis y Prótesis"
+                                        selectOptions={selectOptions}
+                                        title="Ortesis y Prótesis"
                                     />
                                 </div>
 

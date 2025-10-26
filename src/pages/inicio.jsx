@@ -14,24 +14,24 @@ import { Kbutton } from '@/components/kbutton'
 
 import { CarouselScroll } from '@/components/carouselScroll'
 import { GroupImage } from '@/components/groupImage'
-const image=[{id:1,url:image6},{id:2,url:image7},{id:3,url:image8},{id:4,url:image9},{id:5,url:image10},{id:6,url:image11},{id:7,url:image12},]
+const image=[{id:2,url:image7},{id:3,url:image8},{id:4,url:image9},{id:5,url:image10},{id:6,url:image11},{id:7,url:image12},]
 function Inicio(){
     const isMovile = useMediaQuery('(max-width:900px)');
     return(
         <>
-            <div className='w-full h-[70vh] sm:h-[90vh] xl:h-[95vh] md:h-[70vh] lg:h-[95vh]'>
+            <div className='w-full h-[100vh] lg:min-h-screen xl:min-h-screen md:min-h-screen'>
                 <Card />
             </div>
-            
-            
-            <Box sx={{'& button':{m:1}}} style={{width:'90%', alignItems:'center', margin:'0 auto',marginTop:'7vh',textAlign:'center'}}>
-                <TextMove title1='Investigación e innovación' title1Size= {isMovile ? '2vh':'5vh'} title2='al servicio de la salud' title2Size={isMovile ? '1.5vh':'3vh'}></TextMove>
+        
+            <Box  style={{width:'90%', alignItems:'center', margin:'0 auto',textAlign:'center'}}>
                 <br></br>
                 <Grid container spacing={4} padding={0} style={{marginTop:'20px',textAlign:'center',alignItems:'center',justifyContent:'center',display:'flex'}}> 
                     {isMovile ? (
                         <>
                             <Grid item size={{xs:12,md:6}} style={{}}>
-                                <Typography sx={{textAlign:'justify'}} fontWeight={'bold'}>
+                                <TextMove title1='Investigación e innovación' title1Size= {isMovile ? '3vh':'5vh'} title2='al servicio de la salud' title2Size={isMovile ? '1.5vh':'3vh'}></TextMove>
+                                <br></br>
+                                <Typography sx={{textAlign:'justify'}} fontWeight={'bold'} fontSize={isMovile ? '1.9vh':'5vh'}>
                                 Sabemos que los pacientes y profesionales de la salud 
                                 esten constamente en la busqueda de información para mejorar 
                                 su calidad de vida o la calidad de vida de sus pacientes.<br/>
@@ -42,15 +42,18 @@ function Inicio(){
                                 BioMotion puede hacer para ti.</Typography>
                             </Grid>
                             <Grid item size={{xs:12,md:6}} style={{}}>
-                              
+                                <GroupImage images={image} />
                             </Grid>
                         </>
                     ) : (
                         <>
-                            <Grid item size={{xs:12,md:6.5}} >
+
+                            <Grid item size={{xs:12,md:4}} >
                                 <GroupImage images={image} />
                             </Grid>
-                            <Grid item size={{xs:12,md:5.5}} >
+                            <Grid item size={{xs:12,md:8}} >
+                                <TextMove title1='Investigación e innovación' title1Size= {isMovile ? '2vh':'5vh'} title2='al servicio de la salud' title2Size={isMovile ? '1.5vh':'3vh'}></TextMove>
+                                <br></br>
                                 <Typography sx={{textAlign:'justify',fontWeight:'bold', fontSize:'2.5vh'}}  >
                                 Sabemos que los pacientes y profesionales de la salud 
                                 esten constamente en la busqueda de información para mejorar 
