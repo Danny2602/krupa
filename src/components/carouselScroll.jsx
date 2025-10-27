@@ -1,9 +1,10 @@
 import { motion,useInView, useTransform, useScroll } from "framer-motion";
+import { title } from "motion/react-client";
 import { useRef } from "react";
 
 
 
-const CarouselScroll = () => {
+const CarouselScroll = ({title}) => {
   const targetRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
@@ -12,14 +13,20 @@ const CarouselScroll = () => {
   const x = useTransform(scrollYProgress, [0, 1], ["1%", "-95%"]);
   
   return (
-    <section ref={targetRef} className="relative h-[300vh] bg-amber-600">
-      <div className="sticky top-0 flex h-screen items-center overflow-hidden">
+    <section ref={targetRef} className="relative h-[300vh]  bg-[#012558]">
+      
+      <div className="grid grid-rows-3 sticky top-0  h-screen items-center overflow-hidden ">
+        
+        <div className=" row-end-2 content-center w-[10%] sm:w-[10%] md:w-[50%] lg:w-[60%] text-center bg-[#f57922]">
+          <h1 className="text-8xl font-bold text-white">{title}</h1>
+        </div>
+
         <motion.div 
-          
-          style={{ x }} className="flex gap-4">
+          style={{ x }} className="flex gap-4 row-span-2">
           {cards.map((card) => {
             return <Card card={card} key={card.id} />;
           })}
+          
         </motion.div>
       </div>
     </section>
@@ -34,7 +41,7 @@ const Card = ({ card }) => {
         ref={ref}
           initial={{scale:0}}
           animate={isView?{scale:1}:{scale:0}}
-          transition={{duration:0.5}}
+          transition={{duration:0.3}}
           
         key={card.id}
         className="group relative h-[350px] w-[350px] overflow-hidden bg-neutral-200 rounded-2xl"
@@ -51,6 +58,12 @@ const Card = ({ card }) => {
               <p className="bg-gradient-to-br from-white/20 to-white/0 p-8 text-6xl font-black uppercase text-white backdrop-blur-lg">
               {card.title}
               </p>
+              <motion.a 
+              whileHover={{scale:1.1}}
+              whileTap={{scale:0.02}}
+               className="rounded-2xl bg-amber-800 text-amber-50 text-center cursor-pointer">
+                Visistar
+              </motion.a>
           </div>
         </motion.div>
   );
