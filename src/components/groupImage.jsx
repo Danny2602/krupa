@@ -20,7 +20,7 @@ const GroupImage = ({images}) => {
 
 const Card = ({ id, url, setCards, cards }) => {
   const x = useMotionValue(0);
-console.log('x es igual' + x);
+
 
 const opacity = useTransform(x, [-150, 0, 150], [0, 1, 0]);
 

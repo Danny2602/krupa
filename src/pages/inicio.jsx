@@ -11,7 +11,7 @@ import image10 from '@/assets/images/image10.jpg'
 import image11 from '@/assets/images/image11.jpg'
 import image12 from '@/assets/images/image12.jpg'
 import { Kbutton } from '@/components/kbutton'
-
+import { motion,useInView } from 'motion/react'
 import { CarouselScroll } from '@/components/carouselScroll'
 import { GroupImage } from '@/components/groupImage'
 const image=[{id:2,url:image7},{id:3,url:image8},{id:4,url:image9},{id:5,url:image10},{id:6,url:image11},{id:7,url:image12},]
@@ -22,10 +22,9 @@ function Inicio(){
             <div className='w-full h-[100vh] lg:min-h-screen xl:min-h-screen md:min-h-screen'>
                 <Card />
             </div>
-        
-            <Box  style={{width:'90%', alignItems:'center', margin:'0 auto',textAlign:'center'}}>
-                <br></br>
-                <Grid container spacing={4} padding={0} style={{marginTop:'20px',textAlign:'center',alignItems:'center',justifyContent:'center',display:'flex'}}> 
+            <Box style={{width:'90%', alignItems:'center', margin:'0 auto',textAlign:'center'}}>
+                
+                <Grid container spacing={4} padding={0} style={{textAlign:'center',alignItems:'center',justifyContent:'center',display:'flex'}}> 
                     {isMovile ? (
                         <>
                             <Grid item size={{xs:12,md:6}} style={{}}>
@@ -70,14 +69,8 @@ function Inicio(){
                     }
                         
                 </Grid>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
+
                 <Grid container spacing={2} padding={2}>
-                    <Grid item size={{xs:12,md:6}}  >
-                        <img src={image6} alt="Imagen" style={{width:'100%', height:'100%', objectFit:'cover'}} /> 
-                    </Grid>
                     <Grid item size={{xs:12,md:6}} style={{alignItems:'center', display:'flex', justifyContent:'center'}}>
                         <Stack spacing={2} style={{textAlign:'center',alignItems:'center', justifyContent:'center'}}>
 
@@ -87,6 +80,10 @@ function Inicio(){
                             <Kbutton size='medium' variant="contained" color="primary" style={{width:'80%',fontWeight:'bold'}} text="Ver establecimientos"></Kbutton>
                         </Stack>
                     </Grid>
+                    <Grid item size={{xs:12,md:6}}  >
+                        <img src={image6} alt="Imagen" style={{width:'100%', height:'100%', objectFit:'cover'}} /> 
+                    </Grid>
+                    
                     
                 </Grid>
                 
@@ -101,7 +98,9 @@ function Inicio(){
                 
             </Box>
             <br></br>
-            <br></br>
+            <div container padding={2} className='bg-amber-300'>
+                    <CarouselScroll></CarouselScroll>
+            </div>
         </>
     )
 }

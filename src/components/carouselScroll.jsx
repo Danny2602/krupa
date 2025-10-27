@@ -1,23 +1,7 @@
-import { motion, useTransform, useScroll } from "framer-motion";
+import { motion,useInView, useTransform, useScroll } from "framer-motion";
 import { useRef } from "react";
 
-const Example = () => {
-  return (
-    <div className="bg-neutral-800">
-      <div className="flex h-48 items-center justify-center">
-        <span className="font-semibold uppercase text-neutral-500">
-          Scroll down
-        </span>
-      </div>
-      <CarouselScroll />
-      <div className="flex h-48 items-center justify-center">
-        <span className="font-semibold uppercase text-neutral-500">
-          Scroll up
-        </span>
-      </div>
-    </div>
-  );
-};
+
 
 const CarouselScroll = () => {
   const targetRef = useRef(null);
@@ -26,11 +10,13 @@ const CarouselScroll = () => {
   });
 
   const x = useTransform(scrollYProgress, [0, 1], ["1%", "-95%"]);
-
+  
   return (
-    <section ref={targetRef} className="relative h-[300vh] bg-neutral-900">
+    <section ref={targetRef} className="relative h-[300vh] bg-amber-600">
       <div className="sticky top-0 flex h-screen items-center overflow-hidden">
-        <motion.div style={{ x }} className="flex gap-4">
+        <motion.div 
+          
+          style={{ x }} className="flex gap-4">
           {cards.map((card) => {
             return <Card card={card} key={card.id} />;
           })}
@@ -41,29 +27,36 @@ const CarouselScroll = () => {
 };
 
 const Card = ({ card }) => {
+  const ref=useRef(null);
+  const isView = useInView(ref, { once: true, margin: "-100px" });
   return (
-        <div
+        <motion.div
+        ref={ref}
+          initial={{scale:0}}
+          animate={isView?{scale:1}:{scale:0}}
+          transition={{duration:0.5}}
+          
         key={card.id}
-        className="group relative h-[350px] w-[350px] overflow-hidden bg-neutral-200"
+        className="group relative h-[350px] w-[350px] overflow-hidden bg-neutral-200 rounded-2xl"
         >
-        <div
-            style={{
-            backgroundImage: `url(${card.url})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            }}
-            className="absolute inset-0 z-0 transition-transform duration-300 group-hover:scale-110"
-        ></div>
-        <div className="absolute inset-0 z-10 grid place-content-center">
-            <p className="bg-gradient-to-br from-white/20 to-white/0 p-8 text-6xl font-black uppercase text-white backdrop-blur-lg">
-            {card.title}
-            </p>
-        </div>
-        </div>
+          <div
+              style={{
+              backgroundImage: `url(${card.url})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              }}
+              className="absolute inset-0 z-0 transition-transform duration-300 group-hover:scale-110"
+          ></div>
+          <div className="absolute inset-0 z-10 grid place-content-center">
+              <p className="bg-gradient-to-br from-white/20 to-white/0 p-8 text-6xl font-black uppercase text-white backdrop-blur-lg">
+              {card.title}
+              </p>
+          </div>
+        </motion.div>
   );
 };
 
-export {CarouselScroll, Example}; ;
+export {CarouselScroll}; ;
 
 const cards = [
   {
