@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@source "../node_modules/@ilamy/calendar/dist";
 body{
     background-color: rgb(255, 255, 255);
     margin: 0;

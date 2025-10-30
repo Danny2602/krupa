@@ -38,24 +38,22 @@ function SelectedGroups({selectOptions,title}){
 
   return(
     <>
-      <Tabs component="nav" aria-label="Device settings" >
+      <nav aria-label="Device settings">
         <ListItemButton
           id="lock-button"
           aria-haspopup="listbox"
           aria-controls="lock-menu"
           aria-expanded={open ? 'true' : undefined}
-         
-          // quitar onClick
           onMouseEnter={handleMouseEnter}
         >
-          <Tab 
-            key={'ortesis-y-protesis'} 
-            label={title} 
-            sx={{color: scrollPosition ?'#ffffffff':'gray',fontWeight:'bold',padding:'0'}}
-          />
-          <ArrowDropDownIcon sx={{color: scrollPosition ? 'white':'gray'}}/>
+          <span className="font-bold" style={{ color: scrollPosition ? '#fff' : 'gray' }}>
+            {title}
+          </span>
+          <ArrowDropDownIcon sx={{ color: scrollPosition ? 'white' : 'gray' }} />
         </ListItemButton>
-      </Tabs>
+      </nav>
+
+
 
       <Menu
         id="lock-menu"

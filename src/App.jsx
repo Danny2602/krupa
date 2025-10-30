@@ -12,16 +12,16 @@ function App() {
   //   console.log('hola');
   // },[count])
 
-  const evento= (e)=>{
-  console.log('se mueve el scroll')
-  }
+  // const evento= (e)=>{
+  // console.log('se mueve el scroll')
+  // }
 
-  useEffect(() => {
-    document.addEventListener('wheel', evento);
-    return () => {
-        document.removeEventListener('wheel', evento);
-      }
-  })
+  // useEffect(() => {
+  //   document.addEventListener('wheel', evento);
+  //   return () => {
+  //       document.removeEventListener('wheel', evento);
+  //     }
+  // })
   const [gifs, setGifs] = useState([]);
   return (
     <>

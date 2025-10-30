@@ -2,7 +2,7 @@ import {Card} from '@/components/card.jsx'
 import {Form} from '@/components/form.jsx'
 import TextMove from '@/components/efectos_texto/textMove.jsx'
 import {colors} from '@/assets/styles/colors'
-import { Box,Grid,Stack,Typography,useMediaQuery } from '@mui/material'
+import { Box,Grid,Stack,TextField,Typography,useMediaQuery } from '@mui/material'
 import image6 from '@/assets/images/image6.jpg'
 import image7 from '@/assets/images/image7.jpg'
 import image8 from '@/assets/images/image8.jpg'
@@ -13,7 +13,8 @@ import image12 from '@/assets/images/image12.jpg'
 import { Kbutton } from '@/components/kbutton'
 import { CarouselScroll } from '@/components/carouselScroll'
 import { GroupImage } from '@/components/groupImage'
-import { LoaderContruction } from '../components/loaderConstruction'
+import { LoaderContruction } from '@/components/loaderConstruction'
+import { Calendar } from '@/components/calendar'
 const image=[{id:2,url:image7},{id:3,url:image8},{id:4,url:image9},{id:5,url:image10},{id:6,url:image11},{id:7,url:image12},]
 function Inicio(){
     const inContruccion=true
@@ -99,6 +100,30 @@ function Inicio(){
                 
             </Box>
             <br></br>
+            <Grid container spacing={2} padding={2}>
+                <Grid item size={{xs:12,md:12}} display={'flex'} alignItems={'center'} justifyContent={'center'}>
+                    <h1>Agendar cita</h1>  
+                </Grid>
+                  
+                <Grid item size={{xs:12,md:6}} style={{border:'1px solid black'}}>
+                    <TextField
+                        label="Nombre y Apellidos"
+                        id='outlined-disabled'
+                        size='small'
+                        fullWidth
+                    />
+                    <TextField
+                        label="Asunto de la cita"
+                        id='outlined-disabled'
+                        size='small'
+                        fullWidth
+                    />
+                    
+                </Grid>                                 
+                <Grid item size={{xs:12,md:6}} style={{border:'1px solid black'}}>
+                    <Calendar/>
+                </Grid>
+            </Grid>
             <LoaderContruction isActive={true}><CarouselScroll/></LoaderContruction>
         </>
     )

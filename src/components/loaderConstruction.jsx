@@ -4,7 +4,7 @@ function LoaderContruction({isActive=true,children}){
     return(
         <>
         {isActive ?(
-            <div container padding={2} className='bg-amber-300'>
+            <div className="bg-amber-300 p-2">
                     <div className="flex flex-col items-center justify-center h-screen bg-gray-50">
                     <motion.div
                         animate={{ rotate: [0, 20, -20, 0] }}
