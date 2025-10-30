@@ -11,10 +11,9 @@ import image10 from '@/assets/images/image10.jpg'
 import image11 from '@/assets/images/image11.jpg'
 import image12 from '@/assets/images/image12.jpg'
 import { Kbutton } from '@/components/kbutton'
-import { motion,useInView } from 'motion/react'
 import { CarouselScroll } from '@/components/carouselScroll'
 import { GroupImage } from '@/components/groupImage'
-import { Wrench } from "lucide-react"; 
+import { LoaderContruction } from '../components/loaderConstruction'
 const image=[{id:2,url:image7},{id:3,url:image8},{id:4,url:image9},{id:5,url:image10},{id:6,url:image11},{id:7,url:image12},]
 function Inicio(){
     const inContruccion=true
@@ -100,24 +99,7 @@ function Inicio(){
                 
             </Box>
             <br></br>
-            {inContruccion ? (
-                <div container padding={2} className='bg-amber-300'>
-                    <div className="flex flex-col items-center justify-center h-screen bg-gray-50">
-      <motion.div
-        animate={{ rotate: [0, 20, -20, 0] }}
-        transition={{ repeat: Infinity, duration: 2 }}
-      >
-        <Wrench size={80} className="text-amber-500" />
-      </motion.div>
-      <h1 className="text-3xl font-bold mt-4 text-gray-800">Página en construcción</h1>
-      <p className="text-gray-500 mt-2">Vuelve pronto 🚀</p>
-    </div>
-                </div>
-            ) : (
-                <div container padding={2} className='bg-amber-300'>
-                    <CarouselScroll title='Productos'></CarouselScroll>
-                </div>
-            )}
+            <LoaderContruction isActive={true}><CarouselScroll/></LoaderContruction>
         </>
     )
 }
