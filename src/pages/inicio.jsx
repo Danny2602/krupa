@@ -100,7 +100,8 @@ function Inicio(){
                 
             </Box>
             <br></br>
-            <Grid container spacing={2} padding={2}>
+            
+            <LoaderContruction isActive={true}><Grid container spacing={2} padding={2}>
                 <Grid item size={{xs:12,md:12}} display={'flex'} alignItems={'center'} justifyContent={'center'}>
                     <h1>Agendar cita</h1>  
                 </Grid>
@@ -123,8 +124,7 @@ function Inicio(){
                 <Grid item size={{xs:12,md:6}} style={{border:'1px solid black'}}>
                     <Calendar/>
                 </Grid>
-            </Grid>
-            <LoaderContruction isActive={true}><CarouselScroll/></LoaderContruction>
+            </Grid><CarouselScroll/></LoaderContruction>
         </>
     )
 }

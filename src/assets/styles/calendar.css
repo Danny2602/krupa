@@ -1,0 +1,80 @@
+.fc {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.fc-toolbar-title {
+  font-weight: 700;
+  color: #1f2937;
+  text-transform: capitalize;
+}
+
+.dark .fc-toolbar-title {
+  color: #f3f4f6;
+}
+
+.fc-toolbar-chunk button {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  transition: background 0.2s ease;
+  font-weight: 500;
+}
+
+.fc-toolbar-chunk button:hover {
+  background-color: #2563eb;
+}
+
+.fc-event {
+  border-radius: 10px;
+  padding: 6px 10px;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.25s ease;
+}
+
+.fc-event:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+.fc-timegrid-slot-label {
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.dark .fc-timegrid-slot-label {
+  color: #d1d5db;
+}
+
+.fc-col-header-cell-cushion {
+  font-weight: 600;
+  color: #374151;
+  padding: 8px 0;
+}
+
+.fc-scrollgrid {
+  border-radius: 1rem;
+  overflow: hidden;
+  border: none;
+}
+
+.fc-view-harness {
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .fc-toolbar-title {
+    font-size: 1.2rem;
+  }
+
+  .fc-toolbar-chunk button {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+}
