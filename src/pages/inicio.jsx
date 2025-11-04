@@ -1,8 +1,9 @@
+import React, {useState} from 'react'
 import {Card} from '@/components/card.jsx'
 import {Form} from '@/components/form.jsx'
 import TextMove from '@/components/efectos_texto/textMove.jsx'
 import {colors} from '@/assets/styles/colors'
-import { Box,Grid,Stack,TextField,Typography,useMediaQuery } from '@mui/material'
+import { Box,Grid,Modal,Stack,TextField,Typography,useMediaQuery } from '@mui/material'
 import image6 from '@/assets/images/image6.jpg'
 import image7 from '@/assets/images/image7.jpg'
 import image8 from '@/assets/images/image8.jpg'
@@ -15,10 +16,13 @@ import { CarouselScroll } from '@/components/carouselScroll'
 import { GroupImage } from '@/components/groupImage'
 import { LoaderContruction } from '@/components/loaderConstruction'
 import { Calendar } from '@/components/calendar'
+import { ModalEfect } from '@/components/modalEfect.jsx'
+import { FiAlertCircle } from "react-icons/fi";
 const image=[{id:2,url:image7},{id:3,url:image8},{id:4,url:image9},{id:5,url:image10},{id:6,url:image11},{id:7,url:image12},]
 function Inicio(){
     const inContruccion=true
     const isMovile = useMediaQuery('(max-width:900px)');
+    const [isOpen, setIsOpen] =  useState(false);
     return(
         <>
             <div className='w-full h-[100vh] lg:min-h-screen xl:min-h-screen md:min-h-screen'>
@@ -101,30 +105,18 @@ function Inicio(){
             </Box>
             <br></br>
             
-            <LoaderContruction isActive={true}><Grid container spacing={2} padding={2}>
+            <Grid container spacing={2} padding={2} >
                 <Grid item size={{xs:12,md:12}} display={'flex'} alignItems={'center'} justifyContent={'center'}>
                     <h1>Agendar cita</h1>  
-                </Grid>
-                  
-                <Grid item size={{xs:12,md:6}} style={{border:'1px solid black'}}>
-                    <TextField
-                        label="Nombre y Apellidos"
-                        id='outlined-disabled'
-                        size='small'
-                        fullWidth
-                    />
-                    <TextField
-                        label="Asunto de la cita"
-                        id='outlined-disabled'
-                        size='small'
-                        fullWidth
-                    />
-                    
+                
                 </Grid>                                 
-                <Grid item size={{xs:12,md:6}} style={{border:'1px solid black'}}>
+                <Grid item size={{xs:12,md:12}} display={'flex'} alignItems={'center'} justifyContent={'center'} >
                     <Calendar/>
                 </Grid>
-            </Grid><CarouselScroll/></LoaderContruction>
+            </Grid>
+            <LoaderContruction isActive={true}>
+                <CarouselScroll/>
+            </LoaderContruction>
         </>
     )
 }
