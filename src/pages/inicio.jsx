@@ -20,6 +20,7 @@ import { ModalEfect } from '@/components/modalEfect.jsx'
 import { FiAlertCircle } from "react-icons/fi";
 import { LetterMove } from '@/components/efectos_texto/letterMove'
 import useScrollAndMobile from '@/hooks/useScrollAndMovile.js'
+import { StepperAppointment } from '../components/stepperAppointment'
 const image=[{id:2,url:image7},{id:3,url:image8},{id:4,url:image9},{id:5,url:image10},{id:6,url:image11},{id:7,url:image12},]
 function Inicio(){
     const inContruccion=true
@@ -107,16 +108,17 @@ function Inicio(){
                 
             </Box>
             <br></br>
-            
+            <LoaderContruction isActive={true}>
             <Grid container spacing={2} padding={2} >
                 <Grid item size={{xs:12,md:12}} display={'flex'} alignItems={'center'} justifyContent={'center'}>
                     <h1>Agendar cita</h1>  
                 </Grid>                                 
                 <Grid item size={{xs:12,md:12}} display={'flex'} alignItems={'center'} justifyContent={'center'} >
-                    <Calendar/>
+                    {/* <Calendar/> */}
+                    <StepperAppointment />
                 </Grid>
             </Grid>
-            <LoaderContruction isActive={true}>
+            
                 <CarouselScroll/>
             </LoaderContruction>
         </>

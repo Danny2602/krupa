@@ -103,19 +103,12 @@ function Calendar() {
 
   return (
     <motion.div
-      className="max-w-6xl mx-auto p-6 rounded-3xl bg-gradient-to-br from-slate-50 via-white to-slate-110 shadow-2xl border border-gray-110"
+      className="max-w-6xl mx-auto p-6 rounded-3xl bg-gradient-to-br from-slate-50 via-white to-slate-110 shadow-2xl "
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
     >
-      <motion.h2
-        className="text-4xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-blue-500 to-purple-500 mb-8"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.3 }}
-      >
-        📅 Agenda Semanal
-      </motion.h2>
+      
 
       <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-200 bg-white">
         <FullCalendar
