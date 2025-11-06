@@ -198,7 +198,7 @@ function Calendar() {
               {dayjs(selectedSlot.start).format('HH:mm')} -{' '}
               {dayjs(selectedSlot.end).format('HH:mm')}
             </p>
-            <form className="mt-4 space-y-2">
+            <form className="gap-3 flex flex-col mt-4">
               <TextField
                   label="Nombre y Apellidos"
                   id='outlined-disabled'
