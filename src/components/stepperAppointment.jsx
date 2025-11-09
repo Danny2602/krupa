@@ -3,6 +3,31 @@ import { motion } from "framer-motion";
 import { Calendar } from "@/components/calendar";
 import { Kbutton } from "@/components/kbutton";
 import { Checkbox,TextField,Select,MenuItem } from "@mui/material";
+import { CardPresentation } from "@/components/cardPresentation";
+const data=[
+    {nombre:"Dr. Juan Pérez",especialidad:"Cardiología"},
+    {nombre:"Dra. María Gómez",especialidad:"Neurología"},
+    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria"},
+    {nombre:"Dra. Laura Rodríguez",especialidad:"Dermatología"},
+    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria"},
+    {nombre:"Dra. Laura Rodríguez",especialidad:"Dermatología"},
+    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria"},
+    {nombre:"Dra. Laura Rodríguez",especialidad:"Dermatología"},
+    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria"},
+    {nombre:"Dra. Laura Rodríguez",especialidad:"Dermatología"},
+    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria"},
+    {nombre:"Dr. Juan Pérez",especialidad:"Cardiología"},
+    {nombre:"Dra. María Gómez",especialidad:"Neurología"},
+    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria"},
+    {nombre:"Dra. Laura Rodríguez",especialidad:"Dermatología"},
+    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria"},
+    {nombre:"Dra. Laura Rodríguez",especialidad:"Dermatología"},
+    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria"},
+    {nombre:"Dra. Laura Rodríguez",especialidad:"Dermatología"},
+    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria"},
+    {nombre:"Dra. Laura Rodríguez",especialidad:"Dermatología"},
+    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria"},
+]
 const styleCheckbox={
     className:"items-center flex hover:bg-gray-200 cursor-pointer border border-gray-300 rounded-lg p-2"
 }
@@ -77,7 +102,7 @@ const steps = [
     {
         label:"Sintomas",
         content:(
-            <div className="w-[90%] text-center bg-amber-400">
+            <div className="w-[90%] text-center ">
                         <label className="block text-4xl font-medium text-gray-700 p-12">Síntomas</label>
                         <br></br>
                         <div className="grid grid-flow-col auto-rows-auto grid-rows-5 gap-4 overflow-y-auto">
@@ -104,6 +129,22 @@ const steps = [
                             <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Pérdida del gusto u olfato</label></div>
                             <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Congestión nasal</label></div>
                         </div>
+            </div>
+        ),
+    },{
+        label: "Selecciona Al Doctor",
+        content: (
+            <div className="w-[90%] h-[90%] bg-red-200 ">
+                <div className="text-center">
+                    <label className="block text-base sm:text-lg md:text-xl lg:text-1xl xl:text-2xl font-bold text-gray-700 p-12">
+                        Selección de Doctor
+                    </label>
+                </div>
+                    
+                
+                <div className="">
+                    <CardPresentation data={data} />
+                </div>
             </div>
         ),
     },
@@ -154,9 +195,9 @@ const steps = [
     };
 
     return (
-        <div className="min-w-[90%] h-[85vh] max-w-3xl mx-auto p-6 flex flex-col items-center  rounded-3xl border border-gray-500">
+        <div className="min-w-[90%] h-[87vh] max-w-3xl mx-auto p-6 flex flex-col items-center  rounded-3xl border border-gray-500">
         {/* Stepper */}
-        <div className="flex flex-col sm:flex-row items-center w-full relative " style={{padding:'1vh'}}>
+        <div className="flex flex-col sm:flex-row items-center w-full relative" style={{padding:'1.5vh'}}>
             {steps.map((step, i) => (
             <div key={i} className="flex flex-col items-center flex-1 relative">
                 {i < total - 1 && (
@@ -177,7 +218,7 @@ const steps = [
                     ? "bg-blue-600"
                     : "bg-gray-400"
                 }`}
-                onClick={() => setActiveStep(i)}
+                
                 >
                 {completed[i] ? "✓" : i + 1}
                 </motion.div>
@@ -198,7 +239,7 @@ const steps = [
             key={activeStep}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-10  w-full px-4 sm:px-8  h-full flex items-center justify-center  overflow-auto"
+            className="mt-10  w-full px-4 sm:px-8  h-full flex items-center justify-center  overflow-hidden"
         >
             {allDone ? (
             <p className="text-center text-lg font-semibold text-green-600">

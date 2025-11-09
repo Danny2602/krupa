@@ -15,32 +15,32 @@ const events = [
   {
     id: '1',
     title: 'Reunión de equipo',
-    start: '2025-11-03T08:00:00',
-    end: '2025-11-03T10:00:00',
+    start: '2025-11-03T09:00:00',
+    end: '2025-11-03T11:00:00',
     backgroundColor: '#3b82f6',
     textColor: 'white'
   },
   {
     id: '2',
     title: 'Revisión de proyecto',
-    start: '2025-11-04T14:00:00',
-    end: '2025-11-04T16:00:00',
+    start: '2025-11-04T15:00:00',
+    end: '2025-11-04T17:00:00',
     backgroundColor: '#11b981',
     textColor: 'white'
   },
   {
     id: '3',
     title: 'Llamada con cliente',
-    start: '2025-11-04T08:00:00',
-    end: '2025-11-04T10:00:00',
+    start: '2025-11-04T09:00:00',
+    end: '2025-11-04T11:00:00',
     backgroundColor: '#f59e0b',
     textColor: 'white'
   },
   {
     id: '4',
     title: 'Presentación final',
-    start: '2025-11-05T10:00:00',
-    end: '2025-11-05T12:00:00',
+    start: '2025-11-05T11:00:00',
+    end: '2025-11-05T13:00:00',
     backgroundColor: '#ef4444',
     textColor: 'white'
   }
@@ -58,11 +58,11 @@ function Calendar() {
     for (let day = 0; day < 5; day++) {
       const currentDay = startDate.add(day, 'day');
 
-      for (let hour = 8; hour < 17; hour += 2) {
-        if (hour === 12) continue; // almuerzo
+      for (let hour = 9; hour < 19; hour += 1) {
+        if (hour === 13) continue; // almuerzo
 
         const start = currentDay.hour(hour).minute(0);
-        const end = start.add(2, 'hour');
+        const end = start.add(1, 'hour');
 
         // Verificar si ya hay un evento en ese rango
         const occupied = events.some(
@@ -115,16 +115,16 @@ function Calendar() {
             right: ''
           }}
           weekends={false}
-          slotMinTime="08:00:00"
-          slotMaxTime="18:00:00"
+          slotMinTime="09:00:00"
+          slotMaxTime="19:00:00"
           allDaySlot={false}
           events={combinedEvents}
           height="auto"
           nowIndicator={true}
           businessHours={{
             daysOfWeek: [1, 2, 3, 4, 5],
-            startTime: '08:00',
-            endTime: '18:00'
+            startTime: '09:00',
+            endTime: '19:00'
           }}
           slotLabelFormat={{
             hour: 'numeric',
