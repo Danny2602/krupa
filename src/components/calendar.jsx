@@ -5,8 +5,6 @@ import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import esLocale from '@fullcalendar/core/locales/es';
 import { motion } from 'framer-motion';
-import { ModalEfect } from '@/components/modalEfect.jsx';
-import { FiCalendar } from 'react-icons/fi';
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
 import '@/assets/styles/calendar.css';
@@ -49,7 +47,7 @@ const events = [
 ];
 
 function Calendar() {
-  const [isOpen, setIsOpen] = useState(false);
+  
   const [selectedSlot, setSelectedSlot] = useState(null);
 
   // Generar eventos vacíos de 2h entre 8:00–17:00 excepto 12:00–13:00
@@ -91,19 +89,15 @@ function Calendar() {
 
   const combinedEvents = [...events, ...generateTimeBlocks()];
 
-  const handleEventClick = (info) => {
+  const handleEventClick = (info) => {// 
     if (info.event.extendedProps.libre) {
-      setSelectedSlot({
-        start: info.event.start,
-        end: info.event.end
-      });
-      setIsOpen(true);
+      
     }
   };
 
   return (
     <motion.div
-      className="max-w-6xl mx-auto p-6 rounded-3xl bg-gradient-to-br from-slate-50 via-white to-slate-110 shadow-2xl "
+      className="max-w-6xl mx-auto p-6 rounded-3xl bg-gradient-to-br from-slate-50 via-white to-slate-110  "
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
@@ -137,35 +131,10 @@ function Calendar() {
             minute: '2-digit',
             hour12: true
           }}
-          eventClick={handleEventClick}
+          onEventClick={handleEventClick}
           eventDidMount={(info) => {
             const isLibre = info.event.extendedProps.libre;
             info.el.style.cursor = isLibre ? 'pointer' : 'not-allowed';
-            info.el.style.transition = 'transform 0.2s ease, box-shadow 0.2s ease';
-
-            if (!isLibre) {
-              // Mostrar etiqueta "Ocupado"
-              const label = document.createElement('div');
-              label.textContent = 'Ocupado';
-              label.style.fontSize = '0.75rem';
-              label.style.fontWeight = '600';
-              label.style.marginTop = '2px';
-              label.style.color = '#fff';
-              info.el.appendChild(label);
-            }
-
-            info.el.addEventListener('mouseenter', () => {
-              if (isLibre) {
-                info.el.style.transform = 'scale(1.05)';
-                info.el.style.boxShadow = '0 6px 14px rgba(0,0,0,0.15)';
-              }
-            });
-            info.el.addEventListener('mouseleave', () => {
-              if (isLibre) {
-                info.el.style.transform = 'scale(1)';
-                info.el.style.boxShadow = '0 2px 6px rgba(0,0,0,0.1)';
-              }
-            });
           }}
             validRange={{
             start: dayjs().startOf('week').toDate(), // impide retroceder antes de esta semana
@@ -174,58 +143,7 @@ function Calendar() {
         />
       </div>
 
-      <ModalEfect
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        title="Agendar cita"
-        icono={FiCalendar}
-      >
-        {selectedSlot && (
-          <div className="text-center space-y-3">
-            <p>
-              <strong>Fecha:</strong>{' '}
-              {dayjs(selectedSlot.start).format('dddd, DD MMMM YYYY')}
-            </p>
-            <p>
-              <strong>Hora:</strong>{' '}
-              {dayjs(selectedSlot.start).format('HH:mm')} -{' '}
-              {dayjs(selectedSlot.end).format('HH:mm')}
-            </p>
-            <form className="gap-3 flex flex-col mt-4">
-              <TextField
-                  label="Nombre y Apellidos"
-                  id='outlined-disabled'
-                  size='small'
-                  fullWidth
-              />
-              <TextField
-                  label="Asunto de la cita"
-                  id='outlined-disabled'
-                  size='small'
-                  fullWidth
-              />
-              <TextField
-                  label="Correo Electrónico"
-                  id='outlined-disabled'
-                  size='small'
-                  fullWidth
-              />
-              <TextField
-                  label="Telefono"
-                  id='outlined-disabled'
-                  size='small'
-                  fullWidth
-              />
-              <TextField
-                  label="Mensaje"
-                  id='outlined-disabled'
-                  size='small'
-                  fullWidth
-              />
-            </form>
-          </div>
-        )}
-      </ModalEfect>
+      
     </motion.div>
   );
 }

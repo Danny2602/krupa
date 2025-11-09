@@ -11,16 +11,12 @@ import image9 from '@/assets/images/image9.jpg'
 import image10 from '@/assets/images/image10.jpg'
 import image11 from '@/assets/images/image11.jpg'
 import image12 from '@/assets/images/image12.jpg'
-import { Kbutton } from '@/components/kbutton'
 import { CarouselScroll } from '@/components/carouselScroll'
 import { GroupImage } from '@/components/groupImage'
 import { LoaderContruction } from '@/components/loaderConstruction'
-import { Calendar } from '@/components/calendar'
-import { ModalEfect } from '@/components/modalEfect.jsx'
-import { FiAlertCircle } from "react-icons/fi";
-import { LetterMove } from '@/components/efectos_texto/letterMove'
 import useScrollAndMobile from '@/hooks/useScrollAndMovile.js'
-import { StepperAppointment } from '../components/stepperAppointment'
+import { StepperAppointment } from '@/components/stepperAppointment'
+import { Kbutton } from '@/components/kbutton'
 const image=[{id:2,url:image7},{id:3,url:image8},{id:4,url:image9},{id:5,url:image10},{id:6,url:image11},{id:7,url:image12},]
 function Inicio(){
     const inContruccion=true

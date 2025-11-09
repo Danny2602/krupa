@@ -1,29 +1,110 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Calendar } from "@/components/calendar";
-// ⚙️ Aquí defines tus pasos y su contenido libremente
+import { Kbutton } from "@/components/kbutton";
+import { Checkbox,TextField,Select,MenuItem } from "@mui/material";
+const styleCheckbox={
+    className:"items-center flex hover:bg-gray-200 cursor-pointer border border-gray-300 rounded-lg p-2"
+}
 const steps = [
     {
         label: "Datos del cliente",
         content: (
-        <div className="space-y-4">
-            <div>
-            <label className="block text-sm font-medium text-gray-700">Nombre</label>
-            <input
-                type="text"
-                className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-                placeholder="Ingresa el nombre"
-            />
-            </div>
-            <div>
-            <label className="block text-sm font-medium text-gray-700">Correo electrónico</label>
-            <input
-                type="email"
-                className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-                placeholder="ejemplo@email.com"
-            />
-            </div>
+            <div className="w-full max-w-md ">
+                <div className="">
+                    <label className="block text-4xl font-medium text-gray-700 p-12">
+                        Registro de Cita Médica
+                    </label>
+
+                    {/* Datos del paciente */}
+                    <div className="grid grid-cols-1  gap-6">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">
+                                Nombre completo
+                            </label>
+                            <TextField
+                                
+                                id='outlined-disabled'
+                                size='small'
+                                fullWidth
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">
+                                Correo electrónico
+                            </label>
+                            <TextField
+                                
+                                id='outlined-disabled'
+                                size='small'
+                                fullWidth
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">
+                                Teléfono
+                            </label>
+                            <TextField
+                                
+                                id='outlined-disabled'
+                                size='small'
+                                fullWidth
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">
+                                Especialidad
+                            </label>
+                            <Select
+                                id='outlined-disabled'  size='small' fullWidth>
+                                <MenuItem value={"general"} defaultChecked>Medicina General</MenuItem>
+                                <MenuItem value={"pediatria"}>Pediatría</MenuItem>
+                                <MenuItem value={"dermatologia"}>Dermatología</MenuItem>
+                                <MenuItem value={"cardiologia"}>Cardiología</MenuItem>
+                            </Select>
+                        </div>
+
+                        
+                        
+                    </div>
+                </div>
         </div>
+        ),
+    },
+    {
+        label:"Sintomas",
+        content:(
+            <div className="w-[90%] text-center bg-amber-400">
+                        <label className="block text-4xl font-medium text-gray-700 p-12">Síntomas</label>
+                        <br></br>
+                        <div className="grid grid-flow-col auto-rows-auto grid-rows-5 gap-4 overflow-y-auto">
+                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Fiebre</label></div>
+                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dolor de garganta</label></div>
+                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Tos</label></div>
+                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dificultad para respirar</label></div>
+                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Fatiga</label></div>
+                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dolor muscular</label></div>
+                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Pérdida del gusto u olfato</label></div>
+                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Congestión nasal</label></div><div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Fiebre</label></div>
+                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dolor de garganta</label></div>
+                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Tos</label></div>
+                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dificultad para respirar</label></div>
+                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Fatiga</label></div>
+                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dolor muscular</label></div>
+                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Pérdida del gusto u olfato</label></div>
+                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Congestión nasal</label></div><div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Fiebre</label></div>
+                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dolor de garganta</label></div>
+                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Tos</label></div>
+                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dificultad para respirar</label></div>
+                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Fatiga</label></div>
+                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dolor muscular</label></div>
+                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Pérdida del gusto u olfato</label></div>
+                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Congestión nasal</label></div>
+                        </div>
+            </div>
         ),
     },
     {
@@ -73,7 +154,7 @@ const steps = [
     };
 
     return (
-        <div className="min-w-[90%] h-[90vh] max-w-3xl mx-auto p-6 flex flex-col items-center  rounded-3xl border border-gray-500">
+        <div className="min-w-[90%] h-[85vh] max-w-3xl mx-auto p-6 flex flex-col items-center  rounded-3xl border border-gray-500">
         {/* Stepper */}
         <div className="flex flex-col sm:flex-row items-center w-full relative " style={{padding:'1vh'}}>
             {steps.map((step, i) => (
@@ -117,7 +198,7 @@ const steps = [
             key={activeStep}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-10 w-full px-4 sm:px-8  h-full flex items-center justify-center  overflow-auto"
+            className="mt-10  w-full px-4 sm:px-8  h-full flex items-center justify-center  overflow-auto"
         >
             {allDone ? (
             <p className="text-center text-lg font-semibold text-green-600">
@@ -132,23 +213,22 @@ const steps = [
         <div className="flex justify-center gap-4 w-full" style={{padding:'1vh'}} >
             {!allDone && (
             <>
-                <button
+                <Kbutton
+                text="Anterior"
+                color="secondary"
+                size="large"
+                variant="contained"
                 onClick={handleBack}
-                disabled={activeStep === 0}
-                className=" w-[10%] bg-gray-200 border border-gray-600 text-gray-700 rounded-lg hover:bg-gray-300 disabled:opacity-50 cursor-pointer"
-                style={{padding:'1vh'}}  
-                >
-                Atrás
-                </button>
-
-                <button
+                />
+                
+                <Kbutton
+                text={Object.keys(completed).length === total - 1 ? "Finalizar" : "Siguiente"}
+                color="primary"
+                size="large"
+                variant="contained"
                 onClick={handleComplete}
-                className="font-bold w-[10%] bg-amber-600 text-white rounded-lg hover:bg-blue-700 cursor-pointer"
-                style={{padding:'1vh'}}                            
-
-                >
-                {Object.keys(completed).length === total - 1 ? "Finalizar" : "Siguiente"}
-                </button>
+                className="font-bold"
+                />
             </>
             )}
 
@@ -158,7 +238,7 @@ const steps = [
                 onClick={handleReset}
                 className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
             >
-                Reiniciar
+                Enviar
             </motion.button>
             )}
         </div>

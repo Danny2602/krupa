@@ -3,7 +3,7 @@ import { Button } from "@mui/material";
 import { colors } from '@/assets/styles/colors';
 import '@/assets/styles/buttonStyle.css';
 
-function Kbutton({ text, color, size, variant, startIcon,onMouseLeave,onMouseEnter, style = {}, sx = {}, ...props }) {
+function Kbutton({ text, color, size, variant, startIcon,onMouseLeave,onMouseEnter, style = {}, sx = {},className="", ...props }) {
   const bgColor = colors[color] || colors.primary;
 
   // si no hay texto y hay icono, forzamos centrado
@@ -11,23 +11,24 @@ function Kbutton({ text, color, size, variant, startIcon,onMouseLeave,onMouseEnt
 
   return (
     <Button
+      className={className}
       variant={variant}
       size={size}
       onMouseLeave={onMouseLeave}
       onMouseEnter={onMouseEnter}
-      startIcon={isOnlyIcon ? null : startIcon} // 👈 no usar startIcon si no hay texto
+      startIcon={isOnlyIcon ? null : startIcon} //no usar startIcon si no hay texto
       style={{
         ...style,
         backgroundColor: bgColor,
         alignItems: "center",
         justifyContent: "center",
         display: "flex",
-        minWidth: isOnlyIcon ? "40px" : undefined, // 👈 tamaño más pequeño si solo es ícono
+        minWidth: isOnlyIcon ? "40px" : undefined, //tamaño más pequeño si solo es ícono
         ...props.style,
       }}
       sx={{
         ...sx,
-        p: isOnlyIcon ? 1 : undefined, // 👈 padding más compacto si solo es ícono
+        p: isOnlyIcon ? 1 : undefined, // padding más compacto si solo es ícono
       }}
       {...props}
     >
