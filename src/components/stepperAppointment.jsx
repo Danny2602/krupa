@@ -129,13 +129,13 @@ const steps = [
         </motion.div>
 
         {/* Botones */}
-        <div className="flex flex-wrap justify-center gap-3 mt-8  w-full">
+        <div className="flex justify-center gap-4 w-full" style={{padding:'1vh'}} >
             {!allDone && (
             <>
                 <button
                 onClick={handleBack}
                 disabled={activeStep === 0}
-                className=" w-[10%] bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 disabled:opacity-50"
+                className=" w-[10%] bg-gray-200 border border-gray-600 text-gray-700 rounded-lg hover:bg-gray-300 disabled:opacity-50 cursor-pointer"
                 style={{padding:'1vh'}}  
                 >
                 Atrás
@@ -143,7 +143,7 @@ const steps = [
 
                 <button
                 onClick={handleComplete}
-                className="font-bold w-[10%] bg-amber-600 text-white rounded-lg hover:bg-blue-700"
+                className="font-bold w-[10%] bg-amber-600 text-white rounded-lg hover:bg-blue-700 cursor-pointer"
                 style={{padding:'1vh'}}                            
 
                 >
