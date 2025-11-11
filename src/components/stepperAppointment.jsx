@@ -4,29 +4,30 @@ import { Calendar } from "@/components/calendar";
 import { Kbutton } from "@/components/kbutton";
 import { Checkbox,TextField,Select,MenuItem } from "@mui/material";
 import { CardPresentation } from "@/components/cardPresentation";
+import image1 from "@/assets/images/image1.jpg";
 const data=[
-    {nombre:"Dr. Juan Pérez",especialidad:"Cardiología"},
-    {nombre:"Dra. María Gómez",especialidad:"Neurología"},
-    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria"},
-    {nombre:"Dra. Laura Rodríguez",especialidad:"Dermatología"},
-    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria"},
-    {nombre:"Dra. Laura Rodríguez",especialidad:"Dermatología"},
-    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria"},
-    {nombre:"Dra. Laura Rodríguez",especialidad:"Dermatología"},
-    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria"},
-    {nombre:"Dra. Laura Rodríguez",especialidad:"Dermatología"},
-    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria"},
-    {nombre:"Dr. Juan Pérez",especialidad:"Cardiología"},
-    {nombre:"Dra. María Gómez",especialidad:"Neurología"},
-    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria"},
-    {nombre:"Dra. Laura Rodríguez",especialidad:"Dermatología"},
-    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria"},
-    {nombre:"Dra. Laura Rodríguez",especialidad:"Dermatología"},
-    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria"},
-    {nombre:"Dra. Laura Rodríguez",especialidad:"Dermatología"},
-    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria"},
-    {nombre:"Dra. Laura Rodríguez",especialidad:"Dermatología"},
-    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria"},
+    {nombre:"Dr. Juan Pérez",especialidad:"Cardiología", imagen:image1},
+    {nombre:"Dra. María Gómez",especialidad:"Neurología", imagen:image1},
+    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria", imagen:image1},
+    {nombre:"Dra. Laura Rodríguez",especialidad:"Dermatología", imagen:image1},
+    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria", imagen:image1},
+    {nombre:"Dra. Laura Rodríguez",especialidad:"Dermatología", imagen:image1},
+    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria", imagen:image1},
+    {nombre:"Dra. Laura Rodríguez",especialidad:"Dermatología", imagen:image1},
+    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria", imagen:image1},
+    {nombre:"Dra. Laura Rodríguez",especialidad:"Dermatología", imagen:image1},
+    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria", imagen:image1},
+    {nombre:"Dr. Juan Pérez",especialidad:"Cardiología", imagen:image1},
+    {nombre:"Dra. María Gómez",especialidad:"Neurología", imagen:image1},
+    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria", imagen:image1},
+    {nombre:"Dra. Laura Rodríguez",especialidad:"Dermatología", imagen:image1},
+    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria", imagen:image1},
+    {nombre:"Dra. Laura Rodríguez",especialidad:"Dermatología", imagen:image1},
+    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria", imagen:image1},
+    {nombre:"Dra. Laura Rodríguez",especialidad:"Dermatología", imagen:image1},
+    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria", imagen:image1},
+    {nombre:"Dra. Laura Rodríguez",especialidad:"Dermatología", imagen:image1},
+    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria", imagen:image1},
 ]
 const styleCheckbox={
     className:"items-center flex hover:bg-gray-200 cursor-pointer border border-gray-300 rounded-lg p-2"
@@ -134,7 +135,7 @@ const steps = [
     },{
         label: "Selecciona Al Doctor",
         content: (
-            <div className=" bg-red-200 h-min w-full  items-center ">
+            <div className="  h-min w-full  items-center ">
                 <div className="text-center">
                     <label className="block text-base sm:text-lg md:text-xl lg:text-1xl xl:text-2xl font-bold text-gray-700 p-12">
                         Selección de Doctor
@@ -198,7 +199,7 @@ const steps = [
     return (
         <div className="w-[90%] h-[87vh] flex flex-col items-center rounded-3xl border border-gray-500">
         {/* Stepper */}
-            <div className=" w-full flex m-6 bg-amber-300 flex-row items-center" style={{padding:'1%'}}>
+            <div className=" w-full flex m-6  flex-row items-center" style={{padding:'1%'}}>
                 {steps.map((step, i) => (
                 <div key={i} className="flex flex-col items-center flex-1 relative">
                     {i < total - 1 && (
@@ -240,7 +241,7 @@ const steps = [
                 key={activeStep}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="flex-1 w-full bg-amber-950  flex items-center justify-center "    
+                className="flex-1 w-full   flex items-center justify-center "    
             >
                 {allDone ? (
                 <p className="text-center text-lg font-semibold text-green-600">
