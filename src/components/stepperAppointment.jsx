@@ -134,7 +134,7 @@ const steps = [
     },{
         label: "Selecciona Al Doctor",
         content: (
-            <div className="w-[90%] h-[90%] bg-red-200 ">
+            <div className=" bg-red-200 h-min w-full  items-center ">
                 <div className="text-center">
                     <label className="block text-base sm:text-lg md:text-xl lg:text-1xl xl:text-2xl font-bold text-gray-700 p-12">
                         Selección de Doctor
@@ -142,7 +142,7 @@ const steps = [
                 </div>
                     
                 
-                <div className="">
+                <div className=" ">
                     <CardPresentation data={data} />
                 </div>
             </div>
@@ -151,7 +151,8 @@ const steps = [
     {
         label: "Detalles del servicio",
         content: (
-        <Calendar />
+            <div className="p-2" style={{padding:'5px'}}><Calendar /></div>
+        
         ),
     },
     {
@@ -195,94 +196,94 @@ const steps = [
     };
 
     return (
-        <div className="min-w-[90%] h-[87vh] max-w-3xl mx-auto p-6 flex flex-col items-center  rounded-3xl border border-gray-500">
+        <div className="w-[90%] h-[87vh] flex flex-col items-center rounded-3xl border border-gray-500">
         {/* Stepper */}
-        <div className="flex flex-col sm:flex-row items-center w-full relative" style={{padding:'1.5vh'}}>
-            {steps.map((step, i) => (
-            <div key={i} className="flex flex-col items-center flex-1 relative">
-                {i < total - 1 && (
-                <div
-                    className={`hidden sm:block absolute top-5 left-1/2 h-[3px] w-full ${
-                    completed[i] ? "bg-green-500" : "bg-gray-300"
-                    } -z-10`}
-                />
+            <div className=" w-full flex m-6 bg-amber-300 flex-row items-center" style={{padding:'1%'}}>
+                {steps.map((step, i) => (
+                <div key={i} className="flex flex-col items-center flex-1 relative">
+                    {i < total - 1 && (
+                    <div
+                        className={`hidden sm:block absolute top-5 left-1/2 h-[3px] w-full ${
+                        completed[i] ? "bg-green-500" : "bg-gray-300"
+                        } -z-10`}
+                    />
+                    )}
+
+                    <motion.div
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={`flex items-center justify-center w-10 h-10 rounded-full text-white font-semibold cursor-pointer transition-all duration-300 ${
+                        completed[i]
+                        ? "bg-green-500"
+                        : i === activeStep
+                        ? "bg-blue-600"
+                        : "bg-gray-400"
+                    }`}
+                    
+                    >
+                    {completed[i] ? "✓" : i + 1}
+                    </motion.div>
+
+                    <p
+                    className={`mt-2 text-center text-sm sm:text-base ${
+                        i === activeStep ? "text-blue-600 font-medium" : "text-gray-600"
+                    }`}
+                    >
+                    {step.label}
+                    </p>
+                </div>
+                ))}
+            </div>
+
+            {/* Contenido dinámico */}
+            <motion.div
+                key={activeStep}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="flex-1 w-full bg-amber-950  flex items-center justify-center "    
+            >
+                {allDone ? (
+                <p className="text-center text-lg font-semibold text-green-600">
+                    🎉 Todos los pasos completados correctamente
+                </p>
+                ) : (
+                steps[activeStep].content
+                )}
+            </motion.div>
+
+            {/* Botones */}
+            <div className="flex-none flex justify-center gap-4 w-full p-[1vh]" style={{padding:'1vh'}} >
+                {!allDone && (
+                <>
+                    <Kbutton
+                    text="Anterior"
+                    color="secondary"
+                    size="large"
+                    variant="contained"
+                    onClick={handleBack}
+                    />
+                    
+                    <Kbutton
+                    text={Object.keys(completed).length === total - 1 ? "Finalizar" : "Siguiente"}
+                    color="primary"
+                    size="large"
+                    variant="contained"
+                    onClick={handleComplete}
+                    className="font-bold"
+                    />
+                </>
                 )}
 
-                <motion.div
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                className={`flex items-center justify-center w-10 h-10 rounded-full text-white font-semibold cursor-pointer transition-all duration-300 ${
-                    completed[i]
-                    ? "bg-green-500"
-                    : i === activeStep
-                    ? "bg-blue-600"
-                    : "bg-gray-400"
-                }`}
-                
+                {allDone && (
+                <motion.button
+                    whileTap={{ scale: 0.95 }}
+                    onClick={handleReset}
+                    className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
                 >
-                {completed[i] ? "✓" : i + 1}
-                </motion.div>
-
-                <p
-                className={`mt-2 text-center text-sm sm:text-base ${
-                    i === activeStep ? "text-blue-600 font-medium" : "text-gray-600"
-                }`}
-                >
-                {step.label}
-                </p>
+                    Enviar
+                </motion.button>
+                )}
             </div>
-            ))}
-        </div>
-
-        {/* Contenido dinámico */}
-        <motion.div
-            key={activeStep}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mt-10  w-full px-4 sm:px-8  h-full flex items-center justify-center  overflow-hidden"
-        >
-            {allDone ? (
-            <p className="text-center text-lg font-semibold text-green-600">
-                🎉 Todos los pasos completados correctamente
-            </p>
-            ) : (
-            steps[activeStep].content
-            )}
-        </motion.div>
-
-        {/* Botones */}
-        <div className="flex justify-center gap-4 w-full" style={{padding:'1vh'}} >
-            {!allDone && (
-            <>
-                <Kbutton
-                text="Anterior"
-                color="secondary"
-                size="large"
-                variant="contained"
-                onClick={handleBack}
-                />
-                
-                <Kbutton
-                text={Object.keys(completed).length === total - 1 ? "Finalizar" : "Siguiente"}
-                color="primary"
-                size="large"
-                variant="contained"
-                onClick={handleComplete}
-                className="font-bold"
-                />
-            </>
-            )}
-
-            {allDone && (
-            <motion.button
-                whileTap={{ scale: 0.95 }}
-                onClick={handleReset}
-                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
-            >
-                Enviar
-            </motion.button>
-            )}
-        </div>
         </div>
     );
 }

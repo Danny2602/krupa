@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Card } from "@mui/material";
+import {motion} from "framer-motion";
 import useScrollAndMobile from "@/hooks/useScrollAndMovile.js";
 function CardPresentation({data}) {
     const {isMovile, scrolled} = useScrollAndMobile();
@@ -9,25 +10,38 @@ function CardPresentation({data}) {
     }
     return (
         <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 h-full gap-4 p-4">
-                <div className="overflow-auto max-h-[35%]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 bg-gray-950 gap-4 p-4 w-full h-100 overflow-hidden" style={{ padding: '2vh' }}>
+                <div className="overflow-y-auto max-h-[100%]">
                     {data.map((datas, index) => (
 
-                        <Card key={index} style={{margin: "3px"}} className="mb-4 mx-2 border border-gray-300 hover:shadow-lg transition-shadow cursor-pointer" onClick={() => onClickCard(index)}>
+                        <motion.div key={index}
+                            style={{margin:'2px',padding:'6px'}}  
+                            className={`mb-4 mx-2  rounded-md  cursor-pointer`} 
+                            initial={{background:'white', color:'black'}}
+                            animate={
+                                selectedCard === index
+                                ? { background: "#16a34a", color: "white" } // verde si está seleccionado
+                                : { background: "white", color: "black" }   // normal si no
+                            }
+                            whileHover={{
+                                background: "#012558",
+                                color: "white",
+                                
+                            }}
+                            transition={{ duration: 0.3 }}
+                            onClick={() => onClickCard(index)}>
                             <div className="p-4">
                             
                                 <h2 className="text-base sm:text-lg md:text-xl lg:text-1xl xl:text-2xl">{datas.nombre}</h2>
                                 <p className="text-sm text-gray-600">Especialidad: {datas.especialidad}</p>
                             </div>
-                        </Card>
-                       
+                        </motion.div>
+
                     ))}
                 </div>
-                {isMovile ? (
-                    <></>
-                ):(
+                {isMovile ? '':(
                     <>
-                        <div className="max-h-[35%]">
+                        <div className="h-full ">
                             <Card className="w-full h-full border border-gray-500">
                                 {selectedCard !== null ? (
                                     <div className="p-4">
