@@ -104,7 +104,7 @@ function Inicio(){
                 
             </Box>
             <br></br>
-            
+            <LoaderContruction isActive={true}>
             <Grid container spacing={2} padding={2} className='h-screen w-full'>
                 <Grid item size={{xs:12,md:12}} display={'flex'} alignItems={'center'} justifyContent={'center'}>
                     <h1>Agendar cita</h1>  
@@ -114,7 +114,7 @@ function Inicio(){
                     <StepperAppointment />
                 </Grid>
             </Grid>
-            <LoaderContruction isActive={true}>
+            
                 <CarouselScroll/>
             </LoaderContruction>
         </>
