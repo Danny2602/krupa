@@ -18,11 +18,8 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import ContactMailIcon from '@mui/icons-material/ContactMail';
-import { getGifs } from "../api/giphy.jsx";
-import { Search } from "../components/search.jsx";
-const navOptions = ["Inicio", "Servicios", "Contacto"];
-import logo4 from '@/assets/images/logo4.png'
-import logo2 from '@/assets/images/logo2.png'
+import { NavLink, useLocation } from 'react-router-dom'
+
 import { Kbutton,KbuttonBlob } from "../components/kbutton.jsx";
 import { SelectedGroups } from "@/components/selectedGroups.jsx";
 // estilos selected
@@ -35,12 +32,20 @@ const selectOptions = [
     {icon: <img src={RodillaIcon} alt="Rodilla" className="w-7 h-7" />, label: 'Rodilla'},
     {icon: <SearchIcon />, label: 'Pie y Tobillo'},
 ];
+// antes: const navOptions = ["Inicio", "Servicios", "Contacto"];
 
-function Navbar({gifs, setGifs}) {
+function Navbar({navOptions}) {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [tabSelected, setTabSelected] = useState(0);
-    const [valorInput, setValorInput] = useState('');
+    
     const { scrolled:scrollPosition, isMobile } = useScrollAndMobile();
+    const location = useLocation();
+
+    useEffect(() => {
+      const idx = navOptions.findIndex(opt => opt.path === location.pathname);
+      if (idx >= 0) setTabSelected(idx);
+    }, [location.pathname]);
+
     const handleTabChange = (event, newValue) => {
         setTabSelected(newValue);
     };
@@ -49,11 +54,11 @@ function Navbar({gifs, setGifs}) {
         setDrawerOpen(!drawerOpen);
     };
 
-    const onSubmit = async (e) => {
-        e.preventDefault();
-        const gifts = await getGifs(valorInput);
-        setGifs(gifts.data);
-    };
+    // const onSubmit = async (e) => {
+    //     e.preventDefault();
+    //     const gifts = await getGifs(valorInput);
+    //     setGifs(gifts.data);
+    // };
 
     
     return (
@@ -84,19 +89,23 @@ function Navbar({gifs, setGifs}) {
                                     onClose={handleDrawerToggle}
                                 >
                                     <List sx={{ width: 200 }}>
-                                        {navOptions.map((option, idx) => (
-                                            <ListItem button key={option} onClick={handleDrawerToggle}>
-                                                <ListItemText primary={option} />
-                                                
+                                        {navOptions.map((option) => (
+                                            <ListItem
+                                                button
+                                                key={option.path}
+                                                component={NavLink}
+                                                to={option.path}
+                                                onClick={handleDrawerToggle}
+                                            >
+                                                <ListItemText primary={option.label} />
                                             </ListItem>
-                                            
                                         ))}
                                             <CustomizedList title="Ortesis y Prótesis" options={selectOptions} />
                                             <br></br>
-                                             <Grid container spacing={1} paddingLeft={1}>
+                                            <Grid container spacing={1} paddingLeft={1}>
                                                 <KbuttonBlob startIcon={<ContactMailIcon />} text={'Contactanos'} height="5vh" width="21vh" color="rgba(6, 32, 151, 0.7)"/>
 
-                                             </Grid>
+                                            </Grid>
 
                                     </List>
                                     
@@ -115,11 +124,12 @@ function Navbar({gifs, setGifs}) {
                                     
                                     >
                                     {navOptions.map((option) => (
-                                        
                                         <Tab
-                                        key={option}
-                                        label={option}
-                                        sx={{
+                                          key={option.path}
+                                          label={option.label}
+                                          component={NavLink}
+                                          to={option.path}
+                                          sx={{
                                             fontWeight: "bold",
                                             color: scrollPosition ? "#fff" : "gray",
                                             "&.Mui-selected": {
@@ -137,7 +147,6 @@ function Navbar({gifs, setGifs}) {
                                             },
                                             
                                         }}
-                                        
                                         />
                                     ))}
                                     </Tabs>

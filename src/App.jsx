@@ -3,7 +3,7 @@ import { useState,useEffect } from 'react'// useState es una función que permit
 import { Navbar } from '@/layouts/navbar.jsx'
 import { Inicio } from '@/pages/inicio.jsx'
 import Footer from '@/layouts/footer'
-
+import AppRouter from '@/router/AppRouter.jsx'
 import { GridGifs } from './components/gridGifs.jsx'
 
 function App() {
@@ -22,17 +22,12 @@ function App() {
   //       document.removeEventListener('wheel', evento);
   //     }
   // })
+        //   {/* <button onClick={()=>setCount(count+1)} className='bg-amber-300'>+1</button>
+        // {count} */}
   const [gifs, setGifs] = useState([]);
   return (
     <>
-     
-      <Navbar gifs={gifs} setGifs={setGifs} />
-      {/* <button onClick={()=>setCount(count+1)} className='bg-amber-300'>+1</button>
-      {count} */}
-      <Inicio />
-       
-      <GridGifs gifs={gifs} />
-      <Footer />
+        <AppRouter/>
     </>
   )
 }
