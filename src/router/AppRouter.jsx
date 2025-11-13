@@ -6,7 +6,7 @@ import UserRouter from '@/router/userRouter'
 const AppRouter = () => {
   return (
     <Routes>
-    {/* camino  */}
+    
       <Route path="/*" element={<PublicRouter />} />
       <Route path="/user/*" element={<UserRouter />} />
       <Route path="*" element={<Navigate to="/inicio" replace />} />
