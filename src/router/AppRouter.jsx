@@ -8,11 +8,11 @@ const AppRouter = () => {
     
     <Routes>
     
-      <Route path="/*" element={<PublicRouter />} />
-      <Route path="/user/*" element={<UserRouter />} />
-      <Route path="*" element={<Navigate to="/inicio" replace />} />
-    </Routes>
-  )
+        <Route path="/*" element={<PublicRouter />} />
+        <Route path="/user/*" element={<UserRouter />} />
+        <Route path="*" element={<Navigate to="/inicio" replace />} />
+        </Routes>
+    )
 } 
 
 export default AppRouter
