@@ -24,6 +24,7 @@ function Kbutton({ text, color, size, variant, startIcon,onMouseLeave,onMouseEnt
         justifyContent: "center",
         display: "flex",
         minWidth: isOnlyIcon ? "40px" : undefined, //tamaño más pequeño si solo es ícono
+        fontWeight:'bold',
         ...props.style,
       }}
       sx={{

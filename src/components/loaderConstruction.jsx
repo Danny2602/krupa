@@ -1,5 +1,5 @@
 import { motion,useInView } from 'motion/react'
-import { Wrench } from "lucide-react";
+import {FaCog} from 'react-icons/fa'
 function LoaderContruction({isActive=true,children}){
     return(
         <>
@@ -10,7 +10,7 @@ function LoaderContruction({isActive=true,children}){
                         animate={{ rotate: [0, 20, -20, 0] }}
                         transition={{ repeat: Infinity, duration: 2 }}
                     >
-                        <Wrench size={80} className="text-amber-500" />
+                        <FaCog size={80} className="text-amber-500" />
                     </motion.div>
                     <h1 className="text-3xl font-bold mt-4 text-gray-800">Página en construcción</h1>
                     <p className="text-gray-500 mt-2">Vuelve pronto 🚀</p>

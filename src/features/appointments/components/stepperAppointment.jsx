@@ -4,6 +4,7 @@ import { Calendar } from "@/features/appointments/components/calendar";
 import { Kbutton } from "@/components/kbutton";
 import { Checkbox,TextField,Select,MenuItem } from "@mui/material";
 import { CardPresentation } from "@/components/cards/cardPresentation";
+import {Grid} from '@mui/material';
 import image1 from "@/assets/images/image1.jpg";
 const data=[
     {nombre:"Dr. Juan Pérez",especialidad:"Cardiología", imagen:image1},
@@ -105,8 +106,7 @@ const steps = [
         content:(
             <div className="w-[90%] text-center ">
                         <label className="block text-4xl font-medium text-gray-700 p-12">Síntomas</label>
-                        <br></br>
-                        <div className="grid grid-flow-col auto-rows-auto grid-rows-5 gap-4 overflow-y-auto">
+                                                <div className="grid grid-flow-col auto-rows-auto grid-rows-5 gap-4 overflow-y-auto">
                             <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Fiebre</label></div>
                             <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dolor de garganta</label></div>
                             <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Tos</label></div>
@@ -159,13 +159,33 @@ const steps = [
     {
         label: "Confirmación",
         content: (
-        <div className="text-center space-y-3">
-            <p className="text-gray-700">
-            Verifica que todos los datos sean correctos antes de confirmar la cita.
-            </p>
-            <button className="px-5 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
-            Confirmar cita
-            </button>
+        <div className="text-center space-y-3 overflow-y-auto  h-[60vh]">
+            <h1 className="block text-3xl sm:text-lg md:text-xl lg:text-1xl xl:text-2xl font-bold text-gray-700 p-12">Cita Medica</h1>
+            <Grid container spacing={2} className="mb-4" >
+                <Grid item size={{xs:8,md:8}} padding={2}  className="text-left font-semibold  wrap-break-word ">
+                    <p>Nombre:Juan Pérez</p>
+                    <p>Correo:correo@mail.com</p>
+                    <p>Telefono:09XXXXXXXX</p>
+                    <p>Doctor Asignado:Danny Pérez</p>               
+                </Grid>
+                <Grid item size={{xs:4,md:4}} className="text-left bg-amber-950">
+                    <img src={image1} width={100} height={200}/>
+                </Grid>
+            </Grid>
+            <Grid container spacing={2} padding={2} margin={1} className="mb-4 border-2  rounded-2xl  ">
+                <Grid item xs={6} className="text-right font-semibold">
+                    Fecha: 2024-07-20
+                </Grid>
+                <Grid item xs={6} className="text-left">
+                    Hora: 10:00 AM
+                </Grid>
+            </Grid>
+            <Grid container spacing={2} padding={2} margin={1} className="mb-4 border-2  rounded-2xl">
+                <Grid item xs={6} className="text-right font-semibold">
+                    Síntomas: Fiebre, Dolor de gargantaFiebre, Dolor de gargantaFiebre, Dolor de gargantaFiebre, Dolor de garganta
+
+                </Grid>
+            </Grid>
         </div>
         ),
     },
@@ -205,43 +225,57 @@ const steps = [
 
     return (
         <div className="w-[90%] h-[87vh] flex flex-col items-center rounded-3xl border border-gray-500">
-        {/* Stepper */}
-            <div className=" w-full flex m-6  flex-row items-center" style={{padding:'1%'}}>
+        {/* --- Stepper --- */}
+            {/* Vista para Escritorio (sm y más grande) */}
+            <div className="hidden sm:flex w-full m-6 flex-row items-center" style={{padding:'1%'}}>
                 {steps.map((step, i) => (
-                <div key={i} className="flex flex-col items-center flex-1 relative">
-                    {i < total - 1 && (
-                    <div
-                    style={{ top: "20px"}}
-                        className={`hidden sm:block absolute  left-1/2 h-[3px] w-full ${
-                        completed[i] ? "bg-green-500" : "bg-gray-300"
-                        } z-1`}
-                    />
-                    )}
-
-                    <motion.div
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    className={`flex items-center justify-center w-10 h-10 rounded-full text-white font-semibold cursor-pointer transition-all duration-300 z-10 ${
-                        completed[i]
-                        ? "bg-green-500"
-                        : i === activeStep
-                        ? "bg-blue-600"
-                        : "bg-gray-400"
-                    }`}
-                    
-                    >
-                    {completed[i] ? "✓" : i + 1}
-                    </motion.div>
-
-                    <p
-                    className={`mt-2 text-center text-sm sm:text-base ${
-                        i === activeStep ? "text-blue-600 font-medium" : "text-gray-600"
-                    }`}
-                    >
-                    {step.label}
-                    </p>
-                </div>
+                    <div key={i} className="flex flex-col items-center flex-1 relative">
+                        {i < total - 1 && (
+                            <div
+                                style={{ top: "20px" }}
+                                className={`absolute left-1/2 h-[3px] w-full ${
+                                    completed[i] ? "bg-green-500" : "bg-gray-300"
+                                } z-1`}
+                            />
+                        )}
+                        <motion.div
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.95 }}
+                            className={`flex items-center justify-center w-10 h-10 rounded-full text-white font-semibold cursor-pointer transition-all duration-300 z-10 ${
+                                completed[i]
+                                    ? "bg-green-500"
+                                    : i === activeStep
+                                    ? "bg-blue-600"
+                                    : "bg-gray-400"
+                            }`}
+                        >
+                            {completed[i] ? "✓" : i + 1}
+                        </motion.div>
+                        <p
+                            className={`mt-2 text-center text-sm ${
+                                i === activeStep ? "text-blue-600 font-medium" : "text-gray-600"
+                            }`}
+                        >
+                            {step.label}
+                        </p>
+                    </div>
                 ))}
+            </div>
+
+            {/* Vista para Móvil (más pequeño que sm) */}
+            <div className="sm:hidden w-full  border-b border-gray-200" style={{padding:'2vh'}}>
+                <div className="flex justify-between items-center mb-2">
+                    <p className="text-sm font-medium text-blue-600">{steps[activeStep].label}</p>
+                    <p className="text-sm text-gray-500">{activeStep + 1} de {total}</p>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                    <motion.div
+                        className="bg-green-500 h-2 rounded-full"
+                        initial={{ width: 0 }}
+                        animate={{ width: `${((activeStep + 1) / total) * 100}%` }}
+                        transition={{ duration: 0.5 }}
+                    />
+                </div>
             </div>
 
             {/* Contenido dinámico */}
@@ -252,7 +286,7 @@ const steps = [
                 className="flex-1 w-full   flex items-center justify-center "    
             >
                 {allDone ? (
-                <p className="text-center text-lg font-semibold text-green-600">
+                <p className="block text-3xl sm:text-lg md:text-xl lg:text-1xl xl:text-2xl font-bold  text-green-600">
                     🎉 Todos los pasos completados correctamente
                 </p>
                 ) : (
@@ -284,13 +318,14 @@ const steps = [
                 )}
 
                 {allDone && (
-                <motion.button
-                    whileTap={{ scale: 0.95 }}
+                <Kbutton
+                    text={"Enviar"}
+                    color="green"
+                    size="large"
+                    variant="contained"
                     onClick={handleReset}
-                    className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
-                >
-                    Enviar
-                </motion.button>
+                    className="font-bold"
+                    />
                 )}
             </div>
         </div>

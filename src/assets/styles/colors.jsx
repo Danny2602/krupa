@@ -3,6 +3,7 @@ const colors = {
   textPrimary: "#ffffff",
   secondary: "#012558",
   background: "#f5f5f5",
+  green:'#038F08',
   text: "#333333",
 };
 

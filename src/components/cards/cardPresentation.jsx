@@ -51,9 +51,15 @@ function CardPresentation({data}) {
                         <div className="h-full ">
                             <Card className="w-full h-full  border border-gray-300">
                                 {selectedCard !== null ? (
-                                    <div className="p-4">
-                                        <h2 className="text-2xl font-bold mb-2">{data[selectedCard].nombre}</h2>
-                                        <p className="text-gray-600">Especialidad: {data[selectedCard].especialidad}</p>
+                                    <div className="grid grid-cols-[80%_20%]" style={{padding:'4vh'}}>
+                                        <div>
+                                            <h2 className="text-2xl font-bold mb-2">{data[selectedCard].nombre}</h2>
+                                            <p className="text-gray-600">Especialidad: {data[selectedCard].especialidad}</p>
+                                        </div>
+                                        <div>
+                                            <img src={data[selectedCard].imagen}/>
+                                        </div>
+                                        
                                     </div>
                                 ) : (
                                     <div className="p-4 items-center justify-center flex text-center">
