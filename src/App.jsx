@@ -1,7 +1,7 @@
 import { useState,useEffect } from 'react'// useState es una función que permite crear un estado en un componente funcional
 
 
-import AppRouter from '@/router/appRouter.jsx'
+import AppRouter from '@/router/AppRouter.jsx'
 
 
 function App() {
