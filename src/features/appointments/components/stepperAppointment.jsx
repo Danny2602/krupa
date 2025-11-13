@@ -183,7 +183,14 @@ const steps = [
     };
 
     const handleBack = () => {
-        if (activeStep > 0) setActiveStep(activeStep - 1);
+    if (activeStep > 0) {
+        setActiveStep(prev => prev - 1);
+        setCompleted(prev => {
+        const updated = { ...prev };
+        delete updated[activeStep - 1]; // quitar la conexión con el paso anterior
+        return updated;
+        });
+    }
     };
 
     const handleComplete = () => {
@@ -204,16 +211,17 @@ const steps = [
                 <div key={i} className="flex flex-col items-center flex-1 relative">
                     {i < total - 1 && (
                     <div
-                        className={`hidden sm:block absolute top-5 left-1/2 h-[3px] w-full ${
+                    style={{ top: "20px"}}
+                        className={`hidden sm:block absolute  left-1/2 h-[3px] w-full ${
                         completed[i] ? "bg-green-500" : "bg-gray-300"
-                        } -z-10`}
+                        } z-1`}
                     />
                     )}
 
                     <motion.div
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
-                    className={`flex items-center justify-center w-10 h-10 rounded-full text-white font-semibold cursor-pointer transition-all duration-300 ${
+                    className={`flex items-center justify-center w-10 h-10 rounded-full text-white font-semibold cursor-pointer transition-all duration-300 z-10 ${
                         completed[i]
                         ? "bg-green-500"
                         : i === activeStep

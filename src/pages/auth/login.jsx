@@ -1,5 +1,6 @@
 import React from "react";
 import "@/assets/styles/login.css"; 
+import { NavLink } from "react-router-dom";
 const buttonStyle={
 	className:
 		'boton w-[60%] h-10 justify-center block text-[1em] font-bold outline-none rounded-md transition ease-in-out duration-500 cursor-pointer bg-[#f57922] text-white hover:bg-[#6d44b8]'
@@ -33,7 +34,9 @@ export default function AuthForm() {
 						</label>
 						<input className={inputStyle.className} style={inputStyle.style} type="email" name="email" placeholder="Email" required=""/>
 						<input className={inputStyle.className} style={inputStyle.style} type="password" name="pswd" placeholder="Password" required=""/>
-						<button className={buttonStyle.className} style={buttonStyle.style}>Ingresar</button>
+						<NavLink to='/user/home'>
+								<button className={buttonStyle.className} style={buttonStyle.style}>Ingresar</button>
+						</NavLink>
 						<button className={`${buttonStyle.className} bg-black  justify-center items-center grid grid-cols-[10%_90%] hover:bg-white hover:text-black`} style={buttonStyle.style}
 							>
 							<div style={{padding:'5px'}}>
