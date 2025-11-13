@@ -14,6 +14,7 @@ function App() {
   // console.log('se mueve el scroll')
   // }
 
+  
   // useEffect(() => {
   //   document.addEventListener('wheel', evento);
   //   return () => {
