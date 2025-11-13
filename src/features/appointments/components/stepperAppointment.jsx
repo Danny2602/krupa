@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Calendar } from "@/components/calendar";
+import { Calendar } from "@/features/appointments/components/calendar";
 import { Kbutton } from "@/components/kbutton";
 import { Checkbox,TextField,Select,MenuItem } from "@mui/material";
-import { CardPresentation } from "@/components/cardPresentation";
+import { CardPresentation } from "@/components/cards/cardPresentation";
 import image1 from "@/assets/images/image1.jpg";
 const data=[
     {nombre:"Dr. Juan Pérez",especialidad:"Cardiología", imagen:image1},

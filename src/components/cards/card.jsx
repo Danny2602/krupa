@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Grid, Paper, Box, Stack, styled } from "@mui/material";
 import useScrollAndMobile from "@/hooks/useScrollAndMovile.js";
-import { LetterMove } from "./efectos_texto/letterMove";
+import { LetterMove } from "@/components/efectos_texto/letterMove";
 
 // Imágenes
 import image1 from "@/assets/images/image1.jpg";

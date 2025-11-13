@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from "react";
-import CustomizedList from "@/components/selected.jsx";
+import CustomizedList from "@/components/selected/selected.jsx";
 import { motion } from "motion/react";
 import {
     AppBar,
@@ -20,8 +20,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import ContactMailIcon from '@mui/icons-material/ContactMail';
 import { NavLink, useLocation } from 'react-router-dom'
 
-import { Kbutton,KbuttonBlob } from "../components/kbutton.jsx";
-import { SelectedGroups } from "@/components/selectedGroups.jsx";
+import { Kbutton,KbuttonBlob } from "@/components/kbutton.jsx";
+import { SelectedGroups } from "@/components/selected/selectedGroups.jsx";
 // estilos selected
 import useScrollAndMobile from "@/hooks/useScrollAndMovile.js";
 //icono descargados
@@ -103,8 +103,9 @@ function Navbar({navOptions}) {
                                             <CustomizedList title="Ortesis y Prótesis" options={selectOptions} />
                                             <br></br>
                                             <Grid container spacing={1} paddingLeft={1}>
-                                                <KbuttonBlob startIcon={<ContactMailIcon />} text={'Contactanos'} height="5vh" width="21vh" color="rgba(6, 32, 151, 0.7)"/>
-
+                                                <NavLink to='/login'  style={{ textDecoration: "none" }}>
+                                                    <KbuttonBlob startIcon={<ContactMailIcon />} text={'Contactanos'} height="5vh" width="21vh" color="rgba(6, 32, 151, 0.7)"/>
+                                                </NavLink>
                                             </Grid>
 
                                     </List>
@@ -159,13 +160,15 @@ function Navbar({navOptions}) {
 
                             {/* Botón a la derecha */}
                                 <div className="">
-                                    <KbuttonBlob
-                                    startIcon={<ContactMailIcon />}
-                                    text="Contactanos"
-                                    height="5vh"
-                                    width="25vh"
-                                    color="rgba(6, 32, 151, 0.7)"
-                                    />
+                                    <NavLink to='/login'  style={{ textDecoration: "none" }}>
+                                        <KbuttonBlob
+                                        startIcon={<ContactMailIcon />}
+                                        text="Iniciar Sesion"
+                                        height="5vh"
+                                        width="25vh"
+                                        color="rgba(6, 32, 151, 0.7)"
+                                        />
+                                    </NavLink>
                                 </div>
                             </div>
 

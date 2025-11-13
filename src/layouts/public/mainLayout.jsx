@@ -1,7 +1,7 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import { Navbar } from '@/layouts/navbar.jsx'
-import Footer from '@/layouts/footer'
+import { Navbar } from '@/layouts/public/navbar.jsx'
+import Footer from '@/layouts//public/footer'
 const navOptions = [
   { label: 'Inicio', path: '/inicio' },
   { label: 'Servicios', path: '/servicios' }, // o '/login' si no tienes la página aún

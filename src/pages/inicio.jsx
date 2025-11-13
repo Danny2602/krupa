@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Card} from '@/components/card.jsx'
+import {Card} from '@/components/cards/card.jsx'
 import {Form} from '@/components/form.jsx'
 import TextMove from '@/components/efectos_texto/textMove.jsx'
 import {colors} from '@/assets/styles/colors'
@@ -15,7 +15,7 @@ import { CarouselScroll } from '@/components/carouselScroll'
 import { GroupImage } from '@/components/groupImage'
 import { LoaderContruction } from '@/components/loaderConstruction'
 import useScrollAndMobile from '@/hooks/useScrollAndMovile.js'
-import { StepperAppointment } from '@/components/stepperAppointment'
+import { StepperAppointment } from '@/features/appointments/components/stepperAppointment'
 import { Kbutton } from '@/components/kbutton'
 const image=[{id:2,url:image7},{id:3,url:image8},{id:4,url:image9},{id:5,url:image10},{id:6,url:image11},{id:7,url:image12},]
 function Inicio(){

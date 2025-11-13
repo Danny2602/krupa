@@ -1,10 +1,8 @@
 import { useState,useEffect } from 'react'// useState es una función que permite crear un estado en un componente funcional
 
-import { Navbar } from '@/layouts/navbar.jsx'
-import { Inicio } from '@/pages/inicio.jsx'
-import Footer from '@/layouts/footer'
-import AppRouter from '@/router/AppRouter.jsx'
-import { GridGifs } from './components/gridGifs.jsx'
+
+import AppRouter from '@/router/appRouter.jsx'
+
 
 function App() {
   // const [count, setCount] = useState(0)
