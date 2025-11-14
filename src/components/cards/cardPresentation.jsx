@@ -10,8 +10,8 @@ function CardPresentation({data}) {
     }
     return (
         <>
-            <div className="grid grid-cols-1 sm:grid-cols-2  gap-4 p-4 w-full h-100 overflow-hidden" style={{ padding: '2%' }}>
-                <div className="overflow-y-auto h-full">
+            <div className="grid grid-cols-1 sm:grid-cols-2  gap-4 p-4 w-full h-[66vh] sm:h-100 lg:h-100 overflow-hidden" style={{ padding: '2%' }}>
+                <div className="overflow-y-auto h-full ">
               
                     {data.map((datas, index) => (
 
@@ -51,7 +51,7 @@ function CardPresentation({data}) {
                         <div className="h-full ">
                             <Card className="w-full h-full  border border-gray-300">
                                 {selectedCard !== null ? (
-                                    <div className="grid grid-cols-[80%_20%]" style={{padding:'4vh'}}>
+                                    <div className="grid grid-cols-[80%_20%] " style={{padding:'4vh'}}>
                                         <div>
                                             <h2 className="text-2xl font-bold mb-2">{data[selectedCard].nombre}</h2>
                                             <p className="text-gray-600">Especialidad: {data[selectedCard].especialidad}</p>

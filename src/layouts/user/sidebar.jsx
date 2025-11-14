@@ -9,17 +9,19 @@ import {
   FaChevronLeft,
   FaChevronRight,
   FaBars,
+  FaCalendar
 } from "react-icons/fa";
 import useScrollAndMobile from "@/hooks/useScrollAndMovile";
 import { patch } from "@mui/material";
 
 const menuItems = [
   { label: "Inicio", icon: <FaHome />,path:'/user/home' },
-  { label: "Citas", icon: <FaCog />,path:'/user/appointment' },
+  { label: "Citas", icon: <FaCalendar />,path:'/user/appointment' },
   { label: "Acerca de", icon: <FaInfoCircle />,path:'/user/home' },
-  { label: "Salir", icon: <FaSignOutAlt />,path:'/user/home' },
+  { label: "Salir", icon: <FaSignOutAlt />,path:'/inicio' },
 ];
-const MotionNavLink=motion(NavLink)
+const MotionNavLink=motion(NavLink) 
+
 function Sidebar({ isOpen, setIsOpen }) {
   const [active, setActive] = useState("Inicio");
   const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -34,7 +36,8 @@ function Sidebar({ isOpen, setIsOpen }) {
       {isMobile && (
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="fixed top-4 left-4 z-[60] bg-blue-600 p-2 rounded-lg text-white shadow-lg"
+          className="fixed top-4 left-4 z-[60] bg-blue-950 p-2 rounded-sm text-white shadow-lg"
+          style={{padding:'1vh'}}
         >
           <FaBars size={22} />
         </button>

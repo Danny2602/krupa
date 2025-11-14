@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -8,7 +8,6 @@ import { motion } from 'framer-motion';
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
 import '@/assets/styles/calendar.css';
-import { TextField } from '@mui/material'
 dayjs.locale('es');
 
 const events = [
@@ -39,60 +38,124 @@ const events = [
   {
     id: '4',
     title: 'Presentación final',
-    start: '2025-11-05T11:00:00',
-    end: '2025-11-05T13:00:00',
+    start: '2025-11-11T11:00:00',
+    end: '2025-11-11T13:00:00',
     backgroundColor: '#ef4444',
     textColor: 'white'
   }
 ];
 
 function Calendar() {
-  
-  const [selectedSlot, setSelectedSlot] = useState(null);
+  const [selectedSlots, setSelectedSlots] = useState([]); // Mantiene los slots seleccionados por el usuario
 
-  // Generar eventos vacíos de 2h entre 8:00–17:00 excepto 12:00–13:00
-  const generateTimeBlocks = () => {
-    const startDate = dayjs('2025-11-03');
+  // Esta función genera los bloques de tiempo disponibles dinámicamente para la vista actual del calendario.
+  const generateAvailableSlots = (fetchInfo, successCallback) => {
+    const startDate = dayjs(fetchInfo.start);
+    const endDate = dayjs(fetchInfo.end);
     const blocks = [];
 
-    for (let day = 0; day < 5; day++) {
-      const currentDay = startDate.add(day, 'day');
-
+    let currentDay = startDate;
+    while (currentDay.isBefore(endDate)) {
       for (let hour = 9; hour < 19; hour += 1) {
         if (hour === 13) continue; // almuerzo
 
         const start = currentDay.hour(hour).minute(0);
         const end = start.add(1, 'hour');
 
-        // Verificar si ya hay un evento en ese rango
+        // Comprueba si el slot está ocupado por un evento existente
         const occupied = events.some(
           e =>
             dayjs(start).isBefore(dayjs(e.end)) &&
             dayjs(end).isAfter(dayjs(e.start))
         );
 
+        // Comprueba si el slot está seleccionado actualmente por el usuario
+        const isSelected = selectedSlots.some(s => s.id === `disponible-${start.toISOString()}`);
+
         if (!occupied) {
           blocks.push({
-            title: 'Disponible',
+            id: `disponible-${start.toISOString()}`,
+            title: isSelected ? 'Seleccionado' : 'Disponible',
             start: start.toISOString(),
             end: end.toISOString(),
-            backgroundColor: '#e0e7ff',
-            textColor: '#1e40af',
+            backgroundColor: isSelected ? '#3b82f6' : '#e0e7ff',
+            textColor: isSelected ? 'white' : '#1e40af',
             display: 'auto',
             extendedProps: { libre: true }
           });
         }
       }
+      currentDay = currentDay.add(1, 'day');
     }
-    return blocks;
+
+    let finalEvents = [...events, ...blocks];
+
+    if (selectedSlots.length === 2) {
+      // Ordenar para asegurar que el primero es el que empieza antes
+      const sortedSlots = [...selectedSlots].sort((a, b) => dayjs(a.start).diff(dayjs(b.start)));
+      const [first, second] = sortedSlots;
+
+      // Crear el evento combinado
+      const combinedSlot = {
+        id: `combined-${first.id}`,
+        title: 'Cita seleccionada',
+        start: first.start,
+        end: second.end,
+        backgroundColor: '#3b82f6',
+        textColor: 'white',
+        extendedProps: { libre: true, combined: true, childrenIds: [first.id, second.id] }
+      };
+
+      // Filtrar los slots individuales que forman el combinado
+      finalEvents = finalEvents.filter(e => e.id !== first.id && e.id !== second.id);
+      finalEvents.push(combinedSlot);
+    }
+
+    successCallback(finalEvents);
   };
 
-  const combinedEvents = [...events, ...generateTimeBlocks()];
+  const handleEventClick = (clickInfo) => {
+    const clickedEvent = clickInfo.event;
+    const calendarApi = clickInfo.view.calendar;
+    if (!clickedEvent.extendedProps.libre) return;
 
-  const handleEventClick = (info) => {// 
-    if (info.event.extendedProps.libre) {
-      
+    const clickedId = clickedEvent.id;
+    const isSelected = selectedSlots.some(s => s.id === clickedId);
+
+    // Si se hace clic en un bloque combinado de 2h
+    if (clickedEvent.extendedProps.combined) {
+        // Esta es una aproximación, ya que timeBlocks no existe. Funciona para la lógica de deselección.
+        const originalSlots = clickedEvent.extendedProps.childrenIds.map(id => calendarApi.getEventById(id) || { id, start: dayjs(id.replace('disponible-', '')).toISOString() });
+        // Mantenemos seleccionado el slot sobre el que se hizo clic (aproximado)
+        const clickTime = dayjs(clickInfo.jsEvent.target.getBoundingClientRect().top < clickedEvent.start ? clickedEvent.start : clickInfo.date);
+        const closestSlot = originalSlots.sort((a,b) => Math.abs(dayjs(a.start).diff(clickTime)) - Math.abs(dayjs(b.start).diff(clickTime)))[0];
+        setSelectedSlots([closestSlot]);
+        return;
     }
+
+    if (isSelected) {
+      // Deseleccionar
+      setSelectedSlots(selectedSlots.filter(s => s.id !== clickedId));
+    } else {
+      // Seleccionar
+      if (selectedSlots.length === 0) {
+        setSelectedSlots([{ id: clickedId, start: clickedEvent.startStr, end: clickedEvent.endStr }]);
+      } else if (selectedSlots.length === 1) {
+        const existingSlot = selectedSlots[0];
+        const newSlot = { id: clickedId, start: clickedEvent.startStr, end: clickedEvent.endStr };
+        // Comprobar si son adyacentes
+        if (dayjs(newSlot.start).isSame(dayjs(existingSlot.end)) || dayjs(newSlot.end).isSame(dayjs(existingSlot.start))) {
+          setSelectedSlots([...selectedSlots, newSlot]);
+        } else {
+          // Si no es adyacente, se reemplaza la selección
+          setSelectedSlots([newSlot]);
+        }
+      } else { // ya hay 2 seleccionados
+        setSelectedSlots([{ id: clickedId, start: clickedEvent.startStr, end: clickedEvent.endStr }]);
+      }
+    }
+    // Refresca los eventos para mostrar la nueva selección
+    calendarApi.refetchEvents();
   };
 
   return (
@@ -101,10 +164,7 @@ function Calendar() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      
     >
-      
-
       <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-200 bg-white">
         <FullCalendar
           plugins={[timeGridPlugin, interactionPlugin, dayGridPlugin]}
@@ -115,24 +175,24 @@ function Calendar() {
             center: 'title',
             right: ''
           }}
-          weekends={false}
+          weekends={true} // Mostrar fines de semana
           slotMinTime="09:00:00"
-          slotMaxTime="19:00:00"
+          slotMaxTime="18:00:00"
           allDaySlot={false}
-          events={combinedEvents}
+          events={generateAvailableSlots} // Usar la función como fuente de eventos
           height="auto"
           nowIndicator={true}
           businessHours={{
             daysOfWeek: [1, 2, 3, 4, 5],
             startTime: '09:00',
-            endTime: '19:00'
+            endTime: '18:00'
           }}
           slotLabelFormat={{
             hour: 'numeric',
             minute: '2-digit',
             hour12: true
           }}
-          onEventClick={handleEventClick}
+          eventClick={handleEventClick}
           eventDidMount={(info) => {
             const isLibre = info.event.extendedProps.libre;
             info.el.style.cursor = isLibre ? 'pointer' : 'not-allowed';
@@ -143,8 +203,6 @@ function Calendar() {
           initialDate={dayjs().toDate()} // empieza en la semana actual
         />
       </div>
-
-      
     </motion.div>
   );
 }

@@ -79,4 +79,13 @@
     padding: 4px 8px;
     font-size: 12px;
   }
+
+  .fc-event {
+    padding: 3px 5px;
+    font-size: 11px;
+  }
+
+  .fc-timegrid-slot-label {
+    font-size: 10px;
+  }
 }

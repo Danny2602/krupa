@@ -6,6 +6,7 @@ import { Checkbox,TextField,Select,MenuItem } from "@mui/material";
 import { CardPresentation } from "@/components/cards/cardPresentation";
 import {Grid} from '@mui/material';
 import image1 from "@/assets/images/image1.jpg";
+
 const data=[
     {nombre:"Dr. Juan Pérez",especialidad:"Cardiología", imagen:image1},
     {nombre:"Dra. María Gómez",especialidad:"Neurología", imagen:image1},
@@ -37,9 +38,9 @@ const steps = [
     {
         label: "Datos del cliente",
         content: (
-            <div className="w-full max-w-md ">
+            <div className="w-full max-w-md " style={{padding:'2vh'}}>
                 <div className="">
-                    <label className="block text-4xl font-medium text-gray-700 p-12">
+                    <label className="block text-4xl font-medium text-gray-700 p-12" style={{paddingBottom:'2vh'}}>
                         Registro de Cita Médica
                     </label>
 
@@ -150,11 +151,15 @@ const steps = [
         ),
     },
     {
-        label: "Detalles del servicio",
+        label: "Horarios disponibles",
         content: (
-            <div className="p-2 " style={{padding:'5px'}}>
-                <Calendar />
+            <div className=" h-[66vh]  overflow-y-auto w-full  items-center">
+                
+                <div className="p-2 " style={{padding:'5px'}}>
+                    <Calendar />
+                </div>
             </div>
+            
         
         ),
     },
