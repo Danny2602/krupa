@@ -97,10 +97,11 @@ function Calendar() {
 
   return (
     <motion.div
-      className="max-w-6xl mx-auto p-6 rounded-3xl bg-gradient-to-br from-slate-50 via-white to-slate-110  "
+      className="w-full h-full p-2 sm:p-4"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
+      
     >
       
 

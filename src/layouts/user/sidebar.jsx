@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { NavLink } from "react-router-dom";
 import {
   FaHome,
   FaCog,
@@ -10,19 +11,20 @@ import {
   FaBars,
 } from "react-icons/fa";
 import useScrollAndMobile from "@/hooks/useScrollAndMovile";
+import { patch } from "@mui/material";
 
 const menuItems = [
-  { name: "Inicio", icon: <FaHome /> },
-  { name: "Configuración", icon: <FaCog /> },
-  { name: "Acerca de", icon: <FaInfoCircle /> },
-  { name: "Salir", icon: <FaSignOutAlt /> },
+  { label: "Inicio", icon: <FaHome />,path:'/user/home' },
+  { label: "Citas", icon: <FaCog />,path:'/user/appointment' },
+  { label: "Acerca de", icon: <FaInfoCircle />,path:'/user/home' },
+  { label: "Salir", icon: <FaSignOutAlt />,path:'/user/home' },
 ];
-
+const MotionNavLink=motion(NavLink)
 function Sidebar({ isOpen, setIsOpen }) {
   const [active, setActive] = useState("Inicio");
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const { isMobile } = useScrollAndMobile(); // detecta si es móvil
-
+  
   // ancho variable (solo en desktop)
   const sidebarWidth = isOpen ? "200px" : "70px";
 
@@ -79,13 +81,16 @@ function Sidebar({ isOpen, setIsOpen }) {
           style={{ gap: "0.75rem", paddingInline: "0.5rem" }}
         >
           {menuItems.map((item, idx) => (
-            <motion.div
-              key={item.name}
-              onClick={() => setActive(item.name)}
+            
+            <MotionNavLink
+              key={item.label}
+              to={item.path}
+              
+              onClick={() => setActive(item.label)}
               onMouseEnter={() => !isOpen && setHoveredIndex(idx)}
               onMouseLeave={() => setHoveredIndex(null)}
               className={`relative flex items-center cursor-pointer rounded-xl transition-colors ${
-                active === item.name
+                active === item.label
                   ? "bg-[#012558] text-white"
                   : "text-gray-300"
               }`}
@@ -99,7 +104,7 @@ function Sidebar({ isOpen, setIsOpen }) {
               whileHover={{ scale: 1.03 }}
             >
               <div
-                className="relative flex justify-center items-center"
+                className="relative flex justify-center items-center "
                 style={{ width: "24px", height: "24px", fontSize: "22px" }}
               >
                 {item.icon}
@@ -129,7 +134,7 @@ function Sidebar({ isOpen, setIsOpen }) {
                       zIndex: 999,
                     }}
                   >
-                    {item.name}
+                    {item.label}
                   </motion.div>
                 )}
               </div>
@@ -147,10 +152,10 @@ function Sidebar({ isOpen, setIsOpen }) {
                     whiteSpace: "nowrap",
                   }}
                 >
-                  {item.name}
+                  {item.label}
                 </motion.span>
               )}
-            </motion.div>
+            </MotionNavLink>
           ))}
         </nav>
       </motion.div>

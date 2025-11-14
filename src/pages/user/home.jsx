@@ -12,7 +12,7 @@ const home = () => {
                     {/* <Calendar/> */}
                     <StepperAppointment />
                 </Grid>
-            </Grid>
+        </Grid>
             
     )
 

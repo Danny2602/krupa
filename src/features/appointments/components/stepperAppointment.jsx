@@ -104,9 +104,9 @@ const steps = [
     {
         label:"Sintomas",
         content:(
-            <div className="w-[90%] text-center ">
-                        <label className="block text-4xl font-medium text-gray-700 p-12">Síntomas</label>
-                                                <div className="grid grid-flow-col auto-rows-auto grid-rows-5 gap-4 overflow-y-auto">
+            <div className="w-[90%] text-center">
+                        <label className="block text-3xl sm:text-4xl font-medium text-gray-700 p-8 sm:p-12">Síntomas</label>
+                        <div className="grid grid-cols-1 sm:grid-flow-col sm:auto-rows-auto sm:grid-rows-5 h-[60vh] gap-4 overflow-y-auto px-4">
                             <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Fiebre</label></div>
                             <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dolor de garganta</label></div>
                             <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Tos</label></div>
@@ -152,7 +152,9 @@ const steps = [
     {
         label: "Detalles del servicio",
         content: (
-            <div className="p-2" style={{padding:'5px'}}><Calendar /></div>
+            <div className="p-2 " style={{padding:'5px'}}>
+                <Calendar />
+            </div>
         
         ),
     },
@@ -283,7 +285,7 @@ const steps = [
                 key={activeStep}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="flex-1 w-full   flex items-center justify-center "    
+                className="flex-1 w-full flex items-start sm:items-center justify-center overflow-y-auto p-4"
             >
                 {allDone ? (
                 <p className="block text-3xl sm:text-lg md:text-xl lg:text-1xl xl:text-2xl font-bold  text-green-600">
