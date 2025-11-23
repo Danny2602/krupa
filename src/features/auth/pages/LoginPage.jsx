@@ -2,6 +2,7 @@ import React from "react";
 import "@/assets/styles/login.css";
 import { NavLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { authApi } from "../api/authApi";
 const buttonStyle = {
 	className:
 		'boton w-[60%] h-10 justify-center block text-[1em] font-bold outline-none rounded-md transition ease-in-out duration-500 cursor-pointer bg-[#f57922] text-white hover:bg-[#6d44b8]'
@@ -21,17 +22,16 @@ const inputStyle = {
 // TODO: Implementar la autenticación con Firebase
 export default function AuthForm() {
 	const { register, handleSubmit } = useForm()
-	const onRegister = async (data) => {
-		const res = await fetch("http://localhost:3000/users", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json"
-			},
-			body: JSON.stringify(data)
-		});
 
-		const respuesta = await res.json();
-		console.log("RESPUESTA NEST =>", respuesta);
+	const onRegister = async (data) => {
+		try {
+			const respuesta = await authApi.register(data);
+			console.log("RESPUESTA NEST =>", respuesta);
+			alert("Usuario registrado con éxito");
+		} catch (error) {
+			console.error("Error al registrar:", error);
+			alert("Error al registrar usuario");
+		}
 	}
 
 	return (

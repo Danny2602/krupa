@@ -38,9 +38,9 @@ const steps = [
     {
         label: "Datos del cliente",
         content: (
-            <div className="w-full max-w-md " style={{ padding: '2vh' }}>
+            <div className="w-full max-w-md " >
                 <div className="">
-                    <label className="block text-4xl font-medium text-gray-700 p-12" style={{ paddingBottom: '2vh' }}>
+                    <label className="block text-4xl font-medium text-gray-700 " style={{ paddingBottom: '2vh' }}>
                         Registro de Cita Médica
                     </label>
 
