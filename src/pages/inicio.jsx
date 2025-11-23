@@ -1,9 +1,9 @@
-import React, {useState} from 'react'
-import {Card} from '@/components/cards/card.jsx'
-import {Form} from '@/components/form.jsx'
+import React, { useState } from 'react'
+import { Card } from '@/components/cards/card.jsx'
+import { Form } from '@/components/form.jsx'
 import TextMove from '@/components/efectos_texto/textMove.jsx'
-import {colors} from '@/assets/styles/colors'
-import { Box,Grid,Modal,Stack,TextField,Typography,useMediaQuery } from '@mui/material'
+import { colors } from '@/assets/styles/colors'
+import { Box, Grid, Modal, Stack, TextField, Typography, useMediaQuery } from '@mui/material'
 import image6 from '@/assets/images/image6.jpg'
 import image7 from '@/assets/images/image7.jpg'
 import image8 from '@/assets/images/image8.jpg'
@@ -13,86 +13,86 @@ import image11 from '@/assets/images/image11.jpg'
 import image12 from '@/assets/images/image12.jpg'
 import { CarouselScroll } from '@/components/carouselScroll'
 import { GroupImage } from '@/components/groupImage'
-import { LoaderContruction } from '@/components/loaderConstruction'
+import { LoaderContruction } from '@/components/ui/LoaderConstruction'
 import useScrollAndMobile from '@/hooks/useScrollAndMovile.js'
 import { StepperAppointment } from '@/features/appointments/components/stepperAppointment'
-import { Kbutton } from '@/components/kbutton'
-const image=[{id:2,url:image7},{id:3,url:image8},{id:4,url:image9},{id:5,url:image10},{id:6,url:image11},{id:7,url:image12},]
-function Inicio(){
-    const inContruccion=true
+import { Kbutton } from '@/components/ui/KButton'
+const image = [{ id: 2, url: image7 }, { id: 3, url: image8 }, { id: 4, url: image9 }, { id: 5, url: image10 }, { id: 6, url: image11 }, { id: 7, url: image12 },]
+function Inicio() {
+    const inContruccion = true
     const isMovile = useMediaQuery('(max-width:900px)');
-    const [isOpen, setIsOpen] =  useState(false);
-    const {scrolled,isMobile} = useScrollAndMobile();
-    return(
+    const [isOpen, setIsOpen] = useState(false);
+    const { scrolled, isMobile } = useScrollAndMobile();
+    return (
         <>
             <div className='w-full h-[100vh] lg:min-h-screen xl:min-h-screen md:min-h-screen'>
                 <Card />
             </div>
-            <Box style={{width:'90%', alignItems:'center', margin:'0 auto',textAlign:'center'}}>
-                
-                <Grid container spacing={4} padding={0} style={{textAlign:'center',alignItems:'center',justifyContent:'center',display:'flex'}}> 
+            <Box style={{ width: '90%', alignItems: 'center', margin: '0 auto', textAlign: 'center' }}>
+
+                <Grid container spacing={4} padding={0} style={{ textAlign: 'center', alignItems: 'center', justifyContent: 'center', display: 'flex' }}>
                     {isMovile ? (
                         <>
-                            <Grid item size={{xs:12,md:6}} style={{}}>
-                                <TextMove title1='Investigación e innovación' title1Size= {isMovile ? '3vh':'5vh'} title2='al servicio de la salud' title2Size={isMovile ? '1.5vh':'3vh'}></TextMove>
+                            <Grid item size={{ xs: 12, md: 6 }} style={{}}>
+                                <TextMove title1='Investigación e innovación' title1Size={isMovile ? '3vh' : '5vh'} title2='al servicio de la salud' title2Size={isMovile ? '1.5vh' : '3vh'}></TextMove>
                                 <br></br>
-                                <Typography sx={{textAlign:'justify'}} fontWeight={'bold'} fontSize={isMovile ? '1.9vh':'5vh'}>
-                                Sabemos que los pacientes y profesionales de la salud 
-                                esten constamente en la busqueda de información para mejorar 
-                                su calidad de vida o la calidad de vida de sus pacientes.<br/>
-                                Detrás de mucho de los productos que manejamos en Ecuador existen 
-                                investigaciones científicas e información interesante para esas personas.<br/>
-                                Les invitamos explorar este mundo de artículos, videos, fotos y 
-                                presentaciones para tener un mejor conocimiento de todo lo que 
-                                BioMotion puede hacer para ti.</Typography>
+                                <Typography sx={{ textAlign: 'justify' }} fontWeight={'bold'} fontSize={isMovile ? '1.9vh' : '5vh'}>
+                                    Sabemos que los pacientes y profesionales de la salud
+                                    esten constamente en la busqueda de información para mejorar
+                                    su calidad de vida o la calidad de vida de sus pacientes.<br />
+                                    Detrás de mucho de los productos que manejamos en Ecuador existen
+                                    investigaciones científicas e información interesante para esas personas.<br />
+                                    Les invitamos explorar este mundo de artículos, videos, fotos y
+                                    presentaciones para tener un mejor conocimiento de todo lo que
+                                    BioMotion puede hacer para ti.</Typography>
                             </Grid>
-                            <Grid item size={{xs:12,md:6}} style={{}}>
+                            <Grid item size={{ xs: 12, md: 6 }} style={{}}>
                                 <GroupImage images={image} />
                             </Grid>
                         </>
                     ) : (
                         <>
 
-                            <Grid item size={{xs:12,md:4}} >
+                            <Grid item size={{ xs: 12, md: 4 }} >
                                 <GroupImage images={image} />
                             </Grid>
-                            <Grid item size={{xs:12,md:8}} >
-                                <TextMove title1='Investigación e innovación' title1Size= {isMovile ? '2vh':'5vh'} title2='al servicio de la salud' title2Size={isMovile ? '1.5vh':'3vh'}></TextMove>
+                            <Grid item size={{ xs: 12, md: 8 }} >
+                                <TextMove title1='Investigación e innovación' title1Size={isMovile ? '2vh' : '5vh'} title2='al servicio de la salud' title2Size={isMovile ? '1.5vh' : '3vh'}></TextMove>
                                 <br></br>
-                                <Typography sx={{textAlign:'justify',fontWeight:'bold', fontSize:'2.5vh'}}  >
-                                Sabemos que los pacientes y profesionales de la salud 
-                                esten constamente en la busqueda de información para mejorar 
-                                su calidad de vida o la calidad de vida de sus pacientes.<br/>
-                                Detrás de mucho de los productos que manejamos en Ecuador existen 
-                                investigaciones científicas e información interesante para esas personas.<br/>
-                                Les invitamos explorar este mundo de artículos, videos, fotos y 
-                                presentaciones para tener un mejor conocimiento de todo lo que 
-                                BioMotion puede hacer para ti.</Typography>
+                                <Typography sx={{ textAlign: 'justify', fontWeight: 'bold', fontSize: '2.5vh' }}  >
+                                    Sabemos que los pacientes y profesionales de la salud
+                                    esten constamente en la busqueda de información para mejorar
+                                    su calidad de vida o la calidad de vida de sus pacientes.<br />
+                                    Detrás de mucho de los productos que manejamos en Ecuador existen
+                                    investigaciones científicas e información interesante para esas personas.<br />
+                                    Les invitamos explorar este mundo de artículos, videos, fotos y
+                                    presentaciones para tener un mejor conocimiento de todo lo que
+                                    BioMotion puede hacer para ti.</Typography>
                             </Grid>
                         </>
-                        
-                        )
+
+                    )
                     }
-                        
+
                 </Grid>
 
                 <Grid container spacing={2} padding={2}>
-                    <Grid item size={{xs:12,md:6}} style={{alignItems:'center', display:'flex', justifyContent:'center'}}>
-                        <Stack spacing={2} style={{textAlign:'center',alignItems:'center', justifyContent:'center'}}>
+                    <Grid item size={{ xs: 12, md: 6 }} style={{ alignItems: 'center', display: 'flex', justifyContent: 'center' }}>
+                        <Stack spacing={2} style={{ textAlign: 'center', alignItems: 'center', justifyContent: 'center' }}>
 
-                            <Typography variant="h1" sx={{fontWeight: "bold",color: "#000",position: "relative",fontSize:'4vh'}}>
+                            <Typography variant="h1" sx={{ fontWeight: "bold", color: "#000", position: "relative", fontSize: '4vh' }}>
                                 Los productos de BioMotion se encuentran en los siguientes establecimientos:
                             </Typography>
-                            <Kbutton size='medium' variant="contained" color="primary" style={{width:'80%',fontWeight:'bold'}} text="Ver establecimientos"></Kbutton>
+                            <Kbutton size='medium' variant="contained" color="primary" style={{ width: '80%', fontWeight: 'bold' }} text="Ver establecimientos"></Kbutton>
                         </Stack>
                     </Grid>
-                    <Grid item size={{xs:12,md:6}}  >
-                        <img src={image6} alt="Imagen" style={{width:'100%', height:'100%', objectFit:'cover'}} /> 
+                    <Grid item size={{ xs: 12, md: 6 }}  >
+                        <img src={image6} alt="Imagen" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                     </Grid>
-                    
-                    
+
+
                 </Grid>
-                
+
                 {/* <Grid container spacing={2} style={{marginTop:'20px'}}>
                     <Grid item size={{xs:12,md:6}} style={{border:'1px solid black'}}>
                         <Form />
@@ -101,23 +101,23 @@ function Inicio(){
                         
                     </Grid>
                 </Grid> */}
-                
+
             </Box>
             <br></br>
             <LoaderContruction isActive={true}>
-            <Grid container spacing={2} padding={2} className='h-screen w-full'>
-                <Grid item size={{xs:12,md:12}} display={'flex'} alignItems={'center'} justifyContent={'center'}>
-                    <h1>Agendar cita</h1>  
-                </Grid>                                 
-                <Grid item size={{xs:12,md:12}} display={'flex'} alignItems={'center'} justifyContent={'center'}  >
-                    {/* <Calendar/> */}
-                    <StepperAppointment />
+                <Grid container spacing={2} padding={2} className='h-screen w-full'>
+                    <Grid item size={{ xs: 12, md: 12 }} display={'flex'} alignItems={'center'} justifyContent={'center'}>
+                        <h1>Agendar cita</h1>
+                    </Grid>
+                    <Grid item size={{ xs: 12, md: 12 }} display={'flex'} alignItems={'center'} justifyContent={'center'}  >
+                        {/* <Calendar/> */}
+                        <StepperAppointment />
+                    </Grid>
                 </Grid>
-            </Grid>
-            
-                <CarouselScroll/>
+
+                <CarouselScroll />
             </LoaderContruction>
         </>
     )
 }
-export {Inicio};
+export { Inicio };

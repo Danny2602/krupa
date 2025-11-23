@@ -10,8 +10,6 @@ const buttonStyle = {
 		margin: '10px auto',
 		marginTop: '30px'
 	}
-
-
 }
 const inputStyle = {
 	className: 'w-[60%] h-[10px] bg-[#e0dede] justify-center flex border-none outline-none rounded-md',
@@ -20,11 +18,11 @@ const inputStyle = {
 		padding: '12px'
 	}
 }
+// TODO: Implementar la autenticación con Firebase
 export default function AuthForm() {
 	const { register, handleSubmit } = useForm()
 	const onRegister = async (data) => {
-		// Ejemplo de envío a Nest
-		const res = await fetch("https://47mh73s2-3000.use2.devtunnels.ms/users", {
+		const res = await fetch("http://localhost:3000/users", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"

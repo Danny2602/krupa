@@ -1,46 +1,46 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Calendar } from "@/features/appointments/components/calendar";
-import { Kbutton } from "@/components/kbutton";
-import { Checkbox,TextField,Select,MenuItem } from "@mui/material";
+import { Kbutton } from "@/components/ui/KButton";
+import { Checkbox, TextField, Select, MenuItem } from "@mui/material";
 import { CardPresentation } from "@/components/cards/cardPresentation";
-import {Grid} from '@mui/material';
+import { Grid } from '@mui/material';
 import image1 from "@/assets/images/image1.jpg";
 
-const data=[
-    {nombre:"Dr. Juan Pérez",especialidad:"Cardiología", imagen:image1},
-    {nombre:"Dra. María Gómez",especialidad:"Neurología", imagen:image1},
-    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria", imagen:image1},
-    {nombre:"Dra. Laura Rodríguez",especialidad:"Dermatología", imagen:image1},
-    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria", imagen:image1},
-    {nombre:"Dra. Laura Rodríguez",especialidad:"Dermatología", imagen:image1},
-    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria", imagen:image1},
-    {nombre:"Dra. Laura Rodríguez",especialidad:"Dermatología", imagen:image1},
-    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria", imagen:image1},
-    {nombre:"Dra. Laura Rodríguez",especialidad:"Dermatología", imagen:image1},
-    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria", imagen:image1},
-    {nombre:"Dr. Juan Pérez",especialidad:"Cardiología", imagen:image1},
-    {nombre:"Dra. María Gómez",especialidad:"Neurología", imagen:image1},
-    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria", imagen:image1},
-    {nombre:"Dra. Laura Rodríguez",especialidad:"Dermatología", imagen:image1},
-    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria", imagen:image1},
-    {nombre:"Dra. Laura Rodríguez",especialidad:"Dermatología", imagen:image1},
-    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria", imagen:image1},
-    {nombre:"Dra. Laura Rodríguez",especialidad:"Dermatología", imagen:image1},
-    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria", imagen:image1},
-    {nombre:"Dra. Laura Rodríguez",especialidad:"Dermatología", imagen:image1},
-    {nombre:"Dr. Carlos Rodríguez",especialidad:"Pediatria", imagen:image1},
+const data = [
+    { nombre: "Dr. Juan Pérez", especialidad: "Cardiología", imagen: image1 },
+    { nombre: "Dra. María Gómez", especialidad: "Neurología", imagen: image1 },
+    { nombre: "Dr. Carlos Rodríguez", especialidad: "Pediatria", imagen: image1 },
+    { nombre: "Dra. Laura Rodríguez", especialidad: "Dermatología", imagen: image1 },
+    { nombre: "Dr. Carlos Rodríguez", especialidad: "Pediatria", imagen: image1 },
+    { nombre: "Dra. Laura Rodríguez", especialidad: "Dermatología", imagen: image1 },
+    { nombre: "Dr. Carlos Rodríguez", especialidad: "Pediatria", imagen: image1 },
+    { nombre: "Dra. Laura Rodríguez", especialidad: "Dermatología", imagen: image1 },
+    { nombre: "Dr. Carlos Rodríguez", especialidad: "Pediatria", imagen: image1 },
+    { nombre: "Dra. Laura Rodríguez", especialidad: "Dermatología", imagen: image1 },
+    { nombre: "Dr. Carlos Rodríguez", especialidad: "Pediatria", imagen: image1 },
+    { nombre: "Dr. Juan Pérez", especialidad: "Cardiología", imagen: image1 },
+    { nombre: "Dra. María Gómez", especialidad: "Neurología", imagen: image1 },
+    { nombre: "Dr. Carlos Rodríguez", especialidad: "Pediatria", imagen: image1 },
+    { nombre: "Dra. Laura Rodríguez", especialidad: "Dermatología", imagen: image1 },
+    { nombre: "Dr. Carlos Rodríguez", especialidad: "Pediatria", imagen: image1 },
+    { nombre: "Dra. Laura Rodríguez", especialidad: "Dermatología", imagen: image1 },
+    { nombre: "Dr. Carlos Rodríguez", especialidad: "Pediatria", imagen: image1 },
+    { nombre: "Dra. Laura Rodríguez", especialidad: "Dermatología", imagen: image1 },
+    { nombre: "Dr. Carlos Rodríguez", especialidad: "Pediatria", imagen: image1 },
+    { nombre: "Dra. Laura Rodríguez", especialidad: "Dermatología", imagen: image1 },
+    { nombre: "Dr. Carlos Rodríguez", especialidad: "Pediatria", imagen: image1 },
 ]
-const styleCheckbox={
-    className:"items-center flex hover:bg-gray-200 cursor-pointer border border-gray-300 rounded-lg p-2"
+const styleCheckbox = {
+    className: "items-center flex hover:bg-gray-200 cursor-pointer border border-gray-300 rounded-lg p-2"
 }
 const steps = [
     {
         label: "Datos del cliente",
         content: (
-            <div className="w-full max-w-md " style={{padding:'2vh'}}>
+            <div className="w-full max-w-md " style={{ padding: '2vh' }}>
                 <div className="">
-                    <label className="block text-4xl font-medium text-gray-700 p-12" style={{paddingBottom:'2vh'}}>
+                    <label className="block text-4xl font-medium text-gray-700 p-12" style={{ paddingBottom: '2vh' }}>
                         Registro de Cita Médica
                     </label>
 
@@ -51,7 +51,7 @@ const steps = [
                                 Nombre completo
                             </label>
                             <TextField
-                                
+
                                 id='outlined-disabled'
                                 size='small'
                                 fullWidth
@@ -63,7 +63,7 @@ const steps = [
                                 Correo electrónico
                             </label>
                             <TextField
-                                
+
                                 id='outlined-disabled'
                                 size='small'
                                 fullWidth
@@ -75,7 +75,7 @@ const steps = [
                                 Teléfono
                             </label>
                             <TextField
-                                
+
                                 id='outlined-disabled'
                                 size='small'
                                 fullWidth
@@ -87,7 +87,7 @@ const steps = [
                                 Especialidad
                             </label>
                             <Select
-                                id='outlined-disabled'  size='small' fullWidth>
+                                id='outlined-disabled' size='small' fullWidth>
                                 <MenuItem value={"general"} defaultChecked>Medicina General</MenuItem>
                                 <MenuItem value={"pediatria"}>Pediatría</MenuItem>
                                 <MenuItem value={"dermatologia"}>Dermatología</MenuItem>
@@ -95,45 +95,45 @@ const steps = [
                             </Select>
                         </div>
 
-                        
-                        
+
+
                     </div>
                 </div>
-        </div>
+            </div>
         ),
     },
     {
-        label:"Sintomas",
-        content:(
+        label: "Sintomas",
+        content: (
             <div className="w-[90%] text-center">
-                        <label className="block text-3xl sm:text-4xl font-medium text-gray-700 p-8 sm:p-12">Síntomas</label>
-                        <div className="grid grid-cols-1 sm:grid-flow-col sm:auto-rows-auto sm:grid-rows-5 h-[60vh] gap-4 overflow-y-auto px-4">
-                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Fiebre</label></div>
-                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dolor de garganta</label></div>
-                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Tos</label></div>
-                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dificultad para respirar</label></div>
-                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Fatiga</label></div>
-                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dolor muscular</label></div>
-                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Pérdida del gusto u olfato</label></div>
-                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Congestión nasal</label></div><div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Fiebre</label></div>
-                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dolor de garganta</label></div>
-                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Tos</label></div>
-                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dificultad para respirar</label></div>
-                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Fatiga</label></div>
-                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dolor muscular</label></div>
-                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Pérdida del gusto u olfato</label></div>
-                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Congestión nasal</label></div><div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Fiebre</label></div>
-                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dolor de garganta</label></div>
-                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Tos</label></div>
-                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dificultad para respirar</label></div>
-                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Fatiga</label></div>
-                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dolor muscular</label></div>
-                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Pérdida del gusto u olfato</label></div>
-                            <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Congestión nasal</label></div>
-                        </div>
+                <label className="block text-3xl sm:text-4xl font-medium text-gray-700 p-8 sm:p-12">Síntomas</label>
+                <div className="grid grid-cols-1 sm:grid-flow-col sm:auto-rows-auto sm:grid-rows-5 h-[60vh] gap-4 overflow-y-auto px-4">
+                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Fiebre</label></div>
+                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dolor de garganta</label></div>
+                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Tos</label></div>
+                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dificultad para respirar</label></div>
+                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Fatiga</label></div>
+                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dolor muscular</label></div>
+                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Pérdida del gusto u olfato</label></div>
+                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Congestión nasal</label></div><div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Fiebre</label></div>
+                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dolor de garganta</label></div>
+                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Tos</label></div>
+                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dificultad para respirar</label></div>
+                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Fatiga</label></div>
+                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dolor muscular</label></div>
+                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Pérdida del gusto u olfato</label></div>
+                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Congestión nasal</label></div><div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Fiebre</label></div>
+                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dolor de garganta</label></div>
+                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Tos</label></div>
+                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dificultad para respirar</label></div>
+                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Fatiga</label></div>
+                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dolor muscular</label></div>
+                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Pérdida del gusto u olfato</label></div>
+                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Congestión nasal</label></div>
+                </div>
             </div>
         ),
-    },{
+    }, {
         label: "Selecciona Al Doctor",
         content: (
             <div className="  h-min w-full  items-center ">
@@ -142,8 +142,8 @@ const steps = [
                         Selección de Doctor
                     </label>
                 </div>
-                    
-                
+
+
                 <div className=" ">
                     <CardPresentation data={data} />
                 </div>
@@ -154,51 +154,51 @@ const steps = [
         label: "Horarios disponibles",
         content: (
             <div className=" h-[66vh]  overflow-y-auto w-full  items-center">
-                
-                <div className="p-2 " style={{padding:'5px'}}>
+
+                <div className="p-2 " style={{ padding: '5px' }}>
                     <Calendar />
                 </div>
             </div>
-            
-        
+
+
         ),
     },
     {
         label: "Confirmación",
         content: (
-        <div className="text-center space-y-3 overflow-y-auto  h-[60vh]">
-            <h1 className="block text-3xl sm:text-lg md:text-xl lg:text-1xl xl:text-2xl font-bold text-gray-700 p-12">Cita Medica</h1>
-            <Grid container spacing={2} className="mb-4" >
-                <Grid item size={{xs:8,md:8}} padding={2}  className="text-left font-semibold  wrap-break-word ">
-                    <p>Nombre:Juan Pérez</p>
-                    <p>Correo:correo@mail.com</p>
-                    <p>Telefono:09XXXXXXXX</p>
-                    <p>Doctor Asignado:Danny Pérez</p>               
+            <div className="text-center space-y-3 overflow-y-auto  h-[60vh]">
+                <h1 className="block text-3xl sm:text-lg md:text-xl lg:text-1xl xl:text-2xl font-bold text-gray-700 p-12">Cita Medica</h1>
+                <Grid container spacing={2} className="mb-4" >
+                    <Grid item size={{ xs: 8, md: 8 }} padding={2} className="text-left font-semibold  wrap-break-word ">
+                        <p>Nombre:Juan Pérez</p>
+                        <p>Correo:correo@mail.com</p>
+                        <p>Telefono:09XXXXXXXX</p>
+                        <p>Doctor Asignado:Danny Pérez</p>
+                    </Grid>
+                    <Grid item size={{ xs: 4, md: 4 }} className="text-left bg-amber-950">
+                        <img src={image1} width={100} height={200} />
+                    </Grid>
                 </Grid>
-                <Grid item size={{xs:4,md:4}} className="text-left bg-amber-950">
-                    <img src={image1} width={100} height={200}/>
+                <Grid container spacing={2} padding={2} margin={1} className="mb-4 border-2  rounded-2xl  ">
+                    <Grid item xs={6} className="text-right font-semibold">
+                        Fecha: 2024-07-20
+                    </Grid>
+                    <Grid item xs={6} className="text-left">
+                        Hora: 10:00 AM
+                    </Grid>
                 </Grid>
-            </Grid>
-            <Grid container spacing={2} padding={2} margin={1} className="mb-4 border-2  rounded-2xl  ">
-                <Grid item xs={6} className="text-right font-semibold">
-                    Fecha: 2024-07-20
-                </Grid>
-                <Grid item xs={6} className="text-left">
-                    Hora: 10:00 AM
-                </Grid>
-            </Grid>
-            <Grid container spacing={2} padding={2} margin={1} className="mb-4 border-2  rounded-2xl">
-                <Grid item xs={6} className="text-right font-semibold">
-                    Síntomas: Fiebre, Dolor de gargantaFiebre, Dolor de gargantaFiebre, Dolor de gargantaFiebre, Dolor de garganta
+                <Grid container spacing={2} padding={2} margin={1} className="mb-4 border-2  rounded-2xl">
+                    <Grid item xs={6} className="text-right font-semibold">
+                        Síntomas: Fiebre, Dolor de gargantaFiebre, Dolor de gargantaFiebre, Dolor de gargantaFiebre, Dolor de garganta
 
+                    </Grid>
                 </Grid>
-            </Grid>
-        </div>
+            </div>
         ),
     },
-    ];
+];
 
-    function StepperAppointment() {
+function StepperAppointment() {
     const [activeStep, setActiveStep] = useState(0);
     const [completed, setCompleted] = useState({});
 
@@ -210,14 +210,14 @@ const steps = [
     };
 
     const handleBack = () => {
-    if (activeStep > 0) {
-        setActiveStep(prev => prev - 1);
-        setCompleted(prev => {
-        const updated = { ...prev };
-        delete updated[activeStep - 1]; // quitar la conexión con el paso anterior
-        return updated;
-        });
-    }
+        if (activeStep > 0) {
+            setActiveStep(prev => prev - 1);
+            setCompleted(prev => {
+                const updated = { ...prev };
+                delete updated[activeStep - 1]; // quitar la conexión con el paso anterior
+                return updated;
+            });
+        }
     };
 
     const handleComplete = () => {
@@ -232,36 +232,33 @@ const steps = [
 
     return (
         <div className="w-[90%] h-[87vh] flex flex-col items-center rounded-3xl border border-gray-500">
-        {/* --- Stepper --- */}
+            {/* --- Stepper --- */}
             {/* Vista para Escritorio (sm y más grande) */}
-            <div className="hidden sm:flex w-full m-6 flex-row items-center" style={{padding:'1%'}}>
+            <div className="hidden sm:flex w-full m-6 flex-row items-center" style={{ padding: '1%' }}>
                 {steps.map((step, i) => (
                     <div key={i} className="flex flex-col items-center flex-1 relative">
                         {i < total - 1 && (
                             <div
                                 style={{ top: "20px" }}
-                                className={`absolute left-1/2 h-[3px] w-full ${
-                                    completed[i] ? "bg-green-500" : "bg-gray-300"
-                                } z-1`}
+                                className={`absolute left-1/2 h-[3px] w-full ${completed[i] ? "bg-green-500" : "bg-gray-300"
+                                    } z-1`}
                             />
                         )}
                         <motion.div
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.95 }}
-                            className={`flex items-center justify-center w-10 h-10 rounded-full text-white font-semibold cursor-pointer transition-all duration-300 z-10 ${
-                                completed[i]
-                                    ? "bg-green-500"
-                                    : i === activeStep
+                            className={`flex items-center justify-center w-10 h-10 rounded-full text-white font-semibold cursor-pointer transition-all duration-300 z-10 ${completed[i]
+                                ? "bg-green-500"
+                                : i === activeStep
                                     ? "bg-blue-600"
                                     : "bg-gray-400"
-                            }`}
+                                }`}
                         >
                             {completed[i] ? "✓" : i + 1}
                         </motion.div>
                         <p
-                            className={`mt-2 text-center text-sm ${
-                                i === activeStep ? "text-blue-600 font-medium" : "text-gray-600"
-                            }`}
+                            className={`mt-2 text-center text-sm ${i === activeStep ? "text-blue-600 font-medium" : "text-gray-600"
+                                }`}
                         >
                             {step.label}
                         </p>
@@ -270,7 +267,7 @@ const steps = [
             </div>
 
             {/* Vista para Móvil (más pequeño que sm) */}
-            <div className="sm:hidden w-full  border-b border-gray-200" style={{padding:'2vh'}}>
+            <div className="sm:hidden w-full  border-b border-gray-200" style={{ padding: '2vh' }}>
                 <div className="flex justify-between items-center mb-2">
                     <p className="text-sm font-medium text-blue-600">{steps[activeStep].label}</p>
                     <p className="text-sm text-gray-500">{activeStep + 1} de {total}</p>
@@ -293,45 +290,45 @@ const steps = [
                 className="flex-1 w-full flex items-start sm:items-center justify-center overflow-y-auto p-4"
             >
                 {allDone ? (
-                <p className="block text-3xl sm:text-lg md:text-xl lg:text-1xl xl:text-2xl font-bold  text-green-600">
-                    🎉 Todos los pasos completados correctamente
-                </p>
+                    <p className="block text-3xl sm:text-lg md:text-xl lg:text-1xl xl:text-2xl font-bold  text-green-600">
+                        🎉 Todos los pasos completados correctamente
+                    </p>
                 ) : (
-                steps[activeStep].content
+                    steps[activeStep].content
                 )}
             </motion.div>
 
             {/* Botones */}
-            <div className="flex-none flex justify-center gap-4 w-full p-[1vh]" style={{padding:'1vh'}} >
+            <div className="flex-none flex justify-center gap-4 w-full p-[1vh]" style={{ padding: '1vh' }} >
                 {!allDone && (
-                <>
-                    <Kbutton
-                    text="Anterior"
-                    color="secondary"
-                    size="large"
-                    variant="contained"
-                    onClick={handleBack}
-                    />
-                    
-                    <Kbutton
-                    text={Object.keys(completed).length === total - 1 ? "Finalizar" : "Siguiente"}
-                    color="primary"
-                    size="large"
-                    variant="contained"
-                    onClick={handleComplete}
-                    className="font-bold"
-                    />
-                </>
+                    <>
+                        <Kbutton
+                            text="Anterior"
+                            color="secondary"
+                            size="large"
+                            variant="contained"
+                            onClick={handleBack}
+                        />
+
+                        <Kbutton
+                            text={Object.keys(completed).length === total - 1 ? "Finalizar" : "Siguiente"}
+                            color="primary"
+                            size="large"
+                            variant="contained"
+                            onClick={handleComplete}
+                            className="font-bold"
+                        />
+                    </>
                 )}
 
                 {allDone && (
-                <Kbutton
-                    text={"Enviar"}
-                    color="green"
-                    size="large"
-                    variant="contained"
-                    onClick={handleReset}
-                    className="font-bold"
+                    <Kbutton
+                        text={"Enviar"}
+                        color="green"
+                        size="large"
+                        variant="contained"
+                        onClick={handleReset}
+                        className="font-bold"
                     />
                 )}
             </div>

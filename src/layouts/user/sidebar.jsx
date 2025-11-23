@@ -15,18 +15,18 @@ import useScrollAndMobile from "@/hooks/useScrollAndMovile";
 import { patch } from "@mui/material";
 
 const menuItems = [
-  { label: "Inicio", icon: <FaHome />,path:'/user/home' },
-  { label: "Citas", icon: <FaCalendar />,path:'/user/appointment' },
-  { label: "Acerca de", icon: <FaInfoCircle />,path:'/user/home' },
-  { label: "Salir", icon: <FaSignOutAlt />,path:'/inicio' },
+  { label: "Inicio", icon: <FaHome />, path: '/user/home' },
+  { label: "Citas", icon: <FaCalendar />, path: '/user/appointment' },
+  { label: "Perfil", icon: <FaInfoCircle />, path: '/user/profile' },
+  { label: "Salir", icon: <FaSignOutAlt />, path: '/inicio' },
 ];
-const MotionNavLink=motion(NavLink) 
+const MotionNavLink = motion(NavLink)
 
 function Sidebar({ isOpen, setIsOpen }) {
   const [active, setActive] = useState("Inicio");
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const { isMobile } = useScrollAndMobile(); // detecta si es móvil
-  
+
   // ancho variable (solo en desktop)
   const sidebarWidth = isOpen ? "200px" : "70px";
 
@@ -37,7 +37,7 @@ function Sidebar({ isOpen, setIsOpen }) {
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="fixed top-4 left-4 z-[60] bg-blue-950 p-2 rounded-sm text-white shadow-lg"
-          style={{padding:'1vh'}}
+          style={{ padding: '1vh' }}
         >
           <FaBars size={22} />
         </button>
@@ -50,9 +50,8 @@ function Sidebar({ isOpen, setIsOpen }) {
           opacity: isMobile && !isOpen ? 0 : 1,
         }}
         transition={{ duration: 0.4, type: "spring", stiffness: 100 }}
-        className={`fixed left-0 top-0 h-screen bg-gray-900 text-white flex flex-col items-center justify-start shadow-2xl z-50 ${
-          isMobile ? "overflow-hidden" : ""
-        }`}
+        className={`fixed left-0 top-0 h-screen bg-gray-900 text-white flex flex-col items-center justify-start shadow-2xl z-50 ${isMobile ? "overflow-hidden" : ""
+          }`}
         style={{
           paddingTop: isMobile ? "4rem" : "2rem",
         }}
@@ -84,19 +83,18 @@ function Sidebar({ isOpen, setIsOpen }) {
           style={{ gap: "0.75rem", paddingInline: "0.5rem" }}
         >
           {menuItems.map((item, idx) => (
-            
+
             <MotionNavLink
               key={item.label}
               to={item.path}
-              
+
               onClick={() => setActive(item.label)}
               onMouseEnter={() => !isOpen && setHoveredIndex(idx)}
               onMouseLeave={() => setHoveredIndex(null)}
-              className={`relative flex items-center cursor-pointer rounded-xl transition-colors ${
-                active === item.label
+              className={`relative flex items-center cursor-pointer rounded-xl transition-colors ${active === item.label
                   ? "bg-[#012558] text-white"
                   : "text-gray-300"
-              }`}
+                }`}
               style={{
                 padding: "0.5rem 0.75rem",
                 marginInline: "0.5rem",

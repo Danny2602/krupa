@@ -2,7 +2,7 @@ import React from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Layout from '@/layouts/public/mainLayout.jsx'
 import { Inicio } from '@/pages/inicio.jsx'
-import Login from '@/pages/auth/login.jsx'
+import Login from '@/features/auth/pages/LoginPage.jsx'
 
 
 const PublicRouter = () => {
@@ -18,6 +18,6 @@ const PublicRouter = () => {
       </Route>
     </Routes>
   )
-} 
+}
 
-export {PublicRouter} 
+export { PublicRouter } 
