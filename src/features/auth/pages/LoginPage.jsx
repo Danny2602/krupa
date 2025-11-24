@@ -75,6 +75,13 @@ export default function AuthForm() {
 		}
 	}
 
+	// ✅ FUNCIÓN CORREGIDA - Usa variable de entorno
+	const handleGoogleLogin = () => {
+		const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+		// Redirige al endpoint que INICIA el flujo OAuth
+		window.location.href = `${apiUrl}/api/auth/google`;
+	}
+
 	// Función para manejar errores de validación y mostrar toast
 	const onError = (errors) => {
 		// Mostramos el primer error que encontremos
@@ -117,7 +124,11 @@ export default function AuthForm() {
 
 						<button className={buttonStyle.className} style={buttonStyle.style}>Ingresar</button>
 
-						<button className={`${buttonStyle.className} bg-black  justify-center items-center grid grid-cols-[10%_90%] hover:bg-white hover:text-black`} style={buttonStyle.style}
+						<button
+							type="button"
+							onClick={handleGoogleLogin}
+							className={`${buttonStyle.className} bg-black  justify-center items-center grid grid-cols-[10%_90%] hover:bg-white hover:text-black`}
+							style={buttonStyle.style}
 						>
 							<div style={{ padding: '5px' }}>
 								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24" height="24">

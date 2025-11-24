@@ -52,8 +52,22 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+    // ✨ NUEVO: Función para refrescar el estado de autenticación
+    const refreshAuth = async () => {
+        await checkAuth();
+    };
+
     return (
-        <AuthContext.Provider value={{ user, isAuthenticated, isLoading, login, logout }}>
+        <AuthContext.Provider
+            value={{
+                user,
+                isAuthenticated,
+                isLoading,
+                login,
+                logout,
+                refreshAuth  // ✨ Exponer función para refrescar
+            }}
+        >
             {children}
         </AuthContext.Provider>
     );
