@@ -13,8 +13,8 @@ const PublicRouter = () => {
         <Route path="/inicio" element={<Inicio />} />
         <Route path="/login" element={<Login />} />
         {/* Si no coincide ninguna subruta */}
-        <Route index element={<Navigate to="/inicio" replace />} />
-        <Route path="*" element={<Navigate to="/inicio" replace />} />
+        {/* <Route index element={<Navigate to="/inicio" replace />} />
+        <Route path="*" element={<Navigate to="/inicio" replace />} /> */}
       </Route>
     </Routes>
   )

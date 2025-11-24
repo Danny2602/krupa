@@ -2,7 +2,10 @@ import React from "react";
 import "@/assets/styles/login.css";
 import { NavLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { authApi } from "../api/authApi";
+import { authApi } from "@/features/auth/api/authApi";
+import { showToast } from "@/lib/toast";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
 const buttonStyle = {
 	className:
 		'boton w-[60%] h-10 justify-center block text-[1em] font-bold outline-none rounded-md transition ease-in-out duration-500 cursor-pointer bg-[#f57922] text-white hover:bg-[#6d44b8]'
@@ -19,20 +22,67 @@ const inputStyle = {
 		padding: '12px'
 	}
 }
-// TODO: Implementar la autenticación con Firebase
+
 export default function AuthForm() {
-	const { register, handleSubmit } = useForm()
+	const navigate = useNavigate();
+	const {
+		register: registerLogin,
+		handleSubmit: handleSubmitLogin,
+		formState: { errors: errorsLogin }
+	} = useForm();
+
+	const {
+		register: registerRegister,
+		handleSubmit: handleSubmitRegister,
+		formState: { errors: errorsRegister }
+	} = useForm();
+
 
 	const onRegister = async (data) => {
 		try {
 			const respuesta = await authApi.register(data);
-			console.log("RESPUESTA NEST =>", respuesta);
-			alert("Usuario registrado con éxito");
+			showToast.success(respuesta.message);
 		} catch (error) {
-			console.error("Error al registrar:", error);
-			alert("Error al registrar usuario");
+			showToast.error(error.response.data.message);
 		}
 	}
+
+	const { login } = useAuth(); // Usamos el contexto
+
+	const onLogin = async (data) => {
+		try {
+			const respuesta = await authApi.login(data);
+			console.log(respuesta);
+			showToast.success(respuesta.message);
+
+			// Actualizamos el estado global de autenticación
+			// Asumimos que la respuesta del login trae el usuario, si no, 
+			// el checkStatus lo hará al recargar, pero para SPA es mejor así.
+			if (respuesta.user) {
+				login({ user: respuesta.user });
+			} else {
+				// Si el login no devuelve el usuario, forzamos una verificación
+				// Ojo: esto requiere que checkStatus esté expuesto en el contexto o recargar
+				window.location.reload();
+				return;
+			}
+
+			navigate('/user/home');
+		} catch (error) {
+			console.error(error);
+			const message = error.response?.data?.message || "Error al conectar con el servidor";
+			showToast.error(message);
+		}
+	}
+
+	// Función para manejar errores de validación y mostrar toast
+	const onError = (errors) => {
+		// Mostramos el primer error que encontremos
+		const firstError = Object.values(errors)[0];
+		if (firstError) {
+			showToast.error(firstError.message);
+		}
+	};
 
 	return (
 		<div className=" flex justify-center items-center min-h-screen bg-gradient-to-b from-[#001838]  via-[#001a3f] to-[#013277]" >
@@ -40,19 +90,33 @@ export default function AuthForm() {
 				<input type="checkbox" id="chk" aria-hidden="true" />
 
 				<div className=" relative w-full h-full">
-					<form>
-
+					<form onSubmit={handleSubmitLogin(onLogin, onError)}>
 						<label className="text-white justify-center items-center flex font-bold text-[2.3em] m-[50px] transition ease-in-out duration-500 cursor-pointer"
 							style={{ margin: '50px' }}
 							htmlFor="chk"
 							aria-hidden="true">
 							Iniciar Sesion
 						</label>
-						<input className={inputStyle.className} style={inputStyle.style} type="email" name="email" placeholder="Email" required="" />
-						<input className={inputStyle.className} style={inputStyle.style} type="password" name="pswd" placeholder="Password" required="" />
-						<NavLink to='/user/home'>
-							<button className={buttonStyle.className} style={buttonStyle.style}>Ingresar</button>
-						</NavLink>
+						<input
+							className={inputStyle.className} style={inputStyle.style}
+							type="email" name="email" placeholder="Email" required=""
+							{...registerLogin("email",
+								{
+									required: "El email es requerido",
+									pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "Email inválido" }
+								}
+							)}
+						/>
+						<input
+							className={inputStyle.className} style={inputStyle.style}
+							type="password" name="pswd" placeholder="Password" required=""
+							{...registerLogin("password", {
+								required: "El password es requerido",
+								minLength: { value: 6, message: "Mínimo 6 caracteres" }
+							})} />
+
+						<button className={buttonStyle.className} style={buttonStyle.style}>Ingresar</button>
+
 						<button className={`${buttonStyle.className} bg-black  justify-center items-center grid grid-cols-[10%_90%] hover:bg-white hover:text-black`} style={buttonStyle.style}
 						>
 							<div style={{ padding: '5px' }}>
@@ -69,34 +133,63 @@ export default function AuthForm() {
 				</div>
 
 				<div className="register h-[460px] bg-white rounded-[60%_/_10%] transition ease-in-out duration-800">
-					<form onSubmit={handleSubmit(onRegister)}>
+					<form onSubmit={handleSubmitRegister(onRegister, onError)}>
 						<label className="text-[#f57922] justify-center items-center flex font-bold text-[2.3em] m-[50px] transition ease-in-out duration-500 cursor-pointer"
 							style={{ margin: '50px' }}
 							htmlFor="chk"
 							aria-hidden="true">
 							Registrarse
 						</label>
-						<input
-							className={inputStyle.className} style={inputStyle.style}
-							type="text" name="nombre" placeholder="Nombre" required=""
-							{...register("name")}
-						/>
-						<input
-							className={inputStyle.className} style={inputStyle.style}
-							type="text" name="tlf" placeholder="Telefono" required=""
-							{...register("tlf")}
-						/>
 
-						<input
-							className={inputStyle.className} style={inputStyle.style}
-							type="email" name="email" placeholder="Email" required=""
-							{...register("email")}
-						/>
-						<input
-							className={inputStyle.className} style={inputStyle.style}
-							type="password" name="password" placeholder="Password" required=""
-							{...register("password")}
-						/>
+						{/* Input Nombre */}
+						<div className="w-[60%] mx-auto">
+							<input
+								className={`${inputStyle.className} w-full`} style={{ ...inputStyle.style, margin: '10px 0' }}
+								type="text" placeholder="Nombre"
+								{...registerRegister("name", {
+									required: "El nombre es requerido",
+									minLength: { value: 3, message: "Mínimo 3 caracteres" }
+								})}
+							/>
+						</div>
+
+						{/* Input Telefono */}
+						<div className="w-[60%] mx-auto">
+							<input
+								className={`${inputStyle.className} w-full`} style={{ ...inputStyle.style, margin: '10px 0' }}
+								type="text" placeholder="Telefono"
+								{...registerRegister("tlf", {
+									required: "El teléfono es requerido",
+									pattern: { value: /^[0-9]+$/, message: "Solo se permiten números" },
+									minLength: { value: 10, message: "El teléfono debe tener 10 dígitos" },
+									maxLength: { value: 10, message: "El teléfono debe tener 10 dígitos" }
+								})}
+							/>
+						</div>
+
+						{/* Input Email */}
+						<div className="w-[60%] mx-auto">
+							<input
+								className={`${inputStyle.className} w-full`} style={{ ...inputStyle.style, margin: '10px 0' }}
+								type="email" placeholder="Email"
+								{...registerRegister("email", {
+									required: "El email es requerido",
+									pattern: { value: /^\S+@\S+$/i, message: "Email inválido" }
+								})}
+							/>
+						</div>
+
+						{/* Input Password */}
+						<div className="w-[60%] mx-auto">
+							<input
+								className={`${inputStyle.className} w-full`} style={{ ...inputStyle.style, margin: '10px 0' }}
+								type="password" placeholder="Password"
+								{...registerRegister("password", {
+									required: "La contraseña es requerida",
+									minLength: { value: 6, message: "Contraseña mínimo 6 caracteres" }
+								})}
+							/>
+						</div>
 
 						<button className={buttonStyle.className} style={buttonStyle.style}>Registrarse</button>
 					</form>
