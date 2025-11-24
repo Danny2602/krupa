@@ -13,6 +13,7 @@ import {
 } from "react-icons/fa";
 import useScrollAndMobile from "@/hooks/useScrollAndMovile";
 import { patch } from "@mui/material";
+import { useAuth } from "@/context/AuthContext";
 
 const menuItems = [
   { label: "Inicio", icon: <FaHome />, path: '/user/home' },
@@ -22,10 +23,13 @@ const menuItems = [
 ];
 const MotionNavLink = motion(NavLink)
 
+
+
 function Sidebar({ isOpen, setIsOpen }) {
   const [active, setActive] = useState("Inicio");
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const { isMobile } = useScrollAndMobile(); // detecta si es móvil
+  const { logout } = useAuth();
 
   // ancho variable (solo en desktop)
   const sidebarWidth = isOpen ? "200px" : "70px";
@@ -88,12 +92,18 @@ function Sidebar({ isOpen, setIsOpen }) {
               key={item.label}
               to={item.path}
 
-              onClick={() => setActive(item.label)}
+              onClick={(e) => {
+                if (item.label === "Salir") {
+                  e.preventDefault();
+                  logout();
+                }
+                setActive(item.label)
+              }}
               onMouseEnter={() => !isOpen && setHoveredIndex(idx)}
               onMouseLeave={() => setHoveredIndex(null)}
               className={`relative flex items-center cursor-pointer rounded-xl transition-colors ${active === item.label
-                  ? "bg-[#012558] text-white"
-                  : "text-gray-300"
+                ? "bg-[#012558] text-white"
+                : "text-gray-300"
                 }`}
               style={{
                 padding: "0.5rem 0.75rem",

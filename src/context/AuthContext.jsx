@@ -41,10 +41,15 @@ export const AuthProvider = ({ children }) => {
         setIsAuthenticated(true);
     };
 
-    const logout = () => {
-        setUser(null);
-        setIsAuthenticated(false);
-        // Aquí podrías llamar a un endpoint de logout si es necesario para borrar la cookie
+    const logout = async () => {
+        try {
+            await authApi.logout();
+        } catch (error) {
+            console.error("Error cerrando sesión:", error);
+        } finally {
+            setUser(null);
+            setIsAuthenticated(false);
+        }
     };
 
     return (

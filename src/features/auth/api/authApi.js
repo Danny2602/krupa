@@ -19,5 +19,11 @@ export const authApi = {
     checkStatus: async () => {
         const { data } = await api.get('/auth/check-status');
         return data;
+    },
+
+    // Cerrar sesión
+    logout: async () => {
+        const { data } = await api.get('/auth/logout');
+        return data;
     }
 };
