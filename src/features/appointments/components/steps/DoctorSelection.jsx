@@ -1,35 +1,101 @@
 import React from 'react';
-import { Grid, Typography } from '@mui/material';
-import { CardPresentation } from '@/components/cards/cardPresentation'; // Reusing existing component
-import image1 from "@/assets/images/image1.jpg"; // Placeholder image
+import { Grid, Typography, Box, Alert } from '@mui/material';
+import { motion } from 'motion/react';
+import { DoctorCard } from '../DoctorCard';
+import image1 from "@/assets/images/image1.jpg";
 
 // Mock data - In real app, fetch based on selectedService
-const doctors = [
-    { nombre: "Dr. Juan Pérez", especialidad: "Cardiología", imagen: image1 },
-    { nombre: "Dra. María Gómez", especialidad: "Neurología", imagen: image1 },
-    { nombre: "Dr. Carlos Rodríguez", especialidad: "Pediatria", imagen: image1 },
-    { nombre: "Dra. Laura Rodríguez", especialidad: "Dermatología", imagen: image1 },
-];
+const doctorsData = {
+    general: [
+        { id: 1, nombre: "Dr. Juan Pérez", especialidad: "Medicina General", imagen: image1, rating: 4.8, experiencia: 15 },
+        { id: 2, nombre: "Dra. Ana Martínez", especialidad: "Medicina General", imagen: image1, rating: 4.9, experiencia: 12 },
+        { id: 3, nombre: "Dr. Carlos López", especialidad: "Medicina General", imagen: image1, rating: 4.7, experiencia: 10 },
+    ],
+    cardiologia: [
+        { id: 4, nombre: "Dr. Roberto Sánchez", especialidad: "Cardiología", imagen: image1, rating: 5.0, experiencia: 20 },
+        { id: 5, nombre: "Dra. Patricia Torres", especialidad: "Cardiología", imagen: image1, rating: 4.9, experiencia: 18 },
+    ],
+    pediatria: [
+        { id: 6, nombre: "Dr. Carlos Rodríguez", especialidad: "Pediatría", imagen: image1, rating: 4.8, experiencia: 14 },
+        { id: 7, nombre: "Dra. Sofía Ramírez", especialidad: "Pediatría", imagen: image1, rating: 4.9, experiencia: 11 },
+        { id: 8, nombre: "Dr. Miguel Fernández", especialidad: "Pediatría", imagen: image1, rating: 4.7, experiencia: 9 },
+    ],
+    dermatologia: [
+        { id: 9, nombre: "Dra. Laura Rodríguez", especialidad: "Dermatología", imagen: image1, rating: 4.9, experiencia: 13 },
+        { id: 10, nombre: "Dr. Andrés Gómez", especialidad: "Dermatología", imagen: image1, rating: 4.8, experiencia: 16 },
+    ],
+    odontologia: [
+        { id: 11, nombre: "Dra. María González", especialidad: "Odontología", imagen: image1, rating: 5.0, experiencia: 17 },
+        { id: 12, nombre: "Dr. Pedro Herrera", especialidad: "Odontología", imagen: image1, rating: 4.8, experiencia: 12 },
+    ],
+    neurologia: [
+        { id: 13, nombre: "Dra. María Gómez", especialidad: "Neurología", imagen: image1, rating: 5.0, experiencia: 22 },
+        { id: 14, nombre: "Dr. Luis Castro", especialidad: "Neurología", imagen: image1, rating: 4.9, experiencia: 19 },
+    ],
+    nutricion: [
+        { id: 15, nombre: "Lic. Ana Martínez", especialidad: "Nutrición", imagen: image1, rating: 4.8, experiencia: 8 },
+        { id: 16, nombre: "Lic. Carmen Silva", especialidad: "Nutrición", imagen: image1, rating: 4.9, experiencia: 10 },
+    ],
+    oftalmologia: [
+        { id: 17, nombre: "Dr. Jorge Vega", especialidad: "Oftalmología", imagen: image1, rating: 4.9, experiencia: 15 },
+        { id: 18, nombre: "Dra. Isabel Morales", especialidad: "Oftalmología", imagen: image1, rating: 4.8, experiencia: 14 },
+    ],
+};
 
-const DoctorSelection = ({ selectedDoctor, onSelect }) => {
+const DoctorSelection = ({ selectedService, selectedDoctor, onSelect }) => {
+    const doctors = doctorsData[selectedService] || [];
+
+    if (!selectedService) {
+        return (
+            <Box className="w-full max-w-5xl mx-auto px-4">
+                <Alert severity="info">
+                    Por favor, selecciona primero una especialidad en el paso anterior.
+                </Alert>
+            </Box>
+        );
+    }
+
     return (
-        <div className="w-full p-4">
-            <Typography variant="h5" fontWeight="bold" textAlign="center" mb={4}>
-                Elige a tu especialista
-            </Typography>
-            {/* Note: CardPresentation might need adjustment to handle selection clicks if it doesn't already. 
-          For now, we assume it displays doctors. If we need selection logic, we might need to wrap it or modify it.
-          Since I can't see CardPresentation internals right now, I'll assume it's a display grid.
-          I will wrap it in a div that handles clicks for demo purposes or just show it.
-      */}
-            <div onClick={() => onSelect(doctors[0])} className="cursor-pointer">
-                {/* Temporary: Clicking anywhere selects the first doctor for demo flow if CardPresentation doesn't support onClick */}
-                <CardPresentation data={doctors} />
-            </div>
-            <Typography variant="caption" display="block" textAlign="center" mt={2} color="text.secondary">
-                (Click en una tarjeta para seleccionar - Demo: Selecciona al primero)
-            </Typography>
-        </div>
+        <Box className="w-full max-w-6xl mx-auto px-4">
+            <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+            >
+                <Typography
+                    variant="h5"
+                    className="font-bold text-center mb-1"
+                    sx={{ color: '#667eea' }}
+                >
+                    Elige a tu especialista
+                </Typography>
+                <Typography
+                    variant="body2"
+                    className="text-gray-600 text-center mb-4"
+                >
+                    Selecciona el profesional de tu preferencia
+                </Typography>
+            </motion.div>
+
+            {doctors.length === 0 ? (
+                <Alert severity="warning">
+                    No hay doctores disponibles para esta especialidad en este momento.
+                </Alert>
+            ) : (
+                <Grid container spacing={2}>
+                    {doctors.map((doctor, index) => (
+                        <Grid item xs={12} sm={6} md={4} key={doctor.id}>
+                            <DoctorCard
+                                doctor={doctor}
+                                isSelected={selectedDoctor?.id === doctor.id}
+                                onSelect={onSelect}
+                                index={index}
+                            />
+                        </Grid>
+                    ))}
+                </Grid>
+            )}
+        </Box>
     );
 };
 

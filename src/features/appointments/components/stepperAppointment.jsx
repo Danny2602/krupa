@@ -1,209 +1,47 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { Calendar } from "@/features/appointments/components/calendar";
+import { motion } from "motion/react";
+import { Box } from "@mui/material";
 import { Kbutton } from "@/components/ui/KButton";
-import { Checkbox, TextField, Select, MenuItem } from "@mui/material";
-import { CardPresentation } from "@/components/cards/cardPresentation";
-import { Grid } from '@mui/material';
-import image1 from "@/assets/images/image1.jpg";
+import ServiceSelection from "./steps/ServiceSelection";
+import DoctorSelection from "./steps/DoctorSelection";
+import DateTimeSelection from "./steps/DateTimeSelection";
+import AppointmentSummary from "./steps/AppointmentSummary";
 
-const data = [
-    { nombre: "Dr. Juan Pérez", especialidad: "Cardiología", imagen: image1 },
-    { nombre: "Dra. María Gómez", especialidad: "Neurología", imagen: image1 },
-    { nombre: "Dr. Carlos Rodríguez", especialidad: "Pediatria", imagen: image1 },
-    { nombre: "Dra. Laura Rodríguez", especialidad: "Dermatología", imagen: image1 },
-    { nombre: "Dr. Carlos Rodríguez", especialidad: "Pediatria", imagen: image1 },
-    { nombre: "Dra. Laura Rodríguez", especialidad: "Dermatología", imagen: image1 },
-    { nombre: "Dr. Carlos Rodríguez", especialidad: "Pediatria", imagen: image1 },
-    { nombre: "Dra. Laura Rodríguez", especialidad: "Dermatología", imagen: image1 },
-    { nombre: "Dr. Carlos Rodríguez", especialidad: "Pediatria", imagen: image1 },
-    { nombre: "Dra. Laura Rodríguez", especialidad: "Dermatología", imagen: image1 },
-    { nombre: "Dr. Carlos Rodríguez", especialidad: "Pediatria", imagen: image1 },
-    { nombre: "Dr. Juan Pérez", especialidad: "Cardiología", imagen: image1 },
-    { nombre: "Dra. María Gómez", especialidad: "Neurología", imagen: image1 },
-    { nombre: "Dr. Carlos Rodríguez", especialidad: "Pediatria", imagen: image1 },
-    { nombre: "Dra. Laura Rodríguez", especialidad: "Dermatología", imagen: image1 },
-    { nombre: "Dr. Carlos Rodríguez", especialidad: "Pediatria", imagen: image1 },
-    { nombre: "Dra. Laura Rodríguez", especialidad: "Dermatología", imagen: image1 },
-    { nombre: "Dr. Carlos Rodríguez", especialidad: "Pediatria", imagen: image1 },
-    { nombre: "Dra. Laura Rodríguez", especialidad: "Dermatología", imagen: image1 },
-    { nombre: "Dr. Carlos Rodríguez", especialidad: "Pediatria", imagen: image1 },
-    { nombre: "Dra. Laura Rodríguez", especialidad: "Dermatología", imagen: image1 },
-    { nombre: "Dr. Carlos Rodríguez", especialidad: "Pediatria", imagen: image1 },
-]
-const styleCheckbox = {
-    className: "items-center flex hover:bg-gray-200 cursor-pointer border border-gray-300 rounded-lg p-2"
-}
 const steps = [
-    {
-        label: "Datos del cliente",
-        content: (
-            <div className="w-full max-w-md " >
-                <div className="">
-                    <label className="block text-4xl font-medium text-gray-700 " style={{ paddingBottom: '2vh' }}>
-                        Registro de Cita Médica
-                    </label>
-
-                    {/* Datos del paciente */}
-                    <div className="grid grid-cols-1  gap-6">
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700">
-                                Nombre completo
-                            </label>
-                            <TextField
-
-                                id='outlined-disabled'
-                                size='small'
-                                fullWidth
-                            />
-                        </div>
-
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700">
-                                Correo electrónico
-                            </label>
-                            <TextField
-
-                                id='outlined-disabled'
-                                size='small'
-                                fullWidth
-                            />
-                        </div>
-
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700">
-                                Teléfono
-                            </label>
-                            <TextField
-
-                                id='outlined-disabled'
-                                size='small'
-                                fullWidth
-                            />
-                        </div>
-
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700">
-                                Especialidad
-                            </label>
-                            <Select
-                                id='outlined-disabled' size='small' fullWidth>
-                                <MenuItem value={"general"} defaultChecked>Medicina General</MenuItem>
-                                <MenuItem value={"pediatria"}>Pediatría</MenuItem>
-                                <MenuItem value={"dermatologia"}>Dermatología</MenuItem>
-                                <MenuItem value={"cardiologia"}>Cardiología</MenuItem>
-                            </Select>
-                        </div>
-
-
-
-                    </div>
-                </div>
-            </div>
-        ),
-    },
-    {
-        label: "Sintomas",
-        content: (
-            <div className="w-[90%] text-center">
-                <label className="block text-3xl sm:text-4xl font-medium text-gray-700 p-8 sm:p-12">Síntomas</label>
-                <div className="grid grid-cols-1 sm:grid-flow-col sm:auto-rows-auto sm:grid-rows-5 h-[60vh] gap-4 overflow-y-auto px-4">
-                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Fiebre</label></div>
-                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dolor de garganta</label></div>
-                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Tos</label></div>
-                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dificultad para respirar</label></div>
-                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Fatiga</label></div>
-                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dolor muscular</label></div>
-                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Pérdida del gusto u olfato</label></div>
-                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Congestión nasal</label></div><div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Fiebre</label></div>
-                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dolor de garganta</label></div>
-                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Tos</label></div>
-                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dificultad para respirar</label></div>
-                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Fatiga</label></div>
-                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dolor muscular</label></div>
-                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Pérdida del gusto u olfato</label></div>
-                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Congestión nasal</label></div><div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Fiebre</label></div>
-                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dolor de garganta</label></div>
-                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Tos</label></div>
-                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dificultad para respirar</label></div>
-                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Fatiga</label></div>
-                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Dolor muscular</label></div>
-                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Pérdida del gusto u olfato</label></div>
-                    <div className={styleCheckbox.className}><Checkbox size="small" /><label className=" text-sm font-medium text-gray-700">Congestión nasal</label></div>
-                </div>
-            </div>
-        ),
-    }, {
-        label: "Selecciona Al Doctor",
-        content: (
-            <div className="  h-min w-full  items-center ">
-                <div className="text-center">
-                    <label className="block text-base sm:text-lg md:text-xl lg:text-1xl xl:text-2xl font-bold text-gray-700 p-12">
-                        Selección de Doctor
-                    </label>
-                </div>
-
-
-                <div className=" ">
-                    <CardPresentation data={data} />
-                </div>
-            </div>
-        ),
-    },
-    {
-        label: "Horarios disponibles",
-        content: (
-            <div className=" h-[66vh]  overflow-y-auto w-full  items-center">
-
-                <div className="p-2 " style={{ padding: '5px' }}>
-                    <Calendar />
-                </div>
-            </div>
-
-
-        ),
-    },
-    {
-        label: "Confirmación",
-        content: (
-            <div className="text-center space-y-3 overflow-y-auto  h-[60vh]">
-                <h1 className="block text-3xl sm:text-lg md:text-xl lg:text-1xl xl:text-2xl font-bold text-gray-700 p-12">Cita Medica</h1>
-                <Grid container spacing={2} className="mb-4" >
-                    <Grid item size={{ xs: 8, md: 8 }} padding={2} className="text-left font-semibold  wrap-break-word ">
-                        <p>Nombre:Juan Pérez</p>
-                        <p>Correo:correo@mail.com</p>
-                        <p>Telefono:09XXXXXXXX</p>
-                        <p>Doctor Asignado:Danny Pérez</p>
-                    </Grid>
-                    <Grid item size={{ xs: 4, md: 4 }} className="text-left bg-amber-950">
-                        <img src={image1} width={100} height={200} />
-                    </Grid>
-                </Grid>
-                <Grid container spacing={2} padding={2} margin={1} className="mb-4 border-2  rounded-2xl  ">
-                    <Grid item xs={6} className="text-right font-semibold">
-                        Fecha: 2024-07-20
-                    </Grid>
-                    <Grid item xs={6} className="text-left">
-                        Hora: 10:00 AM
-                    </Grid>
-                </Grid>
-                <Grid container spacing={2} padding={2} margin={1} className="mb-4 border-2  rounded-2xl">
-                    <Grid item xs={6} className="text-right font-semibold">
-                        Síntomas: Fiebre, Dolor de gargantaFiebre, Dolor de gargantaFiebre, Dolor de gargantaFiebre, Dolor de garganta
-
-                    </Grid>
-                </Grid>
-            </div>
-        ),
-    },
+    { label: "Especialidad", component: "service" },
+    { label: "Profesional", component: "doctor" },
+    { label: "Fecha y Hora", component: "datetime" },
+    { label: "Confirmar", component: "summary" },
 ];
 
 function StepperAppointment() {
     const [activeStep, setActiveStep] = useState(0);
     const [completed, setCompleted] = useState({});
+    const [appointmentData, setAppointmentData] = useState({
+        service: null,
+        doctor: null,
+        date: null,
+        time: null,
+        notes: ''
+    });
+    const [showSuccess, setShowSuccess] = useState(false);
 
     const total = steps.length;
-    const allDone = Object.keys(completed).length === total;
+
+    const canProceed = () => {
+        switch (activeStep) {
+            case 0:
+                return appointmentData.service !== null;
+            case 1:
+                return appointmentData.doctor !== null;
+            case 2:
+                return appointmentData.date !== null && appointmentData.time !== null;
+            case 3:
+                return true;
+            default:
+                return false;
+        }
+    };
 
     const handleNext = () => {
         if (activeStep < total - 1) setActiveStep(activeStep + 1);
@@ -214,125 +52,212 @@ function StepperAppointment() {
             setActiveStep(prev => prev - 1);
             setCompleted(prev => {
                 const updated = { ...prev };
-                delete updated[activeStep - 1]; // quitar la conexión con el paso anterior
+                delete updated[activeStep - 1];
                 return updated;
             });
         }
     };
 
     const handleComplete = () => {
+        if (canProceed()) {
+            setCompleted({ ...completed, [activeStep]: true });
+            handleNext();
+        }
+    };
+
+    const handleConfirm = () => {
+        console.log("Booking appointment with data:", appointmentData);
         setCompleted({ ...completed, [activeStep]: true });
-        handleNext();
+        setShowSuccess(true);
     };
 
     const handleReset = () => {
         setActiveStep(0);
         setCompleted({});
+        setAppointmentData({
+            service: null,
+            doctor: null,
+            date: null,
+            time: null,
+            notes: ''
+        });
+        setShowSuccess(false);
+    };
+
+    const renderStepContent = () => {
+        const step = steps[activeStep];
+
+        switch (step.component) {
+            case "service":
+                return (
+                    <ServiceSelection
+                        selectedService={appointmentData.service}
+                        onSelect={(service) => setAppointmentData({ ...appointmentData, service })}
+                    />
+                );
+            case "doctor":
+                return (
+                    <DoctorSelection
+                        selectedService={appointmentData.service}
+                        selectedDoctor={appointmentData.doctor}
+                        onSelect={(doctor) => setAppointmentData({ ...appointmentData, doctor })}
+                    />
+                );
+            case "datetime":
+                return (
+                    <DateTimeSelection
+                        selectedDate={appointmentData.date}
+                        selectedTime={appointmentData.time}
+                        onSelectDate={(date) => setAppointmentData({ ...appointmentData, date })}
+                        onSelectTime={(time) => setAppointmentData({ ...appointmentData, time })}
+                        notes={appointmentData.notes}
+                        onNotesChange={(notes) => setAppointmentData({ ...appointmentData, notes })}
+                    />
+                );
+            case "summary":
+                return <AppointmentSummary data={appointmentData} />;
+            default:
+                return null;
+        }
     };
 
     return (
-        <div className="w-[90%] h-[87vh] flex flex-col items-center rounded-3xl border border-gray-500">
-            {/* --- Stepper --- */}
-            {/* Vista para Escritorio (sm y más grande) */}
-            <div className="hidden sm:flex w-full m-6 flex-row items-center" style={{ padding: '1%' }}>
+        <Box className="w-full max-w-7xl h-screen flex flex-col rounded-2xl border-2 border-gray-300 bg-white shadow-lg overflow-hidden">
+            {/* Stepper Header - Desktop */}
+            <Box className="hidden sm:flex w-full px-6 py-4 flex-row items-center border-b border-gray-200">
                 {steps.map((step, i) => (
-                    <div key={i} className="flex flex-col items-center flex-1 relative">
+                    <Box key={i} className="flex flex-col items-center flex-1 relative">
                         {i < total - 1 && (
-                            <div
-                                style={{ top: "20px" }}
-                                className={`absolute left-1/2 h-[3px] w-full ${completed[i] ? "bg-green-500" : "bg-gray-300"
-                                    } z-1`}
+                            <Box
+                                sx={{ top: "16px" }}
+                                className={`absolute left-1/2 h-[2px] w-full z-0 ${completed[i] ? "bg-gradient-to-r from-purple-500 to-purple-600" : "bg-gray-300"
+                                    }`}
                             />
                         )}
                         <motion.div
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.95 }}
                             className={`flex items-center justify-center w-10 h-10 rounded-full text-white font-semibold cursor-pointer transition-all duration-300 z-10 ${completed[i]
-                                ? "bg-green-500"
-                                : i === activeStep
-                                    ? "bg-blue-600"
-                                    : "bg-gray-400"
+                                    ? "bg-gradient-to-r from-purple-500 to-purple-600 shadow-md"
+                                    : i === activeStep
+                                        ? "bg-gradient-to-r from-blue-500 to-blue-600 shadow-md"
+                                        : "bg-gray-400"
                                 }`}
                         >
                             {completed[i] ? "✓" : i + 1}
                         </motion.div>
-                        <p
-                            className={`mt-2 text-center text-sm ${i === activeStep ? "text-blue-600 font-medium" : "text-gray-600"
+                        <Box
+                            className={`mt-1 text-center text-xs font-medium ${i === activeStep ? "text-blue-600" : "text-gray-600"
                                 }`}
                         >
                             {step.label}
-                        </p>
-                    </div>
+                        </Box>
+                    </Box>
                 ))}
-            </div>
+            </Box>
 
-            {/* Vista para Móvil (más pequeño que sm) */}
-            <div className="sm:hidden w-full  border-b border-gray-200" style={{ padding: '2vh' }}>
-                <div className="flex justify-between items-center mb-2">
-                    <p className="text-sm font-medium text-blue-600">{steps[activeStep].label}</p>
-                    <p className="text-sm text-gray-500">{activeStep + 1} de {total}</p>
-                </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
+            {/* Stepper Header - Mobile */}
+            <Box className="sm:hidden w-full border-b border-gray-200 p-3">
+                <Box className="flex justify-between items-center mb-2">
+                    <Box className="text-sm font-semibold text-blue-600">{steps[activeStep].label}</Box>
+                    <Box className="text-xs text-gray-500">Paso {activeStep + 1} de {total}</Box>
+                </Box>
+                <Box className="w-full bg-gray-200 rounded-full h-2">
                     <motion.div
-                        className="bg-green-500 h-2 rounded-full"
+                        className="bg-gradient-to-r from-purple-500 to-purple-600 h-2 rounded-full"
                         initial={{ width: 0 }}
                         animate={{ width: `${((activeStep + 1) / total) * 100}%` }}
                         transition={{ duration: 0.5 }}
                     />
-                </div>
-            </div>
+                </Box>
+            </Box>
 
-            {/* Contenido dinámico */}
-            <motion.div
-                key={activeStep}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="flex-1 w-full flex items-start sm:items-center justify-center overflow-y-auto p-4"
-            >
-                {allDone ? (
-                    <p className="block text-3xl sm:text-lg md:text-xl lg:text-1xl xl:text-2xl font-bold  text-green-600">
-                        🎉 Todos los pasos completados correctamente
-                    </p>
+            {/* Content Area */}
+            <Box className="flex-1 w-full overflow-y-auto p-4">
+                {showSuccess ? (
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.5 }}
+                        className="h-full flex items-center justify-center"
+                    >
+                        <Box className="max-w-2xl w-full bg-green-50 border-2 border-green-500 rounded-2xl p-8 text-center">
+                            <Box className="text-6xl mb-4">🎉</Box>
+                            <Box className="text-2xl font-bold text-green-700 mb-2">
+                                ¡Cita Agendada Exitosamente!
+                            </Box>
+                            <Box className="text-gray-700 mb-4">
+                                Tu cita ha sido confirmada. Recibirás un correo de confirmación con todos los detalles.
+                            </Box>
+                            <Box className="mt-4 p-4 bg-white rounded-lg text-left">
+                                <Box className="text-gray-700 text-sm space-y-1">
+                                    <div><strong>Especialidad:</strong> {appointmentData.service}</div>
+                                    <div><strong>Doctor:</strong> {appointmentData.doctor?.nombre}</div>
+                                    <div><strong>Fecha:</strong> {appointmentData.date}</div>
+                                    <div><strong>Hora:</strong> {appointmentData.time}</div>
+                                </Box>
+                            </Box>
+                        </Box>
+                    </motion.div>
                 ) : (
-                    steps[activeStep].content
+                    <motion.div
+                        key={activeStep}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4 }}
+                        className="h-full overflow-y-auto"
+                    >
+                        {renderStepContent()}
+                    </motion.div>
                 )}
-            </motion.div>
+            </Box>
 
-            {/* Botones */}
-            <div className="flex-none flex justify-center gap-4 w-full p-[1vh]" style={{ padding: '1vh' }} >
-                {!allDone && (
+            {/* Navigation Buttons */}
+            <Box className="flex-none flex justify-center gap-3 w-full p-3 border-t border-gray-200 bg-gray-50">
+                {!showSuccess ? (
                     <>
                         <Kbutton
                             text="Anterior"
                             color="secondary"
-                            size="large"
-                            variant="contained"
+                            size="medium"
+                            variant="outlined"
                             onClick={handleBack}
+                            disabled={activeStep === 0}
                         />
 
-                        <Kbutton
-                            text={Object.keys(completed).length === total - 1 ? "Finalizar" : "Siguiente"}
-                            color="primary"
-                            size="large"
-                            variant="contained"
-                            onClick={handleComplete}
-                            className="font-bold"
-                        />
+                        {activeStep === total - 1 ? (
+                            <Kbutton
+                                text="Confirmar Cita"
+                                color="success"
+                                size="medium"
+                                variant="contained"
+                                onClick={handleConfirm}
+                                className="font-bold"
+                            />
+                        ) : (
+                            <Kbutton
+                                text="Siguiente"
+                                color="primary"
+                                size="medium"
+                                variant="contained"
+                                onClick={handleComplete}
+                                disabled={!canProceed()}
+                                className="font-bold"
+                            />
+                        )}
                     </>
-                )}
-
-                {allDone && (
+                ) : (
                     <Kbutton
-                        text={"Enviar"}
-                        color="green"
-                        size="large"
+                        text="Agendar Otra Cita"
+                        color="primary"
+                        size="medium"
                         variant="contained"
                         onClick={handleReset}
                         className="font-bold"
                     />
                 )}
-            </div>
-        </div>
+            </Box>
+        </Box>
     );
 }
 

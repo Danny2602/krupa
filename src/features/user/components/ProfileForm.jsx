@@ -2,21 +2,29 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { TextField, Grid, Typography, Paper, Box } from '@mui/material';
 import { Kbutton } from '@/components/ui/KButton';
+import { updateProfileApi } from '@/features/user/api/updateprofile';
+import { showToast } from "@/lib/toast";
 
 const ProfileForm = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm({
-        defaultValues: {
-            firstName: 'Juan',
-            lastName: 'Pérez',
-            email: 'juan.perez@example.com',
-            phone: '0991234567'
-        }
-    });
+    const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const onSubmit = (data) => {
-        console.log('Actualizando perfil:', data);
-        // Aquí llamaríamos a userProfileApi.updateProfile(data)
-    };
+    const onSubmit = async (data) => {
+            try {
+                const nombre=`${data.lastName} ${data.name}`.trim()
+                console.log(data.lastName)
+                const formulario={
+                    name:nombre,
+                    tlf:data.tlf,
+                    password:data.password
+                }
+                console.log(formulario)
+                const respuesta = await updateProfileApi.updateProfile(formulario);
+                console.log(respuesta)
+                showToast.success(respuesta.data.message);
+            } catch (error) {
+                showToast.error(error.response.data.message);
+            }
+        }
 
     return (
         <Paper elevation={3} sx={{ p: 4, borderRadius: 2 }}>
@@ -33,9 +41,9 @@ const ProfileForm = () => {
                         <TextField
                             fullWidth
                             label="Nombre"
-                            {...register('firstName', { required: 'El nombre es requerido' })}
-                            error={!!errors.firstName}
-                            helperText={errors.firstName?.message}
+                            {...register('name', { required: 'El nombre es requerido' })}
+                            error={!!errors.name}
+                            helperText={errors.name?.message}
                             variant="outlined"
                         />
                     </Grid>
@@ -54,7 +62,7 @@ const ProfileForm = () => {
                             fullWidth
                             label="Correo Electrónico"
                             type="email"
-                            {...register('email', { required: 'El correo es requerido' })}
+                            value={'dato'}
                             error={!!errors.email}
                             helperText={errors.email?.message}
                             variant="outlined"
@@ -64,8 +72,23 @@ const ProfileForm = () => {
                     <Grid item xs={12} md={6}>
                         <TextField
                             fullWidth
+                            label="Contraseña"
+                            type="password"
+                            
+                            {...register("password", {
+									required: "La contraseña es requerida",
+								})}
+                            error={!!errors.message}
+                            helperText={errors.password?.message}
+                            variant="outlined"
+
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <TextField
+                            fullWidth
                             label="Teléfono"
-                            {...register('phone')}
+                            {...register('tlf')}
                             variant="outlined"
                         />
                     </Grid>
