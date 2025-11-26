@@ -2,6 +2,7 @@ import React from 'react';
 import { Grid, Typography, Box, Alert } from '@mui/material';
 import { motion } from 'motion/react';
 import { DoctorCard } from '../DoctorCard';
+import { KSkeleton } from '@/components/ui/KSkeleton';
 import image1 from "@/assets/images/image1.jpg";
 
 // Mock data - In real app, fetch based on selectedService
@@ -44,6 +45,13 @@ const doctorsData = {
 
 const DoctorSelection = ({ selectedService, selectedDoctor, onSelect }) => {
     const doctors = doctorsData[selectedService] || [];
+    const [loading, setLoading] = React.useState(true);
+
+    React.useEffect(() => {
+        setLoading(true);
+        const timer = setTimeout(() => setLoading(false), 800);
+        return () => clearTimeout(timer);
+    }, [selectedService]);
 
     if (!selectedService) {
         return (
@@ -51,6 +59,24 @@ const DoctorSelection = ({ selectedService, selectedDoctor, onSelect }) => {
                 <Alert severity="info">
                     Por favor, selecciona primero una especialidad en el paso anterior.
                 </Alert>
+            </Box>
+        );
+    }
+
+    if (loading) {
+        return (
+            <Box className="w-full max-w-6xl mx-auto px-4">
+                <Box sx={{ mb: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <KSkeleton variant="text" width={300} height={40} sx={{ mb: 1 }} />
+                    <KSkeleton variant="text" width={200} height={24} />
+                </Box>
+                <Grid container spacing={2}>
+                    {[1, 2, 3].map((item) => (
+                        <Grid item xs={12} sm={6} md={4} key={item}>
+                            <KSkeleton variant="rectangular" height={200} sx={{ borderRadius: 2 }} />
+                        </Grid>
+                    ))}
+                </Grid>
             </Box>
         );
     }
@@ -84,7 +110,7 @@ const DoctorSelection = ({ selectedService, selectedDoctor, onSelect }) => {
             ) : (
                 <Grid container spacing={2}>
                     {doctors.map((doctor, index) => (
-                        <Grid item xs={12} sm={6} md={4} key={doctor.id}>
+                        <Grid item size={{ xs: 12, sm: 6, md: 4 }} key={doctor.id}>
                             <DoctorCard
                                 doctor={doctor}
                                 isSelected={selectedDoctor?.id === doctor.id}

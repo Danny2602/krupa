@@ -3,7 +3,6 @@ import {
     Grid,
     Typography,
     Box,
-    CircularProgress,
     Alert,
     Container,
     Divider
@@ -20,6 +19,7 @@ import { useAppointments } from '../hooks/useAppointments';
 import { AppointmentCard } from '../components/AppointmentCard';
 import { StatsCard } from '../components/StatsCard';
 import { WelcomeBanner } from '../components/WelcomeBanner';
+import { KSkeleton } from '@/components/ui/KSkeleton';
 
 const UserHomePage = () => {
     const { user } = useAuth();
@@ -35,9 +35,37 @@ const UserHomePage = () => {
 
     if (loading) {
         return (
-            <Container maxWidth="lg" className="py-8">
-                <Box className="flex justify-center items-center min-h-[60vh]">
-                    <CircularProgress size={60} />
+            <Container maxWidth="lg" className="py-6 space-y-6">
+                {/* Welcome Banner Skeleton */}
+                <Box sx={{ p: 3, borderRadius: 2, bgcolor: 'background.paper', mb: 4 }}>
+                    <KSkeleton variant="text" width="40%" height={40} sx={{ mb: 1 }} />
+                    <KSkeleton variant="text" width="60%" height={24} />
+                </Box>
+
+                {/* Stats Cards Skeleton */}
+                <Box>
+                    <KSkeleton variant="text" width={150} height={32} sx={{ mb: 4 }} />
+                    <Grid container spacing={3}>
+                        {[1, 2, 3, 4].map((item) => (
+                            <Grid item xs={12} sm={6} md={3} key={item}>
+                                <KSkeleton variant="rectangular" height={140} sx={{ borderRadius: 2 }} />
+                            </Grid>
+                        ))}
+                    </Grid>
+                </Box>
+
+                <Divider />
+
+                {/* Appointments Skeleton */}
+                <Box>
+                    <KSkeleton variant="text" width={200} height={32} sx={{ mb: 4 }} />
+                    <Grid container spacing={3}>
+                        {[1, 2, 3].map((item) => (
+                            <Grid item xs={12} md={6} lg={4} key={item}>
+                                <KSkeleton variant="rectangular" height={200} sx={{ borderRadius: 2 }} />
+                            </Grid>
+                        ))}
+                    </Grid>
                 </Box>
             </Container>
         );

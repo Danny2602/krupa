@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, Typography, Card, CardContent, CardActionArea, Box } from '@mui/material';
 import { motion } from 'motion/react';
+import { KSkeleton } from '@/components/ui/KSkeleton';
 
 const services = [
     { id: 'general', label: 'Medicina General', icon: '🩺', color: '#667eea' },
@@ -14,6 +15,31 @@ const services = [
 ];
 
 const ServiceSelection = ({ selectedService, onSelect }) => {
+    const [loading, setLoading] = React.useState(true);
+
+    React.useEffect(() => {
+        const timer = setTimeout(() => setLoading(false), 800);
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (loading) {
+        return (
+            <Box className="w-full max-w-5xl mx-auto px-4">
+                <Box sx={{ mb: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <KSkeleton variant="text" width={300} height={40} sx={{ mb: 1 }} />
+                    <KSkeleton variant="text" width={200} height={24} />
+                </Box>
+                <Grid container spacing={2} justifyContent="center">
+                    {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
+                        <Grid item size={{ xs: 6, sm: 4, md: 3 }} key={item}>
+                            <KSkeleton variant="rectangular" height={160} sx={{ borderRadius: 2 }} />
+                        </Grid>
+                    ))}
+                </Grid>
+            </Box>
+        );
+    }
+
     return (
         <Box className="w-full max-w-5xl mx-auto px-4">
             <motion.div
@@ -38,7 +64,7 @@ const ServiceSelection = ({ selectedService, onSelect }) => {
 
             <Grid container spacing={2} justifyContent="center">
                 {services.map((service, index) => (
-                    <Grid item xs={6} sm={4} md={3} key={service.id}>
+                    <Grid item size={{ xs: 6, sm: 4, md: 3 }} key={service.id}>
                         <motion.div
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}

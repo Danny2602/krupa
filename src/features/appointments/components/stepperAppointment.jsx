@@ -108,10 +108,10 @@ function StepperAppointment() {
                     <DateTimeSelection
                         selectedDate={appointmentData.date}
                         selectedTime={appointmentData.time}
-                        onSelectDate={(date) => setAppointmentData({ ...appointmentData, date })}
-                        onSelectTime={(time) => setAppointmentData({ ...appointmentData, time })}
+                        onSelectDate={(date) => setAppointmentData(prev => ({ ...prev, date }))}
+                        onSelectTime={(time) => setAppointmentData(prev => ({ ...prev, time }))}
                         notes={appointmentData.notes}
-                        onNotesChange={(notes) => setAppointmentData({ ...appointmentData, notes })}
+                        onNotesChange={(notes) => setAppointmentData(prev => ({ ...prev, notes }))}
                     />
                 );
             case "summary":
@@ -138,10 +138,10 @@ function StepperAppointment() {
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.95 }}
                             className={`flex items-center justify-center w-10 h-10 rounded-full text-white font-semibold cursor-pointer transition-all duration-300 z-10 ${completed[i]
-                                    ? "bg-gradient-to-r from-purple-500 to-purple-600 shadow-md"
-                                    : i === activeStep
-                                        ? "bg-gradient-to-r from-blue-500 to-blue-600 shadow-md"
-                                        : "bg-gray-400"
+                                ? "bg-gradient-to-r from-purple-500 to-purple-600 shadow-md"
+                                : i === activeStep
+                                    ? "bg-gradient-to-r from-blue-500 to-blue-600 shadow-md"
+                                    : "bg-gray-400"
                                 }`}
                         >
                             {completed[i] ? "✓" : i + 1}
@@ -229,7 +229,7 @@ function StepperAppointment() {
                             <Kbutton
                                 text="Confirmar Cita"
                                 color="success"
-                                
+
                                 size="medium"
                                 variant="contained"
                                 onClick={handleConfirm}
