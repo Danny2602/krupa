@@ -6,11 +6,15 @@ export const userProfileApi = {
         const { data } = await api.get('/users/profile');
         return data;
     },
-
+    // Obtener perfil del usuario
+    getIdProfile: async (profileData) => {
+        const { data } = await api.get('api/users/profile', profileData);
+        return { data };
+    },
     // Actualizar perfil
     updateProfile: async (profileData) => {
-        const { data } = await api.put('/users/profile', profileData);
-        return data;
+        const { data } = await api.patch('api/users/profile', profileData);
+        return { data };
     },
 
     // Cambiar contraseña
