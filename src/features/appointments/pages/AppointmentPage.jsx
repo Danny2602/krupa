@@ -4,8 +4,8 @@ import { Container, Box } from '@mui/material';
 
 const AppointmentPage = () => {
     return (
-        <Container maxWidth="xl" className="h-screen py-4">
-            <Box className="h-full flex items-center justify-center">
+        <Container maxWidth="xl" className="h-screen py-4 ">
+            <Box className="h-full flex items-center justify-center ">
                 <StepperAppointment />
             </Box>
         </Container>

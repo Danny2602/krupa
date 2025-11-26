@@ -1,30 +1,40 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
+import React,{useEffect, useState} from 'react';
+import { set, useForm } from 'react-hook-form';
 import { TextField, Grid, Typography, Paper, Box } from '@mui/material';
 import { Kbutton } from '@/components/ui/KButton';
 import { updateProfileApi } from '@/features/user/api/updateprofile';
+import { getProfileApi } from '@/features/user/api/getProfile';
 import { showToast } from "@/lib/toast";
-
+import { useAuth } from '@/context/AuthContext';
 const ProfileForm = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit,setValue, formState: { errors } } = useForm();
+    const { user } = useAuth();
+    
 
     const onSubmit = async (data) => {
-            try {
-                const nombre=`${data.lastName} ${data.name}`.trim()
-                console.log(data.lastName)
-                const formulario={
-                    name:nombre,
-                    tlf:data.tlf,
-                    password:data.password
-                }
-                console.log(formulario)
-                const respuesta = await updateProfileApi.updateProfile(formulario);
-                console.log(respuesta)
+        try{
+                const respuesta = await updateProfileApi.updateProfile(data);
                 showToast.success(respuesta.data.message);
             } catch (error) {
                 showToast.error(error.response.data.message);
             }
         }
+
+    useEffect(()=>{
+        loadData()
+    },[])
+
+    const loadData= async () =>{
+        try{
+            const result=await getProfileApi.getIdProfile()
+            setValue('name',result.data.name)
+            setValue('tlf',result.data.tlf)
+            setValue('email',result.data.email)
+            setValue('password',result.data.password)
+        }catch(e){
+            console.log(e)
+        }
+    }
 
     return (
         <Paper elevation={3} sx={{ p: 4, borderRadius: 2 }}>
@@ -37,24 +47,15 @@ const ProfileForm = () => {
 
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container spacing={3}>
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={12}>
                         <TextField
                             fullWidth
-                            label="Nombre"
+                            label="Nombre y Apellidos"
                             {...register('name', { required: 'El nombre es requerido' })}
                             error={!!errors.name}
                             helperText={errors.name?.message}
                             variant="outlined"
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                        <TextField
-                            fullWidth
-                            label="Apellido"
-                            {...register('lastName', { required: 'El apellido es requerido' })}
-                            error={!!errors.lastName}
-                            helperText={errors.lastName?.message}
-                            variant="outlined"
+                            
                         />
                     </Grid>
                     <Grid item xs={12} md={6}>
@@ -62,7 +63,8 @@ const ProfileForm = () => {
                             fullWidth
                             label="Correo Electrónico"
                             type="email"
-                            value={'dato'}
+                            
+                            value={user.email}
                             error={!!errors.email}
                             helperText={errors.email?.message}
                             variant="outlined"

@@ -122,7 +122,7 @@ function StepperAppointment() {
     };
 
     return (
-        <Box className="w-full max-w-7xl h-screen flex flex-col rounded-2xl border-2 border-gray-300 bg-white shadow-lg overflow-hidden">
+        <Box className="w-full max-w-7xl h-[90%] flex flex-col rounded-2xl border-2 border-gray-300 bg-white shadow-lg overflow-hidden">
             {/* Stepper Header - Desktop */}
             <Box className="hidden sm:flex w-full px-6 py-4 flex-row items-center border-b border-gray-200">
                 {steps.map((step, i) => (
@@ -229,10 +229,11 @@ function StepperAppointment() {
                             <Kbutton
                                 text="Confirmar Cita"
                                 color="success"
+                                
                                 size="medium"
                                 variant="contained"
                                 onClick={handleConfirm}
-                                className="font-bold"
+                                className="font-bold text-amber-50"
                             />
                         ) : (
                             <Kbutton

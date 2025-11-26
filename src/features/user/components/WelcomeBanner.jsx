@@ -14,7 +14,7 @@ export const WelcomeBanner = ({ user }) => {
         if (hour < 18) return 'Buenas tardes';
         return 'Buenas noches';
     };
-
+    console.log(user)
     const formattedDate = dayjs().format('dddd, D [de] MMMM [de] YYYY');
 
     return (
