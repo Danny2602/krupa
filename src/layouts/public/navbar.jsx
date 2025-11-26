@@ -18,7 +18,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import ContactMailIcon from '@mui/icons-material/ContactMail';
-import { NavLink, useLocation } from 'react-router-dom'
+import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 
 import { Kbutton, KbuttonBlob } from "@/components/ui/KButton.jsx";
 import { SelectedGroups } from "@/components/selected/selectedGroups.jsx";
@@ -26,11 +26,12 @@ import { SelectedGroups } from "@/components/selected/selectedGroups.jsx";
 import useScrollAndMobile from "@/hooks/useScrollAndMovile.js";
 //icono descargados
 import RodillaIcon from '@/assets/icons/rodillaIcon.png'
+
 const selectOptions = [
-    { icon: <SearchIcon />, label: 'Columna' },
-    { icon: <SearchIcon />, label: 'Miembros Superiores' },
-    { icon: <img src={RodillaIcon} alt="Rodilla" className="w-7 h-7" />, label: 'Rodilla' },
-    { icon: <SearchIcon />, label: 'Pie y Tobillo' },
+    { icon: <SearchIcon />, label: 'Columna', path: '/servicios/columna' },
+    { icon: <SearchIcon />, label: 'Miembros Superiores', path: '/servicios/miembros-superiores' },
+    { icon: <img src={RodillaIcon} alt="Rodilla" className="w-7 h-7" />, label: 'Rodilla', path: '/servicios/rodilla' },
+    { icon: <SearchIcon />, label: 'Pie y Tobillo', path: '/servicios/pie-tobillo' },
 ];
 // antes: const navOptions = ["Inicio", "Servicios", "Contacto"];
 
@@ -54,13 +55,6 @@ function Navbar({ navOptions }) {
         setDrawerOpen(!drawerOpen);
     };
 
-    // const onSubmit = async (e) => {
-    //     e.preventDefault();
-    //     const gifts = await getGifs(valorInput);
-    //     setGifs(gifts.data);
-    // };
-
-
     return (
         <>
             <AppBar position="sticky" color="default" elevation={scrollPosition > 5 ? 4 : 0}
@@ -68,11 +62,8 @@ function Navbar({ navOptions }) {
                     mb: -1,
                     backgroundColor: scrollPosition ? 'rgba(6, 32, 151, 0.7)' : 'transparent',
                     backdropFilter: scrollPosition ? 'blur(10px)' : 'none',
-
-
                 }}  >
                 <Toolbar sx={{ flexWrap: "wrap", justifyContent: "space-between" }}>
-                    {/* <img src={scrollPosition ? logo4:logo2} alt="Logo" style={{ height: 40 }} /> */}
                     <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
                         {isMobile ? (
                             <>
@@ -105,7 +96,7 @@ function Navbar({ navOptions }) {
                                         <br></br>
                                         <Grid container spacing={1} paddingLeft={1}>
                                             <NavLink to='/login' style={{ textDecoration: "none" }}>
-                                                <KbuttonBlob startIcon={<ContactMailIcon />} text={'Contactanos'} height="5vh" width="21vh" color="rgba(6, 32, 151, 0.7)" />
+                                                <KbuttonBlob startIcon={<ContactMailIcon />} text={'Iniciar Sesión'} height="5vh" width="21vh" color="rgba(6, 32, 151, 0.7)" />
                                             </NavLink>
                                         </Grid>
 
@@ -155,7 +146,7 @@ function Navbar({ navOptions }) {
 
                                     <SelectedGroups
                                         selectOptions={selectOptions}
-                                        title="Ortesis y Prótesis"
+                                        title="ORTESIS Y PRÓTESIS"
                                     />
                                 </div>
 
@@ -164,7 +155,7 @@ function Navbar({ navOptions }) {
                                     <NavLink to='/login' style={{ textDecoration: "none" }}>
                                         <KbuttonBlob
                                             startIcon={<ContactMailIcon />}
-                                            text="Iniciar Sesion"
+                                            text="Iniciar Sesión"
                                             height="5vh"
                                             width="25vh"
                                             color="rgba(6, 32, 151, 0.7)"
