@@ -5,6 +5,8 @@ import { DoctorCard } from '../DoctorCard';
 import { KSkeleton } from '@/components/ui/KSkeleton';
 import image1 from "@/assets/images/image1.jpg";
 
+import { useDoctorApi } from '../../hooks/useDoctorApi';
+
 // Mock data - In real app, fetch based on selectedService
 const doctorsData = {
     general: [
@@ -44,14 +46,20 @@ const doctorsData = {
 };
 
 const DoctorSelection = ({ selectedService, selectedDoctor, onSelect }) => {
-    const doctors = doctorsData[selectedService] || [];
     const [loading, setLoading] = React.useState(true);
+    const [doctors, setDoctors] = React.useState([]);
+    const { loading: loadingDoctors, data: doctorsData, fetchDoctorsBySpecialty } = useDoctorApi();
 
     React.useEffect(() => {
-        setLoading(true);
+        loadDoctors(selectedService.id);
+    }, [selectedService]);
+
+    const loadDoctors = async (specialty) => {
+        const result = await fetchDoctorsBySpecialty(specialty);
+        setDoctors(result);
         const timer = setTimeout(() => setLoading(false), 800);
         return () => clearTimeout(timer);
-    }, [selectedService]);
+    }
 
     if (!selectedService) {
         return (

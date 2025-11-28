@@ -95,10 +95,10 @@ const ServiceSelection = ({ selectedService, onSelect }) => {
                         >
                             <Card
                                 sx={{
-                                    border: selectedService === service.id
+                                    border: selectedService?.id === service.id
                                         ? `3px solid ${service.color}`
                                         : '1px solid #e0e0e0',
-                                    backgroundColor: selectedService === service.id
+                                    backgroundColor: selectedService?.id === service.id
                                         ? `${service.color}15`
                                         : 'white',
                                     height: '100%',
@@ -107,7 +107,7 @@ const ServiceSelection = ({ selectedService, onSelect }) => {
                                 className="hover:shadow-lg"
                             >
                                 <CardActionArea
-                                    onClick={() => onSelect(service.id)}
+                                    onClick={() => onSelect(service)}
                                     sx={{ height: '100%', p: 1.5 }}
                                 >
                                     <CardContent sx={{ textAlign: 'center', p: 1 }}>
@@ -115,7 +115,7 @@ const ServiceSelection = ({ selectedService, onSelect }) => {
                                             className="mb-2 flex items-center justify-center"
                                             sx={{
                                                 fontSize: '2.5rem',
-                                                filter: selectedService === service.id
+                                                filter: selectedService?.id === service.id
                                                     ? 'none'
                                                     : 'grayscale(0.3)'
                                             }}
@@ -126,7 +126,7 @@ const ServiceSelection = ({ selectedService, onSelect }) => {
                                             variant="body2"
                                             className="font-semibold"
                                             sx={{
-                                                color: selectedService === service.id
+                                                color: selectedService?.id === service.id
                                                     ? service.color
                                                     : '#333',
                                                 fontSize: '0.85rem'
@@ -134,7 +134,7 @@ const ServiceSelection = ({ selectedService, onSelect }) => {
                                         >
                                             {service.label}
                                         </Typography>
-                                        {selectedService === service.id && (
+                                        {selectedService?.id === service.id && (
                                             <motion.div
                                                 initial={{ opacity: 0 }}
                                                 animate={{ opacity: 1 }}

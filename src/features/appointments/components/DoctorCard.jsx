@@ -37,11 +37,11 @@ export const DoctorCard = ({ doctor, isSelected, onSelect, index }) => {
                     </Avatar>
 
                     <Typography variant="h6" className="font-bold text-gray-800 mb-1">
-                        {doctor.nombre}
+                        {doctor.name}  {doctor.lastName}
                     </Typography>
 
                     <Chip
-                        label={doctor.especialidad}
+                        label={doctor.doctorSpecialty[0].specialty.name}// para mostrar valores anidados
                         size="small"
                         sx={{
                             backgroundColor: isSelected ? '#667eea' : '#f5f5f5',
@@ -51,18 +51,18 @@ export const DoctorCard = ({ doctor, isSelected, onSelect, index }) => {
                         }}
                     />
 
-                    {doctor.rating && (
+                    {doctor.tlf && (
                         <Box className="flex items-center justify-center gap-1 mt-2">
                             <Star sx={{ fontSize: 18, color: '#ffa726' }} />
                             <Typography variant="body2" className="text-gray-600">
-                                {doctor.rating} / 5.0
+                                {doctor.tlf}
                             </Typography>
                         </Box>
                     )}
 
-                    {doctor.experiencia && (
+                    {doctor.email && (
                         <Typography variant="caption" className="text-gray-500 block mt-2">
-                            {doctor.experiencia} años de experiencia
+                            {doctor.email}
                         </Typography>
                     )}
 

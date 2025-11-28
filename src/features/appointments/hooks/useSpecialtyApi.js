@@ -29,6 +29,6 @@ export const useSpecialtyApi = () => {
         loading,
         error,
         data,
-        fetchSpecialty
+        fetchSpecialty,
     };
 }

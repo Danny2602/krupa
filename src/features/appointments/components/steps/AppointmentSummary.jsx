@@ -9,7 +9,7 @@ dayjs.locale('es');
 
 const AppointmentSummary = ({ data }) => {
     const { service, doctor, date, time, notes } = data;
-
+    console.log('final', doctor.name, service.label);
     const serviceLabels = {
         general: 'Medicina General',
         pediatria: 'Pediatría',
@@ -67,7 +67,7 @@ const AppointmentSummary = ({ data }) => {
                                 </Typography>
                             </Box>
                             <Typography variant="h6" className="font-bold text-gray-800 ml-7 text-base">
-                                {serviceLabels[service] || 'No seleccionada'}
+                                {service?.label || service?.name || 'No seleccionada'}
                             </Typography>
                         </Box>
                     </motion.div>
@@ -88,7 +88,7 @@ const AppointmentSummary = ({ data }) => {
                                 <Box className="flex items-center gap-2 ml-1">
                                     <Avatar
                                         src={doctor.imagen}
-                                        alt={doctor.nombre}
+                                        alt={doctor.name}
                                         sx={{
                                             width: 50,
                                             height: 50,
@@ -97,10 +97,10 @@ const AppointmentSummary = ({ data }) => {
                                     />
                                     <Box>
                                         <Typography variant="subtitle1" className="font-bold text-gray-800">
-                                            {doctor.nombre}
+                                            {doctor.name} {doctor.lastName}
                                         </Typography>
                                         <Chip
-                                            label={doctor.especialidad}
+                                            label={doctor.doctorSpecialty[0].specialty.name}
                                             size="small"
                                             sx={{
                                                 backgroundColor: '#667eea20',

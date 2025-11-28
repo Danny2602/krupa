@@ -191,8 +191,8 @@ function StepperAppointment() {
                             </Box>
                             <Box className="mt-4 p-4 bg-white rounded-lg text-left">
                                 <Box className="text-gray-700 text-sm space-y-1">
-                                    <div><strong>Especialidad:</strong> {appointmentData.service}</div>
-                                    <div><strong>Doctor:</strong> {appointmentData.doctor?.nombre}</div>
+                                    <div><strong>Especialidad:</strong> {appointmentData.service?.label || appointmentData.service?.name}</div>
+                                    <div><strong>Doctor:</strong> {appointmentData.doctor?.name} {appointmentData.doctor?.lastName}</div>
                                     <div><strong>Fecha:</strong> {appointmentData.date}</div>
                                     <div><strong>Hora:</strong> {appointmentData.time}</div>
                                 </Box>

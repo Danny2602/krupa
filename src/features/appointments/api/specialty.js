@@ -5,4 +5,5 @@ export const specialtyApi = {
         const data = await api.get('/api/specialty');
         return data;
     },
+
 }
