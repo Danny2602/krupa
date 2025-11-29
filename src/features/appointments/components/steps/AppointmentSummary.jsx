@@ -9,20 +9,9 @@ dayjs.locale('es');
 
 const AppointmentSummary = ({ data }) => {
     const { service, doctor, date, time, notes } = data;
-    console.log('final', doctor.name, service.label);
-    const serviceLabels = {
-        general: 'Medicina General',
-        pediatria: 'Pediatría',
-        dermatologia: 'Dermatología',
-        cardiologia: 'Cardiología',
-        odontologia: 'Odontología',
-        neurologia: 'Neurología',
-        nutricion: 'Nutrición',
-        oftalmologia: 'Oftalmología',
-    };
 
     const formattedDate = date ? dayjs(date).format('dddd, D [de] MMMM [de] YYYY') : 'No seleccionada';
-
+    console.log('final', formattedDate);
     return (
         <Box className="w-full max-w-3xl mx-auto px-4">
             <motion.div

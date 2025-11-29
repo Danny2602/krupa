@@ -12,16 +12,13 @@ import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import WbTwilightIcon from '@mui/icons-material/WbTwilight';
 import CloseIcon from '@mui/icons-material/Close';
 import EditNoteIcon from '@mui/icons-material/EditNote';
+import { useAppointmentApi } from '../../hooks/useAppointment';
 
-dayjs.locale('es');
+dayjs.locale('utc');
 
 // --- MOCK API SERVICE ---
 const fetchAvailableSlots = async (date) => {
-    // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 600));
-
-    // Mock logic: Generate different slots based on the day of the week
-    const dayOfWeek = dayjs(date).day(); // 0 (Sunday) to 6 (Saturday)
+    const dayOfWeek = dayjs(date).day();
 
     let allSlots = [];
 
@@ -33,22 +30,9 @@ const fetchAvailableSlots = async (date) => {
             '14:00', '15:00', '16:00', '17:00', '18:00'
         ];
     }
-
-    // Simulate reserved slots dynamically based on date string
-    // This makes it look like different days have different availability
-    const dateNum = parseInt(date.replace(/-/g, ''));
-    const reserved = [];
-
-    allSlots.forEach((slot, index) => {
-        // Simple pseudo-random logic to reserve some slots
-        if ((dateNum + index) % 5 === 0) {
-            reserved.push(slot);
-        }
-    });
-
     return {
         slots: allSlots,
-        reserved: reserved
+
     };
 };
 
@@ -120,7 +104,7 @@ const CalendarView = ({ currentMonth, onPrevMonth, onNextMonth, onDateClick, sel
     );
 };
 
-const DateTimeSelection = ({ selectedDate, selectedTime, onSelectDate, onSelectTime, notes, onNotesChange }) => {
+const DateTimeSelection = ({ selectedDate, doctorId, selectedTime, onSelectDate, onSelectTime, notes, onNotesChange }) => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -129,28 +113,40 @@ const DateTimeSelection = ({ selectedDate, selectedTime, onSelectDate, onSelectT
     const [availableSlots, setAvailableSlots] = useState([]);
     const [reservedSlots, setReservedSlots] = useState([]);
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
-
+    const { data, loading: loadingAppointments, error: errorAppointments, fetchAppointmentForDoctorAndDay } = useAppointmentApi();
     // Fetch slots when date changes
     useEffect(() => {
-        const loadSlots = async () => {
-            if (selectedDate) {
-                setLoading(true);
-                try {
-                    const data = await fetchAvailableSlots(selectedDate);
-                    setAvailableSlots(data.slots);
-                    setReservedSlots(data.reserved);
-                } catch (error) {
-                    console.error("Failed to fetch slots", error);
-                } finally {
-                    setLoading(false);
-                }
-            } else {
-                setAvailableSlots([]);
-                setReservedSlots([]);
-            }
-        };
         loadSlots();
     }, [selectedDate]);
+
+    const loadSlots = async () => {
+        if (selectedDate) {
+            setLoading(true);
+            try {
+                const result = await fetchAppointmentForDoctorAndDay(doctorId, selectedDate);
+                const data = await fetchAvailableSlots(selectedDate);
+                if (result) {
+                    result.map(item => {
+                        item.startTime = dayjs(item.startTime).add(5, 'hour').format('HH:mm');
+                    });
+                    setAvailableSlots(data.slots);
+                    setReservedSlots(result.map(item => {
+                        return item.startTime;
+                    }))
+                } else {
+                    setAvailableSlots(data.slots);
+                    setReservedSlots([]);
+                }
+            } catch (error) {
+                console.error("Failed to fetch slots", error);
+            } finally {
+                setLoading(false);
+            }
+        } else {
+            setAvailableSlots([]);
+            setReservedSlots([]);
+        }
+    };
 
     const handlePrevMonth = () => setCurrentMonth(currentMonth.subtract(1, 'month'));
     const handleNextMonth = () => setCurrentMonth(currentMonth.add(1, 'month'));

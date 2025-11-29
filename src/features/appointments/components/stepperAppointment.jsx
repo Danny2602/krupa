@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { motion } from "motion/react";
 import { Box } from "@mui/material";
 import { Kbutton } from "@/components/ui/KButton";
-import ServiceSelection from "./steps/ServiceSelection";
-import DoctorSelection from "./steps/DoctorSelection";
-import DateTimeSelection from "./steps/DateTimeSelection";
-import AppointmentSummary from "./steps/AppointmentSummary";
+import ServiceSelection from "@/features/appointments/components/steps/ServiceSelection";
+import DoctorSelection from "@/features/appointments/components/steps/DoctorSelection";
+import DateTimeSelection from "@/features/appointments/components/steps/DateTimeSelection";
+import AppointmentSummary from "@/features/appointments/components/steps/AppointmentSummary";
 
 const steps = [
     { label: "Especialidad", component: "service" },
@@ -106,6 +106,7 @@ function StepperAppointment() {
             case "datetime":
                 return (
                     <DateTimeSelection
+                        doctorId={appointmentData.doctor.id}
                         selectedDate={appointmentData.date}
                         selectedTime={appointmentData.time}
                         onSelectDate={(date) => setAppointmentData(prev => ({ ...prev, date }))}
