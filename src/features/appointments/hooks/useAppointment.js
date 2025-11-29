@@ -8,6 +8,23 @@ export const useAppointmentApi = () => {
     const [error, setError] = useState(null);
     const [data, setData] = useState(null);
 
+    const createAppointment = useCallback(async (data) => {
+        setLoading(true);
+        setError(null);
+        try {
+            const result = await appointmentApi.createAppointment(data);
+            setData(result.data);
+            return result.data;
+        } catch (err) {
+            const errorMessage = err.response?.data?.message || 'Error al crear la cita';
+            setError(errorMessage);
+            showToast.error(errorMessage);
+            return null;
+        } finally {
+            setLoading(false);
+        }
+    }, []);
+
     const fetchAppointmentForDoctorAndDay = useCallback(async (doctorId, day) => {
         setLoading(true);
         setError(null);
@@ -30,5 +47,6 @@ export const useAppointmentApi = () => {
         error,
         data,
         fetchAppointmentForDoctorAndDay,
+        createAppointment
     };
 }

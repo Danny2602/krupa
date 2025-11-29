@@ -6,6 +6,8 @@ import ServiceSelection from "@/features/appointments/components/steps/ServiceSe
 import DoctorSelection from "@/features/appointments/components/steps/DoctorSelection";
 import DateTimeSelection from "@/features/appointments/components/steps/DateTimeSelection";
 import AppointmentSummary from "@/features/appointments/components/steps/AppointmentSummary";
+import { useAppointmentApi } from "@/features/appointments/hooks/useAppointment";
+import dayjs from "dayjs";
 
 const steps = [
     { label: "Especialidad", component: "service" },
@@ -25,6 +27,7 @@ function StepperAppointment() {
         notes: ''
     });
     const [showSuccess, setShowSuccess] = useState(false);
+    const { loading, error, createAppointment } = useAppointmentApi();
 
     const total = steps.length;
 
@@ -65,10 +68,17 @@ function StepperAppointment() {
         }
     };
 
-    const handleConfirm = () => {
-        console.log("Booking appointment with data:", appointmentData);
-        setCompleted({ ...completed, [activeStep]: true });
+    const handleConfirm = async () => {
+        const { doctor, date, time, notes } = appointmentData;
+        const data = {
+            notes: notes,
+            startTime: `${date} ${time}`,
+            endTime: dayjs(`${date} ${time}`).add(1, 'hour').format('YYYY-MM-DD HH:mm'),
+            doctorId: doctor.id,
+        };
+        await createAppointment(data);
         setShowSuccess(true);
+        console.log('datos', data);
     };
 
     const handleReset = () => {
