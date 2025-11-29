@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import dayjs from 'dayjs';
 import {
     Grid,
     Typography,
@@ -15,22 +16,38 @@ import {
 } from '@mui/icons-material';
 import { motion } from 'motion/react';
 import { useAuth } from '@/context/AuthContext';
-import { useAppointments } from '../hooks/useAppointments';
-import { AppointmentCard } from '../components/AppointmentCard';
-import { StatsCard } from '../components/StatsCard';
-import { WelcomeBanner } from '../components/WelcomeBanner';
+import { useAppointmentApi } from '@/features/user/hooks/useAppointments';
+import { AppointmentCard } from '@/features/user/components/AppointmentCard';
+import { StatsCard } from '@/features/user/components/StatsCard';
+import { WelcomeBanner } from '@/features/user/components/WelcomeBanner';
 import { KSkeleton } from '@/components/ui/KSkeleton';
+import { showToast } from "@/lib/toast";
 
 const UserHomePage = () => {
     const { user } = useAuth();
-    const { appointments, loading, error } = useAppointments();
+    const { loading, error, fetchAppointmentsForUser } = useAppointmentApi();
+    const [filteredAppointments, setFilteredAppointments] = useState([]);
+    const [appointments, setAppointments] = useState([]);
+    const [proxAppointments, setProxAppointments] = useState(0);
 
-    // Calculate statistics
-    const stats = {
-        total: appointments.length,
-        upcoming: appointments.filter(apt => new Date(apt.date) > new Date()).length,
-        pending: appointments.filter(apt => apt.status === 'pending').length,
-        confirmed: appointments.filter(apt => apt.status === 'confirmed').length
+    useEffect(() => {
+        loadAppointments();
+    }, []);
+
+    const loadAppointments = async () => {
+        try {
+            const result = await fetchAppointmentsForUser();
+            setAppointments(result);
+
+            const filteredAppointments = result.appointments.filter(appointment => dayjs(appointment.startTime).toDate() >= new Date());
+            setProxAppointments(filteredAppointments.length);
+            console.log(filteredAppointments.length);
+            setFilteredAppointments(filteredAppointments);
+
+        } catch (err) {
+            const errorMessage = err.response?.data?.message || 'Error al cargar la citas';
+            showToast.error(errorMessage);
+        }
     };
 
     if (loading) {
@@ -85,7 +102,7 @@ const UserHomePage = () => {
                     <Grid item xs={12} sm={6} md={3}>
                         <StatsCard
                             title="Total de Citas"
-                            value={stats.total}
+                            value={appointments.total}
                             icon={EventAvailable}
                             color="#667eea"
                             index={0}
@@ -94,7 +111,7 @@ const UserHomePage = () => {
                     <Grid item xs={12} sm={6} md={3}>
                         <StatsCard
                             title="Próximas"
-                            value={stats.upcoming}
+                            value={proxAppointments}
                             icon={Schedule}
                             color="#f093fb"
                             index={1}
@@ -103,7 +120,7 @@ const UserHomePage = () => {
                     <Grid item xs={12} sm={6} md={3}>
                         <StatsCard
                             title="Pendientes"
-                            value={stats.pending}
+                            value={appointments.pending}
                             icon={PendingActions}
                             color="#ffa726"
                             index={2}
@@ -112,7 +129,7 @@ const UserHomePage = () => {
                     <Grid item xs={12} sm={6} md={3}>
                         <StatsCard
                             title="Confirmadas"
-                            value={stats.confirmed}
+                            value={appointments.completed}
                             icon={CheckCircle}
                             color="#4caf50"
                             index={3}
@@ -153,14 +170,15 @@ const UserHomePage = () => {
                     </motion.div>
                 ) : (
                     <Grid container spacing={3}>
-                        {appointments.map((appointment, index) => (
-                            <Grid item xs={12} md={6} lg={4} key={appointment.id}>
-                                <AppointmentCard
-                                    appointment={appointment}
-                                    index={index}
-                                />
-                            </Grid>
-                        ))}
+                        {filteredAppointments
+                            .map((appointment, index) => (
+                                <Grid item xs={12} md={6} lg={4} key={appointment.id}>
+                                    <AppointmentCard
+                                        appointment={appointment}
+                                        index={index}
+                                    />
+                                </Grid>
+                            ))}
                     </Grid>
                 )}
             </Box>

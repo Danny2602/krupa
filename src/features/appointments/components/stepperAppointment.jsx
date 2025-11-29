@@ -27,6 +27,7 @@ function StepperAppointment() {
         notes: ''
     });
     const [showSuccess, setShowSuccess] = useState(false);
+    const [message, setMessage] = useState('');
     const { loading, error, createAppointment } = useAppointmentApi();
 
     const total = steps.length;
@@ -72,13 +73,16 @@ function StepperAppointment() {
         const { doctor, date, time, notes } = appointmentData;
         const data = {
             notes: notes,
-            startTime: `${date} ${time}`,
-            endTime: dayjs(`${date} ${time}`).add(1, 'hour').format('YYYY-MM-DD HH:mm'),
+            startTime: `${date} ${time}:00`,
+            endTime: dayjs(`${date} ${time}`).add(1, 'hour').format('YYYY-MM-DD HH:mm:ss'),
             doctorId: doctor.id,
         };
-        await createAppointment(data);
-        setShowSuccess(true);
-        console.log('datos', data);
+        const result = await createAppointment(data);
+        setMessage(result);
+        if (result) {
+            setShowSuccess(true);
+        }
+
     };
 
     const handleReset = () => {
@@ -195,7 +199,7 @@ function StepperAppointment() {
                         <Box className="max-w-2xl w-full bg-green-50 border-2 border-green-500 rounded-2xl p-8 text-center">
                             <Box className="text-6xl mb-4">🎉</Box>
                             <Box className="text-2xl font-bold text-green-700 mb-2">
-                                ¡Cita Agendada Exitosamente!
+                                {message}
                             </Box>
                             <Box className="text-gray-700 mb-4">
                                 Tu cita ha sido confirmada. Recibirás un correo de confirmación con todos los detalles.

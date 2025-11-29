@@ -5,9 +5,8 @@ import { motion } from 'motion/react';
 import dayjs from 'dayjs';
 
 export const AppointmentCard = ({ appointment, index }) => {
-    const formattedDate = dayjs(appointment.date).format('DD/MM/YYYY');
-    const formattedTime = dayjs(appointment.date).format('HH:mm');
-
+    const formattedDate = dayjs(appointment.startTime).format('DD/MM/YYYY');
+    const formattedTime = dayjs(appointment.startTime).format('HH:mm');
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -17,19 +16,19 @@ export const AppointmentCard = ({ appointment, index }) => {
             <Card
                 className="hover:shadow-lg transition-shadow duration-300 border-l-4"
                 sx={{
-                    borderLeftColor: appointment.status === 'pending' ? '#2196f3' : '#4caf50',
+                    borderLeftColor: appointment.status === 'PENDING' ? '#2196f3' : appointment.status === 'CONFIRMED' ? '#4caf50' : '#f44336',
                     height: '100%'
                 }}
             >
                 <CardContent>
                     <Box className="flex justify-between items-start mb-3">
                         <Typography variant="h6" className="font-semibold text-gray-800">
-                            {appointment.service || 'Cita Médica'}
+                            {appointment.doctor.specialty || 'Cita Médica'}
                         </Typography>
                         <Chip
-                            label={appointment.status === 'pending' ? 'Pendiente' : 'Confirmada'}
+                            label={appointment.status === 'PENDING' ? 'Pendiente' : appointment.status === 'CONFIRMED' ? 'Confirmada' : 'Cancelada'}
                             size="small"
-                            color={appointment.status === 'pending' ? 'primary' : 'success'}
+                            color={appointment.status === 'PENDING' ? 'primary' : appointment.status === 'CONFIRMED' ? 'success' : 'CANCELED' ? 'error' : 'warning'}
                         />
                     </Box>
 
@@ -48,9 +47,9 @@ export const AppointmentCard = ({ appointment, index }) => {
                             </Typography>
                         </Box>
 
-                        {appointment.professional && (
+                        {appointment.doctor && (
                             <Typography variant="body2" className="text-gray-700 mt-2">
-                                <span className="font-medium">Profesional:</span> {appointment.professional}
+                                <span className="font-medium">Profesional:</span> {appointment.doctor.name} {appointment.doctor.lastName}
                             </Typography>
                         )}
 
