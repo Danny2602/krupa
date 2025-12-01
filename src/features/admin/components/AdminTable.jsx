@@ -121,7 +121,7 @@ export const AdminTable = ({
                             >
                                 {columns.map((column, colIndex) => (
                                     <TableCell key={colIndex}>
-                                        {column.render ? column.render(row) : row[column.field]}
+                                        {column.render ? column.render(row, page * rowsPerPage + rowIndex) : row[column.field]}
                                     </TableCell>
                                 ))}
                                 <TableCell align="right">

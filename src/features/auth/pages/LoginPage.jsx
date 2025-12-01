@@ -85,7 +85,7 @@ export default function AuthForm() {
 	const handleGoogleLogin = () => {
 		const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 		// Redirige al endpoint que INICIA el flujo OAuth
-		window.location.href = `${apiUrl}/api/auth/google`;
+		window.location.href = `${apiUrl}/auth/google`;
 	}
 
 	// Función para manejar errores de validación y mostrar toast

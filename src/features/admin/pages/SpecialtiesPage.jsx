@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Typography, Box, Button, Chip, TextField } from '@mui/material';
 import { Add, MedicalServices } from '@mui/icons-material';
 import { motion } from 'motion/react';
@@ -6,78 +6,84 @@ import { AdminTable } from '@/features/admin/components/AdminTable';
 import { EmptyState } from '@/features/admin/components/EmptyState';
 import { AdminFormModal } from '@/features/admin/components/AdminFormModal';
 import { showToast } from '@/lib/toast';
+import { useSpecialtyApi } from '@/features/admin/hooks/useSpecialty';
+import { ColorPicker } from '@/features/admin/components/ColorPicker';
 
 const SpecialtiesPage = () => {
     // Datos de ejemplo
-    const [specialties, setSpecialties] = useState([
-        { id: 1, name: 'Cardiología', doctorCount: 5, createdAt: '2024-01-15' },
-        { id: 2, name: 'Pediatría', doctorCount: 8, createdAt: '2024-02-20' },
-        { id: 3, name: 'Dermatología', doctorCount: 3, createdAt: '2024-03-10' },
-        { id: 4, name: 'Neurología', doctorCount: 4, createdAt: '2024-04-05' },
-        { id: 5, name: 'Oftalmología', doctorCount: 6, createdAt: '2024-05-12' },
-    ]);
-
+    const [specialties, setSpecialties] = useState([]);
+    const { data, loading, error, fetchSpecialties, createSpecialty } = useSpecialtyApi();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingSpecialty, setEditingSpecialty] = useState(null);
-    const [formData, setFormData] = useState({ name: '' });
+    const [formData, setFormData] = useState({ name: '', color: '' });
+
+    const loadSpecialties = async () => {
+        const result = await fetchSpecialties();
+        setSpecialties(result);
+    };
+    useEffect(() => {
+        loadSpecialties();
+    }, []);
 
     const columns = [
-        { field: 'id', label: 'ID' },
+        { field: 'id', label: 'ID', render: (row, index) => index + 1 },
         { field: 'name', label: 'Nombre' },
         {
-            field: 'doctorCount',
-            label: 'Doctores',
+            field: 'color', label: 'Color',
             render: (row) => (
                 <Chip
-                    label={row.doctorCount || 0}
-                    size="small"
-                    color="primary"
+                    sx={{
+                        height: 24,
+                        width: 24,
+                        borderRadius: '50%',
+                        backgroundColor: row.color,
+                        border: '1px solid #ddd'
+                    }}
                 />
             )
         },
-        {
-            field: 'createdAt',
-            label: 'Fecha de Creación',
-            render: (row) => new Date(row.createdAt).toLocaleDateString('es-ES')
-        }
     ];
 
     const handleOpenModal = (specialty = null) => {
+
         if (specialty) {
             setEditingSpecialty(specialty);
-            setFormData({ name: specialty.name });
+            setFormData({ name: specialty.name, color: specialty.color });
         } else {
             setEditingSpecialty(null);
-            setFormData({ name: '' });
+            setFormData({ name: '', color: '' });
         }
         setIsModalOpen(true);
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (!formData.name.trim()) {
             showToast.error('El nombre es requerido');
             return;
         }
-
+        if (!formData.color) {
+            showToast.error('El color es requerido');
+            return;
+        }
         if (editingSpecialty) {
             // Editar
             setSpecialties(prev =>
                 prev.map(s => s.id === editingSpecialty.id
-                    ? { ...s, name: formData.name }
+                    ? { ...s, name: formData.name, color: formData.color }
                     : s
                 )
             );
             showToast.success('Especialidad actualizada exitosamente');
         } else {
-            // Crear
-            const newSpecialty = {
-                id: Math.max(...specialties.map(s => s.id), 0) + 1,
-                name: formData.name,
-                doctorCount: 0,
-                createdAt: new Date().toISOString().split('T')[0]
-            };
-            setSpecialties(prev => [...prev, newSpecialty]);
-            showToast.success('Especialidad creada exitosamente');
+            console.log("formData", formData);
+            try {
+                const result = await createSpecialty(formData);
+                loadSpecialties();
+                showToast.success(result.message);
+
+            } catch (error) {
+                showToast.error(error.message);
+            }
         }
 
         setIsModalOpen(false);
@@ -150,14 +156,23 @@ const SpecialtiesPage = () => {
                 onSubmit={handleSubmit}
                 submitText={editingSpecialty ? 'Actualizar' : 'Crear'}
             >
-                <TextField
-                    fullWidth
-                    label="Nombre de la Especialidad"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ name: e.target.value })}
-                    placeholder="Ej: Cardiología"
+                <Box >
+                    <TextField
+                        fullWidth
+                        label="Nombre de la Especialidad"
+                        value={formData.name}
+                        onChange={(e) => setFormData({ name: e.target.value, })}
+                        placeholder="Ej: Cardiología"
+                        required
+                        autoFocus
+                    />
+                </Box>
+
+                <ColorPicker
+                    label="Color de la Especialidad"
+                    value={formData.color}
+                    onChange={(newColor) => setFormData(prev => ({ ...prev, color: newColor }))}
                     required
-                    autoFocus
                 />
             </AdminFormModal>
         </Container>

@@ -8,12 +8,12 @@ export const userProfileApi = {
     },
     // Obtener perfil del usuario
     getIdProfile: async (profileData) => {
-        const { data } = await api.get('api/users/profile', profileData);
+        const { data } = await api.get('/users/profile', profileData);
         return { data };
     },
     // Actualizar perfil
     updateProfile: async (profileData) => {
-        const { data } = await api.patch('api/users/profile', profileData);
+        const { data } = await api.patch('/users/profile', profileData);
         return { data };
     },
 

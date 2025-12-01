@@ -75,9 +75,9 @@ export const AuthProvider = ({ children }) => {
                 isLoading,
                 login,
                 logout,
-                refreshAuth,  // ✨ Exponer función para refrescar
-                isAdmin,      // ✨ Exponer helper de admin
-                isSuperAdmin  // ✨ Exponer helper de super admin
+                refreshAuth,  //Exponer función para refrescar
+                isAdmin,      // Exponer helper de admin
+                isSuperAdmin  // Exponer helper de super admin
             }}
         >
             {children}

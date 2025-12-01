@@ -41,7 +41,6 @@ const UserHomePage = () => {
 
             const filteredAppointments = result.appointments.filter(appointment => dayjs(appointment.startTime).toDate() >= new Date());
             setProxAppointments(filteredAppointments.length);
-            console.log(filteredAppointments.length);
             setFilteredAppointments(filteredAppointments);
 
         } catch (err) {
