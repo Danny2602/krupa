@@ -67,7 +67,13 @@ export default function AuthForm() {
 				return;
 			}
 
-			navigate('/user/home');
+			// Redirigir según el rol del usuario
+			const userRole = respuesta.user?.role;
+			if (userRole === 'ADMIN' || userRole === 'SUPER_ADMIN') {
+				navigate('/admin/dashboard');
+			} else {
+				navigate('/user/home');
+			}
 		} catch (error) {
 			console.error(error);
 			const message = error.response?.data?.message || "Error al conectar con el servidor";
@@ -75,7 +81,7 @@ export default function AuthForm() {
 		}
 	}
 
-	// ✅ FUNCIÓN CORREGIDA - Usa variable de entorno
+	// FUNCIÓN CORREGIDA - Usa variable de entorno
 	const handleGoogleLogin = () => {
 		const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 		// Redirige al endpoint que INICIA el flujo OAuth

@@ -57,6 +57,16 @@ export const AuthProvider = ({ children }) => {
         await checkAuth();
     };
 
+    // ✨ Helper para verificar si el usuario es admin o super admin
+    const isAdmin = () => {
+        return user?.role === 'ADMIN' || user?.role === 'SUPER_ADMIN';
+    };
+
+    // ✨ Helper para verificar si el usuario es super admin
+    const isSuperAdmin = () => {
+        return user?.role === 'SUPER_ADMIN';
+    };
+
     return (
         <AuthContext.Provider
             value={{
@@ -65,7 +75,9 @@ export const AuthProvider = ({ children }) => {
                 isLoading,
                 login,
                 logout,
-                refreshAuth  // ✨ Exponer función para refrescar
+                refreshAuth,  // ✨ Exponer función para refrescar
+                isAdmin,      // ✨ Exponer helper de admin
+                isSuperAdmin  // ✨ Exponer helper de super admin
             }}
         >
             {children}
