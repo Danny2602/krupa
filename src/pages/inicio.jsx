@@ -9,6 +9,15 @@ import ContactMailIcon from '@mui/icons-material/ContactMail';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { Card as HeroCard } from '@/components/cards/card.jsx';
+import {
+    colors,
+    gradients,
+    buttonVariants,
+    cardStyles,
+    iconStyles,
+    typographyStyles,
+    sectionStyles
+} from '@/assets/styles/colors.jsx';
 
 function Inicio() {
     const navigate = useNavigate();
@@ -50,12 +59,12 @@ function Inicio() {
     return (
         <Box sx={{ overflowX: 'hidden', width: '100%' }}>
             {/* Hero Section */}
-            <Box className='w-full h-[100vh] lg:min-h-screen xl:min-h-screen md:min-h-screen'>
+            <Box className='w-full h-screen lg:min-h-screen xl:min-h-screen md:min-h-screen'>
                 <HeroCard />
             </Box>
 
             {/* About Section */}
-            <Box sx={{ py: 8, backgroundColor: '#f5f5f5' }}>
+            <Box sx={{ py: 8, ...sectionStyles.lightBackground }}>
                 <Container maxWidth="xl">
                     <Grid container spacing={4} alignItems="center">
                         <Grid item size={{ xs: 12, md: 7 }}>
@@ -65,10 +74,10 @@ function Inicio() {
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.6 }}
                             >
-                                <Typography variant="h3" sx={{ fontWeight: 'bold', color: '#012558', mb: 2, fontSize: { xs: '2rem', md: '2.5rem' } }}>
+                                <Typography variant="h3" sx={{ ...typographyStyles.heading, mb: 2, fontSize: { xs: '2rem', md: '2.5rem' } }}>
                                     Investigación e Innovación
                                 </Typography>
-                                <Typography variant="h6" sx={{ color: '#f57922', mb: 3, fontSize: { xs: '1.2rem', md: '1.5rem' } }}>
+                                <Typography variant="h6" sx={{ ...typographyStyles.subheading, mb: 3, fontSize: { xs: '1.2rem', md: '1.5rem' } }}>
                                     al servicio de la salud
                                 </Typography>
                                 <Typography variant="body1" sx={{ textAlign: 'justify', fontSize: '1rem', lineHeight: 1.7, mb: 2 }}>
@@ -86,8 +95,8 @@ function Inicio() {
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.6 }}
                             >
-                                <Box sx={{ p: 3, borderRadius: 3, backgroundColor: 'white', boxShadow: 2 }}>
-                                    <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#012558', mb: 2 }}>
+                                <Box sx={{ p: 3, borderRadius: 3, backgroundColor: colors.backgroundWhite, boxShadow: 2 }}>
+                                    <Typography variant="h6" sx={{ ...typographyStyles.heading, mb: 2 }}>
                                         ¿Por qué elegirnos?
                                     </Typography>
                                     {beneficios.map((beneficio, index) => (
@@ -99,7 +108,7 @@ function Inicio() {
                                             transition={{ delay: index * 0.1 }}
                                         >
                                             <Box className="flex items-center gap-2 mb-2">
-                                                <CheckCircleIcon sx={{ color: '#f57922', fontSize: 24 }} />
+                                                <CheckCircleIcon sx={{ ...iconStyles.primary, fontSize: 24 }} />
                                                 <Typography variant="body2" sx={{ fontSize: '0.95rem' }}>
                                                     {beneficio}
                                                 </Typography>
@@ -114,7 +123,7 @@ function Inicio() {
             </Box>
 
             {/* Services Section */}
-            <Box sx={{ py: 10, backgroundColor: 'white' }}>
+            <Box sx={{ py: 10, ...sectionStyles.whiteBackground }}>
                 <Container maxWidth="xl">
                     <motion.div
                         initial={{ opacity: 0, y: -30 }}
@@ -122,13 +131,13 @@ function Inicio() {
                         viewport={{ once: true }}
                         className="text-center mb-8"
                     >
-                        <Typography variant="h3" sx={{ fontWeight: 'bold', color: '#012558', mb: 2, fontSize: { xs: '2rem', md: '2.5rem' } }}>
+                        <Typography variant="h3" sx={{ ...typographyStyles.heading, mb: 2, fontSize: { xs: '2rem', md: '2.5rem' } }}>
                             Nuestros Servicios
                         </Typography>
-                        <Typography variant="h6" sx={{ color: '#666', mb: 3 }}>
+                        <Typography variant="h6" sx={{ ...typographyStyles.body, mb: 3 }}>
                             Soluciones médicas especializadas en prótesis y órtesis
                         </Typography>
-                        <Box className="w-24 h-1 mx-auto rounded-full" sx={{ backgroundColor: '#f57922' }} />
+                        <Box className="w-24 h-1 mx-auto rounded-full" sx={{ backgroundColor: colors.primary }} />
                     </motion.div>
 
                     <Grid container spacing={3}>
@@ -143,12 +152,7 @@ function Inicio() {
                                     <Card
                                         className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer"
                                         sx={{
-                                            borderRadius: 3,
-                                            border: '2px solid transparent',
-                                            '&:hover': {
-                                                borderColor: '#f57922',
-                                                transform: 'translateY(-8px)'
-                                            }
+                                            ...cardStyles.default
                                         }}
                                         onClick={() => navigate(servicio.path)}
                                     >
@@ -160,10 +164,10 @@ function Inicio() {
                                             sx={{ height: 180 }}
                                         />
                                         <CardContent sx={{ p: 2.5 }}>
-                                            <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#012558', mb: 1.5, fontSize: '1.1rem' }}>
+                                            <Typography variant="h6" sx={{ ...typographyStyles.heading, mb: 1.5, fontSize: '1.1rem' }}>
                                                 {servicio.title}
                                             </Typography>
-                                            <Typography variant="body2" sx={{ color: '#666', fontSize: '0.9rem' }}>
+                                            <Typography variant="body2" sx={{ ...typographyStyles.body, fontSize: '0.9rem' }}>
                                                 {servicio.description}
                                             </Typography>
                                         </CardContent>
@@ -184,12 +188,11 @@ function Inicio() {
                                 endIcon={<MedicalServicesIcon />}
                                 onClick={() => navigate('/servicios/columna')}
                                 sx={{
-                                    backgroundColor: '#f57922',
+                                    ...buttonVariants.contained('primary'),
                                     fontWeight: 'bold',
                                     px: 4,
                                     py: 1.5,
                                     fontSize: '1rem',
-                                    '&:hover': { backgroundColor: '#d66a1d' }
                                 }}
                             >
                                 Ver Todos los Servicios
@@ -200,7 +203,7 @@ function Inicio() {
             </Box>
 
             {/* Locations Section */}
-            <Box sx={{ py: 10, background: 'linear-gradient(135deg, #012558 0%, #024080 100%)', color: 'white' }}>
+            <Box sx={{ py: 10, ...sectionStyles.secondaryGradient, color: colors.textPrimary }}>
                 <Container maxWidth="xl">
                     <Grid container spacing={4} alignItems="center">
                         <Grid item size={{ xs: 12, md: 6 }}>
@@ -210,7 +213,7 @@ function Inicio() {
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.6 }}
                             >
-                                <LocationOnIcon sx={{ fontSize: 50, color: '#f57922', mb: 2 }} />
+                                <LocationOnIcon sx={{ ...iconStyles.large, mb: 2 }} />
                                 <Typography variant="h3" sx={{ fontWeight: 'bold', mb: 2, fontSize: { xs: '2rem', md: '2.5rem' } }}>
                                     Nuestras Ubicaciones
                                 </Typography>
@@ -230,12 +233,11 @@ function Inicio() {
                                         endIcon={<ArrowForwardIcon />}
                                         onClick={() => navigate('/ubicaciones')}
                                         sx={{
-                                            backgroundColor: '#f57922',
+                                            ...buttonVariants.contained('primary'),
                                             fontWeight: 'bold',
                                             px: 3,
                                             py: 1.2,
                                             fontSize: '1rem',
-                                            '&:hover': { backgroundColor: '#d66a1d' }
                                         }}
                                     >
                                         Ver Ubicaciones
@@ -255,7 +257,7 @@ function Inicio() {
                                         borderRadius: 3,
                                         overflow: 'hidden',
                                         height: '350px',
-                                        border: '3px solid #f57922'
+                                        border: `3px solid ${colors.primary}`
                                     }}
                                 >
                                     <iframe
@@ -275,7 +277,7 @@ function Inicio() {
             </Box>
 
             {/* News Section */}
-            <Box sx={{ py: 8, backgroundColor: '#f5f5f5' }}>
+            <Box sx={{ py: 8, ...sectionStyles.lightBackground }}>
                 <Container maxWidth="xl">
                     <Grid container spacing={4} alignItems="center">
                         <Grid item size={{ xs: 12, md: 4 }}>
@@ -284,11 +286,11 @@ function Inicio() {
                                 whileInView={{ opacity: 1, x: 0 }}
                                 viewport={{ once: true }}
                             >
-                                <NewspaperIcon sx={{ fontSize: 50, color: '#f57922', mb: 2 }} />
-                                <Typography variant="h3" sx={{ fontWeight: 'bold', color: '#012558', mb: 2, fontSize: { xs: '2rem', md: '2.5rem' } }}>
+                                <NewspaperIcon sx={{ ...iconStyles.large, mb: 2 }} />
+                                <Typography variant="h3" sx={{ ...typographyStyles.heading, mb: 2, fontSize: { xs: '2rem', md: '2.5rem' } }}>
                                     Últimas Noticias
                                 </Typography>
-                                <Typography variant="body1" sx={{ color: '#666', mb: 3, fontSize: '1rem' }}>
+                                <Typography variant="body1" sx={{ ...typographyStyles.body, mb: 3, fontSize: '1rem' }}>
                                     Mantente informado sobre las últimas innovaciones y eventos en el mundo de la medicina ortopédica
                                 </Typography>
                                 <motion.div
@@ -301,12 +303,11 @@ function Inicio() {
                                         endIcon={<ArrowForwardIcon />}
                                         onClick={() => navigate('/noticias')}
                                         sx={{
-                                            backgroundColor: '#012558',
+                                            ...buttonVariants.contained('secondary'),
                                             fontWeight: 'bold',
                                             px: 3,
                                             py: 1.2,
                                             fontSize: '0.95rem',
-                                            '&:hover': { backgroundColor: '#024080' }
                                         }}
                                     >
                                         Ver Todas las Noticias
@@ -330,7 +331,10 @@ function Inicio() {
                                                 sx={{
                                                     borderRadius: 3,
                                                     border: '2px solid transparent',
-                                                    '&:hover': { borderColor: '#f57922', transform: 'translateY(-5px)' }
+                                                    '&:hover': {
+                                                        borderColor: colors.borderHover,
+                                                        transform: 'translateY(-5px)'
+                                                    }
                                                 }}
                                                 onClick={() => navigate('/noticias')}
                                             >
@@ -342,10 +346,10 @@ function Inicio() {
                                                     sx={{ height: 150 }}
                                                 />
                                                 <CardContent sx={{ p: 2 }}>
-                                                    <Typography variant="subtitle1" sx={{ fontWeight: 'bold', color: '#012558', mb: 1, fontSize: '1rem' }}>
+                                                    <Typography variant="subtitle1" sx={{ ...typographyStyles.heading, mb: 1, fontSize: '1rem' }}>
                                                         Innovación en Prótesis {item}
                                                     </Typography>
-                                                    <Typography variant="body2" sx={{ color: '#666', fontSize: '0.85rem', lineHeight: 1.4 }}>
+                                                    <Typography variant="body2" sx={{ ...typographyStyles.body, fontSize: '0.85rem', lineHeight: 1.4 }}>
                                                         Descubre las últimas novedades en tecnología médica...
                                                     </Typography>
                                                 </CardContent>
@@ -360,7 +364,7 @@ function Inicio() {
             </Box>
 
             {/* CTA Contact Section */}
-            <Box sx={{ py: 10, background: 'linear-gradient(135deg, #f57922 0%, #d66a1d 100%)', color: 'white' }}>
+            <Box sx={{ py: 10, ...sectionStyles.primaryGradient, color: colors.textPrimary }}>
                 <Container maxWidth="md">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
@@ -385,12 +389,11 @@ function Inicio() {
                                 endIcon={<ArrowForwardIcon />}
                                 onClick={() => navigate('/contacto')}
                                 sx={{
-                                    backgroundColor: '#012558',
+                                    ...buttonVariants.contained('secondary'),
                                     fontWeight: 'bold',
                                     px: 5,
                                     py: 1.8,
                                     fontSize: '1.1rem',
-                                    '&:hover': { backgroundColor: '#024080' }
                                 }}
                             >
                                 Contáctanos

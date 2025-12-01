@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+COLORES_SISTEMA.md
+DEMO_COLORES.html

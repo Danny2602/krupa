@@ -100,7 +100,7 @@ function Contacto() {
                                             sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }}
                                         />
                                     </Grid>
-                                    <Grid item xs={12} sm={6}>
+                                    <Grid item size={{ xs: 12, sm: 6 }}>
                                         <TextField
                                             fullWidth
                                             label="Correo Electrónico"

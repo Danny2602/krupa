@@ -3,7 +3,7 @@ import { Box, Container, Typography, Grid, Card, CardContent, CardMedia, Chip, B
 import { motion } from 'motion/react';
 import InfoIcon from '@mui/icons-material/Info';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-
+import { colors } from '@/assets/styles/colors';
 const prosthesisData = [
     {
         id: 1,
@@ -77,7 +77,7 @@ function MiembrosSuperiores() {
                     <Typography
                         variant="h2"
                         className="font-bold mb-4"
-                        sx={{ color: '#012558', fontSize: { xs: '2rem', md: '3rem' } }}
+                        sx={{ color: colors.secondary, fontSize: { xs: '2rem', md: '3rem' } }}
                     >
                         Prótesis de Miembros Superiores
                     </Typography>
@@ -103,10 +103,10 @@ function MiembrosSuperiores() {
                                 onClick={() => setSelectedCategory(category)}
                                 sx={{
                                     px: 2, py: 3, fontSize: '1rem', fontWeight: 'bold', cursor: 'pointer',
-                                    backgroundColor: selectedCategory === category ? '#012558' : 'white',
-                                    color: selectedCategory === category ? 'white' : '#012558',
+                                    backgroundColor: selectedCategory === category ? colors.secondary : 'white',
+                                    color: selectedCategory === category ? 'white' : colors.secondary,
                                     border: '2px solid',
-                                    borderColor: selectedCategory === category ? '#012558' : '#e0e0e0',
+                                    borderColor: selectedCategory === category ? colors.secondary : '#e0e0e0',
                                     '&:hover': {
                                         backgroundColor: selectedCategory === category ? '#024080' : '#f5f5f5',
                                         borderColor: '#012558'
@@ -130,7 +130,7 @@ function MiembrosSuperiores() {
                                     className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer"
                                     sx={{
                                         borderRadius: 4, overflow: 'hidden', border: '2px solid transparent',
-                                        '&:hover': { borderColor: '#f57922', transform: 'translateY(-8px)' }
+                                        '&:hover': { borderColor: colors.secondary, transform: 'translateY(-8px)' }
                                     }}
                                     onClick={() => setSelectedProsthesis(prosthesis)}
                                 >
@@ -158,8 +158,8 @@ function MiembrosSuperiores() {
                                             fullWidth
                                             startIcon={<InfoIcon />}
                                             sx={{
-                                                borderColor: '#012558', color: '#012558', fontWeight: 'bold',
-                                                '&:hover': { borderColor: '#f57922', backgroundColor: '#f57922', color: 'white' }
+                                                borderColor: colors.secondary, color: colors.secondary, fontWeight: 'bold',
+                                                '&:hover': { borderColor: colors.primary, backgroundColor: colors.primary, color: 'white' }
                                             }}
                                         >
                                             Ver Detalles
