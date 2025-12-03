@@ -11,7 +11,15 @@ export const adminApi = {
         const result = await api.post('/specialty', specialtyData);
         return result;
     },
-
+    updateSpecialty: async (specialtyData) => {
+        console.log("specialtyData", specialtyData);
+        const result = await api.patch(`/specialty/${specialtyData.id}`, specialtyData);
+        return result;
+    },
+    // deleteSpecialty: async (specialtyId) => {
+    //     const result = await api.delete(`/specialty/${specialtyId}`);
+    //     return result;
+    // },
     // // Doctores
     // getDoctors: async () => {
     //     // TODO: Implementar llamada real

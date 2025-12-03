@@ -7,43 +7,7 @@ import image1 from "@/assets/images/image1.jpg";
 
 import { useDoctorApi } from '../../hooks/useDoctorApi';
 
-// Mock data - In real app, fetch based on selectedService
-const doctorsData = {
-    general: [
-        { id: 1, nombre: "Dr. Juan Pérez", especialidad: "Medicina General", imagen: image1, rating: 4.8, experiencia: 15 },
-        { id: 2, nombre: "Dra. Ana Martínez", especialidad: "Medicina General", imagen: image1, rating: 4.9, experiencia: 12 },
-        { id: 3, nombre: "Dr. Carlos López", especialidad: "Medicina General", imagen: image1, rating: 4.7, experiencia: 10 },
-    ],
-    cardiologia: [
-        { id: 4, nombre: "Dr. Roberto Sánchez", especialidad: "Cardiología", imagen: image1, rating: 5.0, experiencia: 20 },
-        { id: 5, nombre: "Dra. Patricia Torres", especialidad: "Cardiología", imagen: image1, rating: 4.9, experiencia: 18 },
-    ],
-    pediatria: [
-        { id: 6, nombre: "Dr. Carlos Rodríguez", especialidad: "Pediatría", imagen: image1, rating: 4.8, experiencia: 14 },
-        { id: 7, nombre: "Dra. Sofía Ramírez", especialidad: "Pediatría", imagen: image1, rating: 4.9, experiencia: 11 },
-        { id: 8, nombre: "Dr. Miguel Fernández", especialidad: "Pediatría", imagen: image1, rating: 4.7, experiencia: 9 },
-    ],
-    dermatologia: [
-        { id: 9, nombre: "Dra. Laura Rodríguez", especialidad: "Dermatología", imagen: image1, rating: 4.9, experiencia: 13 },
-        { id: 10, nombre: "Dr. Andrés Gómez", especialidad: "Dermatología", imagen: image1, rating: 4.8, experiencia: 16 },
-    ],
-    odontologia: [
-        { id: 11, nombre: "Dra. María González", especialidad: "Odontología", imagen: image1, rating: 5.0, experiencia: 17 },
-        { id: 12, nombre: "Dr. Pedro Herrera", especialidad: "Odontología", imagen: image1, rating: 4.8, experiencia: 12 },
-    ],
-    neurologia: [
-        { id: 13, nombre: "Dra. María Gómez", especialidad: "Neurología", imagen: image1, rating: 5.0, experiencia: 22 },
-        { id: 14, nombre: "Dr. Luis Castro", especialidad: "Neurología", imagen: image1, rating: 4.9, experiencia: 19 },
-    ],
-    nutricion: [
-        { id: 15, nombre: "Lic. Ana Martínez", especialidad: "Nutrición", imagen: image1, rating: 4.8, experiencia: 8 },
-        { id: 16, nombre: "Lic. Carmen Silva", especialidad: "Nutrición", imagen: image1, rating: 4.9, experiencia: 10 },
-    ],
-    oftalmologia: [
-        { id: 17, nombre: "Dr. Jorge Vega", especialidad: "Oftalmología", imagen: image1, rating: 4.9, experiencia: 15 },
-        { id: 18, nombre: "Dra. Isabel Morales", especialidad: "Oftalmología", imagen: image1, rating: 4.8, experiencia: 14 },
-    ],
-};
+
 
 const DoctorSelection = ({ selectedService, selectedDoctor, onSelect }) => {
     const [loading, setLoading] = React.useState(true);

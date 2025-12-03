@@ -4,17 +4,6 @@ import { motion } from 'motion/react';
 import { KSkeleton } from '@/components/ui/KSkeleton';
 import { useSpecialtyApi } from '@/features/appointments/hooks/useSpecialtyApi';
 
-// const services = [
-//     { id: 'general', label: 'Medicina General', icon: '🩺', color: '#667eea' },
-//     { id: 'pediatria', label: 'Pediatría', icon: '👶', color: '#f093fb' },
-//     { id: 'dermatologia', label: 'Dermatología', icon: '🧴', color: '#4caf50' },
-//     { id: 'cardiologia', label: 'Cardiología', icon: '❤️', color: '#ff6b6b' },
-//     { id: 'odontologia', label: 'Odontología', icon: '🦷', color: '#4ecdc4' },
-//     { id: 'neurologia', label: 'Neurología', icon: '🧠', color: '#a29bfe' },
-//     { id: 'nutricion', label: 'Nutrición', icon: '🥗', color: '#ffa726' },
-//     { id: 'oftalmologia', label: 'Oftalmología', icon: '👁️', color: '#764ba2' },
-// ];
-
 const ServiceSelection = ({ selectedService, onSelect }) => {
     const { loading, data, fetchSpecialty } = useSpecialtyApi();
     const [services, setServices] = useState([]);
@@ -22,24 +11,14 @@ const ServiceSelection = ({ selectedService, onSelect }) => {
     useEffect(() => {
         loadSpecialty();
     }, []);
-    const iconMap = {
-        'Medicina General': { icon: '🩺', color: '#667eea' },
-        'Pediatría': { icon: '👶', color: '#f093fb' },
-        'Dermatología': { icon: '🧴', color: '#4caf50' },
-        'Cardiología': { icon: '❤️', color: '#ff6b6b' },
-        'Odontología': { icon: '🦷', color: '#4ecdc4' },
-        'Neurología': { icon: '🧠', color: '#a29bfe' },
-        'Nutrición': { icon: '🥗', color: '#ffa726' },
-        'Oftalmología': { icon: '👁️', color: '#764ba2' },
-    };
 
     const loadSpecialty = async () => {
         const campos = await fetchSpecialty();
         const mappedServices = campos.map(specialty => ({
             id: specialty.id,
             label: specialty.name,
-            icon: iconMap[specialty.name]?.icon || '🏥',
-            color: iconMap[specialty.name]?.color || '#667eea' //recordar añadir campo color a entidad Specialty
+            icon: specialty.icon || '🏥',
+            color: specialty.color || '#667eea'
         }));
         setServices(mappedServices);
     }

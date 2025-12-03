@@ -225,51 +225,59 @@ const DoctorsPage = () => {
                         required
                     />
                 </div>
-                <TextField
-                    fullWidth
-                    label="Email"
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    required
-                />
-                <TextField
-                    fullWidth
-                    label="Teléfono"
-                    value={formData.tlf}
-                    onChange={(e) => setFormData({ ...formData, tlf: e.target.value })}
-                />
-                <TextField
-                    fullWidth
-                    select
-                    label="Especialidades"
-                    value={formData.specialties}
-                    onChange={(e) => setFormData({ ...formData, specialties: e.target.value })}
-                    SelectProps={{
-                        multiple: true,
-                        renderValue: (selected) => (
-                            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                                {selected.map((value) => (
-                                    <Chip key={value} label={value} size="small" />
-                                ))}
-                            </Box>
-                        )
-                    }}
-                >
-                    {availableSpecialties.map((specialty) => (
-                        <MenuItem key={specialty} value={specialty}>
-                            {specialty}
-                        </MenuItem>
-                    ))}
-                </TextField>
-                <TextField
-                    fullWidth
-                    label="Biografía"
-                    multiline
-                    rows={3}
-                    value={formData.biography}
-                    onChange={(e) => setFormData({ ...formData, biography: e.target.value })}
-                />
+                <Box>
+                    <TextField
+                        fullWidth
+                        label="Email"
+                        type="email"
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        required
+                    />
+                </Box>
+                <Box>
+                    <TextField
+                        fullWidth
+                        label="Teléfono"
+                        value={formData.tlf}
+                        onChange={(e) => setFormData({ ...formData, tlf: e.target.value })}
+                    />
+                </Box>
+                <Box>
+                    <TextField
+                        fullWidth
+                        select
+                        label="Especialidades"
+                        value={formData.specialties}
+                        onChange={(e) => setFormData({ ...formData, specialties: e.target.value })}
+                        SelectProps={{
+                            multiple: true,
+                            renderValue: (selected) => (
+                                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                                    {selected.map((value) => (
+                                        <Chip key={value} label={value} size="small" />
+                                    ))}
+                                </Box>
+                            )
+                        }}
+                    >
+                        {availableSpecialties.map((specialty) => (
+                            <MenuItem key={specialty} value={specialty}>
+                                {specialty}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+                </Box>
+                <Box>
+                    <TextField
+                        fullWidth
+                        label="Biografía"
+                        multiline
+                        rows={3}
+                        value={formData.biography}
+                        onChange={(e) => setFormData({ ...formData, biography: e.target.value })}
+                    />
+                </Box>
             </AdminFormModal>
         </Container>
     );

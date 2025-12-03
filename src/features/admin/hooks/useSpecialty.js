@@ -40,11 +40,29 @@ export const useSpecialtyApi = () => {
             setLoading(false);
         }
     }, []);
+
+    const updateSpecialty = useCallback(async (data) => {
+        setLoading(true);
+        setError(null);
+        try {
+            const result = await adminApi.updateSpecialty(data);
+            setData(result.data);
+            return result.data;
+        } catch (err) {
+            const errorMessage = err.response?.data?.message || 'Error al actualizar la  especialidad';
+            setError(errorMessage);
+            showToast.error(errorMessage);
+            return null;
+        } finally {
+            setLoading(false);
+        }
+    }, []);
     return {
         loading,
         error,
         data,
         createSpecialty,
+        updateSpecialty,
         fetchSpecialties
     };
 }

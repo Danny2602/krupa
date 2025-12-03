@@ -8,14 +8,15 @@ import { AdminFormModal } from '@/features/admin/components/AdminFormModal';
 import { showToast } from '@/lib/toast';
 import { useSpecialtyApi } from '@/features/admin/hooks/useSpecialty';
 import { ColorPicker } from '@/features/admin/components/ColorPicker';
+import { EmojiPickerComponent } from '@/features/admin/components/EmojiPickerComponent';
 
 const SpecialtiesPage = () => {
     // Datos de ejemplo
     const [specialties, setSpecialties] = useState([]);
-    const { data, loading, error, fetchSpecialties, createSpecialty } = useSpecialtyApi();
+    const { data, loading, error, fetchSpecialties, createSpecialty, updateSpecialty } = useSpecialtyApi();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingSpecialty, setEditingSpecialty] = useState(null);
-    const [formData, setFormData] = useState({ name: '', color: '' });
+    const [formData, setFormData] = useState({ name: '', color: '', icon: '' });
 
     const loadSpecialties = async () => {
         const result = await fetchSpecialties();
@@ -42,16 +43,33 @@ const SpecialtiesPage = () => {
                 />
             )
         },
+        {
+            field: 'icon', label: 'Icono',
+            render: (row) => (
+                <Box
+                    sx={{
+                        fontSize: '32px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        minWidth: 40,
+                        minHeight: 40
+                    }}
+                >
+                    {row.icon || '😀'}
+                </Box>
+            )
+        }
     ];
 
     const handleOpenModal = (specialty = null) => {
 
         if (specialty) {
             setEditingSpecialty(specialty);
-            setFormData({ name: specialty.name, color: specialty.color });
+            setFormData({ name: specialty.name, color: specialty.color, icon: specialty.icon });
         } else {
             setEditingSpecialty(null);
-            setFormData({ name: '', color: '' });
+            setFormData({ name: '', color: '', icon: '' });
         }
         setIsModalOpen(true);
     };
@@ -66,16 +84,20 @@ const SpecialtiesPage = () => {
             return;
         }
         if (editingSpecialty) {
-            // Editar
-            setSpecialties(prev =>
-                prev.map(s => s.id === editingSpecialty.id
-                    ? { ...s, name: formData.name, color: formData.color }
-                    : s
-                )
-            );
+            try {
+                const result = await updateSpecialty({ ...editingSpecialty, color: formData.color, icon: formData.icon });
+                setSpecialties(prev =>
+                    prev.map(s => s.id === editingSpecialty.id
+                        ? { ...s, id: editingSpecialty.id, name: formData.name, color: formData.color, icon: formData.icon }
+                        : s
+                    )
+                );
+            } catch (error) {
+                showToast.error(error.message);
+            }
+
             showToast.success('Especialidad actualizada exitosamente');
         } else {
-            console.log("formData", formData);
             try {
                 const result = await createSpecialty(formData);
                 loadSpecialties();
@@ -161,7 +183,7 @@ const SpecialtiesPage = () => {
                         fullWidth
                         label="Nombre de la Especialidad"
                         value={formData.name}
-                        onChange={(e) => setFormData({ name: e.target.value, })}
+                        onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
                         placeholder="Ej: Cardiología"
                         required
                         autoFocus
@@ -172,6 +194,12 @@ const SpecialtiesPage = () => {
                     label="Color de la Especialidad"
                     value={formData.color}
                     onChange={(newColor) => setFormData(prev => ({ ...prev, color: newColor }))}
+                    required
+                />
+                <EmojiPickerComponent
+                    label="Icono de la Especialidad"
+                    value={formData.icon}
+                    onChange={(emoji) => setFormData(prev => ({ ...prev, icon: emoji }))}
                     required
                 />
             </AdminFormModal>
