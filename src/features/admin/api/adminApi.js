@@ -21,10 +21,10 @@ export const adminApi = {
     //     return result;
     // },
     // // Doctores
-    // getDoctors: async () => {
-    //     // TODO: Implementar llamada real
-    //     return { data: [] };
-    // },
+    getDoctors: async () => {
+        const result = await api.get('/doctor');
+        return result;
+    },
     // createDoctor: async (doctorData) => {
     //     // TODO: Implementar llamada real
     //     return { data: {} };

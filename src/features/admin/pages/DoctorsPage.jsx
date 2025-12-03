@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Typography, Box, Button, Avatar, Chip, TextField, MenuItem } from '@mui/material';
 import { Add, LocalHospital } from '@mui/icons-material';
 import { motion } from 'motion/react';
@@ -6,42 +6,12 @@ import { AdminTable } from '@/features/admin/components/AdminTable';
 import { EmptyState } from '@/features/admin/components/EmptyState';
 import { AdminFormModal } from '@/features/admin/components/AdminFormModal';
 import { showToast } from '@/lib/toast';
-
+import { useDoctorApi } from '@/features/admin/hooks/useDoctor';
+import { useSpecialtyApi } from '@/features/admin/hooks/useSpecialty';
+import { MultiSelectChip } from '@/features/admin/components/MultiSelectChip';
 const DoctorsPage = () => {
-    // Datos de ejemplo
-    const [doctors, setDoctors] = useState([
-        {
-            id: 1,
-            name: 'Juan',
-            lastName: 'Pérez García',
-            email: 'juan.perez@hospital.com',
-            tlf: '555-0101',
-            photo: '',
-            specialties: ['Cardiología'],
-            biography: 'Especialista en cardiología con 15 años de experiencia'
-        },
-        {
-            id: 2,
-            name: 'María',
-            lastName: 'González López',
-            email: 'maria.gonzalez@hospital.com',
-            tlf: '555-0102',
-            photo: '',
-            specialties: ['Pediatría', 'Dermatología'],
-            biography: 'Pediatra certificada'
-        },
-        {
-            id: 3,
-            name: 'Carlos',
-            lastName: 'Rodríguez Martín',
-            email: 'carlos.rodriguez@hospital.com',
-            tlf: '555-0103',
-            photo: '',
-            specialties: ['Neurología'],
-            biography: 'Neurólogo especializado en tratamientos innovadores'
-        },
-    ]);
-
+    const [doctors, setDoctors] = useState([]);
+    const [specialties, setSpecialties] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingDoctor, setEditingDoctor] = useState(null);
     const [formData, setFormData] = useState({
@@ -52,7 +22,18 @@ const DoctorsPage = () => {
         biography: '',
         specialties: []
     });
+    const { data, loading, error, fetchDoctors } = useDoctorApi();
+    const { data: specialtiesData, loading: specialtiesLoading, error: specialtiesError, fetchSpecialties } = useSpecialtyApi();
+    useEffect(() => {
+        loadDoctors();
+    }, []);
 
+    const loadDoctors = async () => {
+        const result = await fetchDoctors();
+        const specialtiesResult = await fetchSpecialties();
+        setDoctors(result);
+        setSpecialties(specialtiesResult);
+    };
     const availableSpecialties = ['Cardiología', 'Pediatría', 'Dermatología', 'Neurología', 'Oftalmología'];
 
     const columns = [
@@ -69,16 +50,16 @@ const DoctorsPage = () => {
         { field: 'lastName', label: 'Apellido' },
         { field: 'email', label: 'Email' },
         {
-            field: 'specialties',
+            field: 'doctorSpecialty',
             label: 'Especialidades',
             render: (row) => (
                 <Box className="flex gap-1 flex-wrap">
-                    {row.specialties?.map((specialty, idx) => (
+                    {row.doctorSpecialty?.map((specialty, idx) => (
                         <Chip
                             key={idx}
-                            label={specialty}
+                            label={specialty.specialty.name}
                             size="small"
-                            color="primary"
+                            style={{ backgroundColor: specialty.specialty.color, color: 'white' }}
                             variant="outlined"
                         />
                     )) || <span className="text-gray-400">Sin especialidades</span>}
@@ -97,7 +78,7 @@ const DoctorsPage = () => {
                 email: doctor.email,
                 tlf: doctor.tlf,
                 biography: doctor.biography || '',
-                specialties: doctor.specialties || []
+                specialties: doctor.doctorSpecialty.map((specialty) => (specialty.specialty)) || []
             });
         } else {
             setEditingDoctor(null);
@@ -135,6 +116,7 @@ const DoctorsPage = () => {
                 ...formData,
                 photo: ''
             };
+            console.log(newDoctor);
             setDoctors(prev => [...prev, newDoctor]);
             showToast.success('Doctor creado exitosamente');
         }
@@ -244,29 +226,15 @@ const DoctorsPage = () => {
                     />
                 </Box>
                 <Box>
-                    <TextField
-                        fullWidth
-                        select
+                    <MultiSelectChip
                         label="Especialidades"
                         value={formData.specialties}
-                        onChange={(e) => setFormData({ ...formData, specialties: e.target.value })}
-                        SelectProps={{
-                            multiple: true,
-                            renderValue: (selected) => (
-                                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                                    {selected.map((value) => (
-                                        <Chip key={value} label={value} size="small" />
-                                    ))}
-                                </Box>
-                            )
-                        }}
-                    >
-                        {availableSpecialties.map((specialty) => (
-                            <MenuItem key={specialty} value={specialty}>
-                                {specialty}
-                            </MenuItem>
-                        ))}
-                    </TextField>
+                        onChange={(newSpecialties) => setFormData({ ...formData, specialties: newSpecialties })}
+                        options={specialties}
+                        getOptionLabel={(specialty) => specialty.name}
+                        getOptionValue={(specialty) => ({ name: specialty.name, color: specialty.color })}
+                        getOptionColor={(specialty) => specialty.color}
+                    />
                 </Box>
                 <Box>
                     <TextField
