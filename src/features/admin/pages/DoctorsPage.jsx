@@ -22,7 +22,7 @@ const DoctorsPage = () => {
         biography: '',
         specialties: []
     });
-    const { data, loading, error, fetchDoctors } = useDoctorApi();
+    const { data, loading, error, fetchDoctors, createDoctor, updateDoctor, deleteDoctor } = useDoctorApi();
     const { data: specialtiesData, loading: specialtiesLoading, error: specialtiesError, fetchSpecialties } = useSpecialtyApi();
     useEffect(() => {
         loadDoctors();
@@ -94,45 +94,59 @@ const DoctorsPage = () => {
         setIsModalOpen(true);
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (!formData.name.trim() || !formData.lastName.trim() || !formData.email.trim()) {
             showToast.error('Nombre, apellido y email son requeridos');
             return;
         }
 
         if (editingDoctor) {
-            // Editar
-            setDoctors(prev =>
-                prev.map(d => d.id === editingDoctor.id
-                    ? { ...d, ...formData }
-                    : d
-                )
-            );
-            showToast.success('Doctor actualizado exitosamente');
-        } else {
-            // Crear
-            const newDoctor = {
-                id: Math.max(...doctors.map(d => d.id), 0) + 1,
+            const editDoctor = {
+                id: editingDoctor.id,
                 ...formData,
+                specialties: formData.specialties.map((specialty) => (specialty.id)),
+            };
+            console.log("editDoctor", editDoctor);
+            const result = await updateDoctor(editDoctor);
+
+            if (result) {
+                setDoctors(prev =>
+                    prev.map(d => d.id === result.id
+                        ? { ...d, ...result }
+                        : d
+                    )
+                );
+                showToast.success('Doctor actualizado exitosamente');
+                setIsModalOpen(false);
+                setEditingDoctor(null);
+            }
+        } else {
+            const newDoctor = {
+                ...formData,
+                specialties: formData.specialties.map((specialty) => (specialty.id)),
                 photo: ''
             };
-            console.log(newDoctor);
-            setDoctors(prev => [...prev, newDoctor]);
-            showToast.success('Doctor creado exitosamente');
+            const result = await createDoctor(newDoctor);
+            if (result) {
+                setDoctors(prev => [...prev, result]);
+                showToast.success('Doctor creado exitosamente');
+                setIsModalOpen(false);
+                setEditingDoctor(null);
+            }
         }
-
-        setIsModalOpen(false);
-        setEditingDoctor(null);
     };
 
     const handleEdit = (doctor) => {
         handleOpenModal(doctor);
     };
 
-    const handleDelete = (doctor) => {
+    const handleDelete = async (doctor) => {
         if (window.confirm(`¿Estás seguro de eliminar al doctor "${doctor.name} ${doctor.lastName}"?`)) {
-            setDoctors(prev => prev.filter(d => d.id !== doctor.id));
-            showToast.success('Doctor eliminado exitosamente');
+            const result = await deleteDoctor(doctor.id);
+            if (result) {
+                setDoctors(prev => prev.filter(d => d.id !== doctor.id));
+                showToast.success('Doctor eliminado exitosamente');
+            }
         }
     };
 
@@ -232,7 +246,7 @@ const DoctorsPage = () => {
                         onChange={(newSpecialties) => setFormData({ ...formData, specialties: newSpecialties })}
                         options={specialties}
                         getOptionLabel={(specialty) => specialty.name}
-                        getOptionValue={(specialty) => ({ name: specialty.name, color: specialty.color })}
+                        getOptionValue={(specialty) => ({ id: specialty.id, name: specialty.name, color: specialty.color })}
                         getOptionColor={(specialty) => specialty.color}
                     />
                 </Box>

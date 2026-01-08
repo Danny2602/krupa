@@ -75,7 +75,7 @@ export default function AuthForm() {
 				navigate('/user/home');
 			}
 		} catch (error) {
-			console.error(error);
+			console.error("Error al iniciar sesión:", error);
 			const message = error.response?.data?.message || "Error al conectar con el servidor";
 			showToast.error(message);
 		}
@@ -86,6 +86,7 @@ export default function AuthForm() {
 		const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 		// Redirige al endpoint que INICIA el flujo OAuth
 		window.location.href = `${apiUrl}/auth/google`;
+
 	}
 
 	// Función para manejar errores de validación y mostrar toast

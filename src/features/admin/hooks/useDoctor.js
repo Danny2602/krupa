@@ -24,12 +24,61 @@ export const useDoctorApi = () => {
             setLoading(false);
         }
     }, []);
-
-
+    const createDoctor = useCallback(async (doctorData) => {
+        setLoading(true);
+        setError(null);
+        try {
+            const result = await adminApi.createDoctor(doctorData);
+            setData(result.data);
+            return result.data;
+        } catch (err) {
+            const errorMessage = err.response?.data?.message || 'Error al crear el doctor';
+            setError(errorMessage);
+            showToast.error(errorMessage);
+            return null;
+        } finally {
+            setLoading(false);
+        }
+    }, []);
+    const updateDoctor = useCallback(async (doctorData) => {
+        setLoading(true);
+        setError(null);
+        try {
+            const result = await adminApi.updateDoctor(doctorData);
+            setData(result.data);
+            return result.data;
+        } catch (err) {
+            const errorMessage = err.response?.data?.message || 'Error al actualizar el doctor';
+            setError(errorMessage);
+            showToast.error(errorMessage);
+            return null;
+        } finally {
+            setLoading(false);
+        }
+    }, []);
+    const deleteDoctor = useCallback(async (doctorId) => {
+        setLoading(true);
+        setError(null);
+        try {
+            const result = await adminApi.deleteDoctor(doctorId);
+            setData(result.data);
+            return result.data;
+        } catch (err) {
+            const errorMessage = err.response?.data?.message || 'Error al eliminar el doctor';
+            setError(errorMessage);
+            showToast.error(errorMessage);
+            return null;
+        } finally {
+            setLoading(false);
+        }
+    }, []);
     return {
         loading,
         error,
         data,
-        fetchDoctors
+        fetchDoctors,
+        createDoctor,
+        updateDoctor,
+        deleteDoctor
     };
 }

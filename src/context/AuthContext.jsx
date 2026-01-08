@@ -52,17 +52,17 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
-    // ✨ NUEVO: Función para refrescar el estado de autenticación
+    //Función para refrescar el estado de autenticación
     const refreshAuth = async () => {
         await checkAuth();
     };
 
-    // ✨ Helper para verificar si el usuario es admin o super admin
+    // Helper para verificar si el usuario es admin o super admin
     const isAdmin = () => {
         return user?.role === 'ADMIN' || user?.role === 'SUPER_ADMIN';
     };
 
-    // ✨ Helper para verificar si el usuario es super admin
+    // Helper para verificar si el usuario es super admin
     const isSuperAdmin = () => {
         return user?.role === 'SUPER_ADMIN';
     };

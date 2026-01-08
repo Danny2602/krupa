@@ -25,11 +25,18 @@ export const adminApi = {
         const result = await api.get('/doctor');
         return result;
     },
-    // createDoctor: async (doctorData) => {
-    //     // TODO: Implementar llamada real
-    //     return { data: {} };
-    // },
-
+    createDoctor: async (doctorData) => {
+        const result = await api.post('/doctor', doctorData);
+        return result;
+    },
+    updateDoctor: async (doctorData) => {
+        const result = await api.patch(`/doctor/${doctorData.id}`, doctorData);
+        return result;
+    },
+    deleteDoctor: async (doctorId) => {
+        const result = await api.delete(`/doctor/${doctorId}`);
+        return result;
+    },
     // // Usuarios
     // getUsers: async () => {
     //     // TODO: Implementar llamada real
