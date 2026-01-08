@@ -23,7 +23,7 @@ const PublicRouter = () => {
         <Route path="/noticias" element={<Noticias />} />
         <Route path="/contacto" element={<Contacto />} />
 
-        {/* Service Pages */}
+        {/* Paginas de servicios */}
         <Route path="/servicios/columna" element={<Columna />} />
         <Route path="/servicios/miembros-superiores" element={<MiembrosSuperiores />} />
         <Route path="/servicios/rodilla" element={<Rodilla />} />
