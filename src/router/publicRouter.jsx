@@ -17,7 +17,7 @@ const PublicRouter = () => {
     <Routes>
       {/* Ruta padre con Layout que envuelve las subrutas */}
       <Route element={<Layout />}>
-        <Route path="/inicio" element={<Inicio />} />
+        <Route path="/" element={<Inicio />} />
         <Route path="/login" element={<Login />} />
         <Route path="/ubicaciones" element={<Ubicaciones />} />
         <Route path="/noticias" element={<Noticias />} />
