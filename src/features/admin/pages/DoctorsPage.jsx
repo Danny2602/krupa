@@ -34,7 +34,6 @@ const DoctorsPage = () => {
         setDoctors(result);
         setSpecialties(specialtiesResult);
     };
-    const availableSpecialties = ['Cardiología', 'Pediatría', 'Dermatología', 'Neurología', 'Oftalmología'];
 
     const columns = [
         {
@@ -205,21 +204,26 @@ const DoctorsPage = () => {
                 submitText={editingDoctor ? 'Actualizar' : 'Crear'}
             >
                 <div className="grid grid-cols-2 gap-4">
-                    <TextField
-                        fullWidth
-                        label="Nombre"
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        required
-                        autoFocus
-                    />
-                    <TextField
-                        fullWidth
-                        label="Apellido"
-                        value={formData.lastName}
-                        onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                        required
-                    />
+                    <div>
+                        <TextField
+                            fullWidth
+                            label="Nombre"
+                            value={formData.name}
+                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                            required
+                            autoFocus
+                        />
+                        <TextField
+                            fullWidth
+                            label="Apellido"
+                            value={formData.lastName}
+                            onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <input className="w-full border border-amber-600 rounded p-2 h-full text-center justify-center items-center flex" type="file" placeholder="Inserte foto"></input>
+                    </div>
                 </div>
                 <Box>
                     <TextField
