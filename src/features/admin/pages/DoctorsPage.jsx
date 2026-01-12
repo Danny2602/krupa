@@ -9,11 +9,13 @@ import { showToast } from '@/lib/toast';
 import { useDoctorApi } from '@/features/admin/hooks/useDoctor';
 import { useSpecialtyApi } from '@/features/admin/hooks/useSpecialty';
 import { MultiSelectChip } from '@/features/admin/components/MultiSelectChip';
+import { InputImage } from '@/components/inputImage';
 const DoctorsPage = () => {
     const [doctors, setDoctors] = useState([]);
     const [specialties, setSpecialties] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingDoctor, setEditingDoctor] = useState(null);
+    const [photoPreview, setPhotoPreview] = useState(null);
     const [formData, setFormData] = useState({
         name: '',
         lastName: '',
@@ -71,27 +73,32 @@ const DoctorsPage = () => {
     const handleOpenModal = (doctor = null) => {
         if (doctor) {
             setEditingDoctor(doctor);
+            setPhotoPreview(doctor.photo || null);
             setFormData({
                 name: doctor.name,
                 lastName: doctor.lastName,
                 email: doctor.email,
                 tlf: doctor.tlf,
                 biography: doctor.biography || '',
+                photo: doctor.photo || null,
                 specialties: doctor.doctorSpecialty.map((specialty) => (specialty.specialty)) || []
             });
         } else {
             setEditingDoctor(null);
+            setPhotoPreview(null);
             setFormData({
                 name: '',
                 lastName: '',
                 email: '',
                 tlf: '',
                 biography: '',
+                photo: null,
                 specialties: []
             });
         }
         setIsModalOpen(true);
     };
+
 
     const handleSubmit = async () => {
         if (!formData.name.trim() || !formData.lastName.trim() || !formData.email.trim()) {
@@ -123,8 +130,9 @@ const DoctorsPage = () => {
             const newDoctor = {
                 ...formData,
                 specialties: formData.specialties.map((specialty) => (specialty.id)),
-                photo: ''
+
             };
+            console.log("newDoctor", newDoctor);
             const result = await createDoctor(newDoctor);
             if (result) {
                 setDoctors(prev => [...prev, result]);
@@ -203,38 +211,49 @@ const DoctorsPage = () => {
                 onSubmit={handleSubmit}
                 submitText={editingDoctor ? 'Actualizar' : 'Crear'}
             >
-                <div className="grid grid-cols-2 gap-4">
-                    <div>
-                        <TextField
-                            fullWidth
-                            label="Nombre"
-                            value={formData.name}
-                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                            required
-                            autoFocus
-                        />
-                        <TextField
-                            fullWidth
-                            label="Apellido"
-                            value={formData.lastName}
-                            onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                            required
+                <div className="grid md:grid-cols-[30%_70%] grid-cols-1 gap-1">
+                    <div className="p-1 items-center justify-center flex">
+                        <InputImage
+                            photoPreview={photoPreview}
+                            setPhotoPreview={setPhotoPreview}
+                            setFormData={setFormData}
                         />
                     </div>
-                    <div>
-                        <input className="w-full border border-amber-600 rounded p-2 h-full text-center justify-center items-center flex" type="file" placeholder="Inserte foto"></input>
+                    <div className="">
+                        <Box className="mb-2">
+                            <TextField
+                                fullWidth
+                                label="Nombre"
+                                value={formData.name}
+                                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                required
+                                autoFocus
+
+                            />
+                        </Box>
+
+                        <Box className="mb-2">
+                            <TextField
+                                fullWidth
+                                label="Apellido"
+                                value={formData.lastName}
+                                onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                                required
+                            />
+                        </Box>
+                        <Box className="mb-2">
+                            <TextField
+                                fullWidth
+                                label="Email"
+                                type="email"
+                                value={formData.email}
+                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                required
+                            />
+                        </Box>
                     </div>
+
                 </div>
-                <Box>
-                    <TextField
-                        fullWidth
-                        label="Email"
-                        type="email"
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        required
-                    />
-                </Box>
                 <Box>
                     <TextField
                         fullWidth

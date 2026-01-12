@@ -22,7 +22,7 @@ const AppRouter = () => {
           <Route path="/admin/*" element={<AdminRouter />} />
         </Route>
 
-        <Route path="*" element={<Navigate to="/inicio" replace />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </AuthProvider>
   )
