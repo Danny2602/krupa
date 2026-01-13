@@ -106,14 +106,30 @@ const DoctorsPage = () => {
             return;
         }
 
+        // Construir FormData
+        const data = new FormData();
+        data.append('name', formData.name);
+        data.append('lastName', formData.lastName);
+        data.append('email', formData.email);
+        data.append('tlf', formData.tlf);
+        data.append('biography', formData.biography || '');
+
+        // Solo adjuntar foto si es un archivo nuevo (File)
+        if (formData.photo instanceof File) {
+            data.append('photo', formData.photo);
+        }
+
+        // Adjuntar especialidades: Iterar y hacer append por cada ítem
+        if (formData.specialties && formData.specialties.length > 0) {
+            formData.specialties.forEach((specialty) => {
+                data.append('specialties', specialty.id);
+            });
+        }
         if (editingDoctor) {
-            const editDoctor = {
-                id: editingDoctor.id,
-                ...formData,
-                specialties: formData.specialties.map((specialty) => (specialty.id)),
-            };
-            console.log("editDoctor", editDoctor);
-            const result = await updateDoctor(editDoctor);
+            // Adjuntar ID al objeto data (no al body del multipart) para que el hook lo use en la URL
+            data.id = editingDoctor.id;
+
+            const result = await updateDoctor(data);
 
             if (result) {
                 setDoctors(prev =>
@@ -127,13 +143,7 @@ const DoctorsPage = () => {
                 setEditingDoctor(null);
             }
         } else {
-            const newDoctor = {
-                ...formData,
-                specialties: formData.specialties.map((specialty) => (specialty.id)),
-
-            };
-            console.log("newDoctor", newDoctor);
-            const result = await createDoctor(newDoctor);
+            const result = await createDoctor(data);
             if (result) {
                 setDoctors(prev => [...prev, result]);
                 showToast.success('Doctor creado exitosamente');
