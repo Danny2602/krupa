@@ -19,7 +19,7 @@ const menuItems = [
   { label: "Inicio", icon: <FaHome />, path: '/user/home' },
   { label: "Citas", icon: <FaCalendar />, path: '/user/appointment' },
   { label: "Perfil", icon: <FaInfoCircle />, path: '/user/profile' },
-  { label: "Salir", icon: <FaSignOutAlt />, path: '/inicio' },
+  { label: "Salir", icon: <FaSignOutAlt />, path: '/' },
 ];
 const MotionNavLink = motion(NavLink)
 

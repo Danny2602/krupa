@@ -23,8 +23,8 @@ export const DoctorCard = ({ doctor, isSelected, onSelect, index }) => {
             >
                 <CardContent className="text-center p-4">
                     <Avatar
-                        src={doctor.imagen}
-                        alt={doctor.nombre}
+                        src={doctor.photo}
+                        alt={doctor.name}
                         sx={{
                             width: 100,
                             height: 100,
