@@ -7,6 +7,7 @@ import AdminRouter from '@/router/adminRouter'
 import { AuthProvider } from '@/context/AuthContext';
 import ProtectedRoute from '@/router/ProtectedRoute';
 import AdminProtectedRoute from '@/router/AdminProtectedRoute';
+import DoctorRouter from '@/router/doctorRouter'
 
 const AppRouter = () => {
   return (
@@ -20,6 +21,10 @@ const AppRouter = () => {
 
         <Route element={<AdminProtectedRoute />}>
           <Route path="/admin/*" element={<AdminRouter />} />
+        </Route>
+
+        <Route element={<ProtectedRoute />}>
+          <Route path="/doctor/*" element={<DoctorRouter />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />

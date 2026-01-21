@@ -71,6 +71,8 @@ export default function AuthForm() {
 			const userRole = respuesta.user?.role;
 			if (userRole === 'ADMIN' || userRole === 'SUPER_ADMIN') {
 				navigate('/admin/dashboard');
+			} else if (userRole === 'DOCTOR') {
+				navigate('/doctor/home');
 			} else {
 				navigate('/user/home');
 			}

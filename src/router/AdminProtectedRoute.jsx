@@ -14,7 +14,7 @@ const AdminProtectedRoute = () => {
     }
 
     if (!isAuthenticated) {
-        return <Navigate to="/inicio" replace />;
+        return <Navigate to="/" replace />;
     }
 
     // Si está autenticado pero no es admin, redirigir al área de usuario
