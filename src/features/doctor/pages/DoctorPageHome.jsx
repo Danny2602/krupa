@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Card, CardContent, Typography, Button } from '@mui/material';
+import { Card, CardContent, Typography, Button, Container } from '@mui/material';
 import { WelcomeBanner } from '../components/WelcomeBanner'
 import { useAuth } from '@/context/AuthContext';
 export default function DoctorPageHome() {
@@ -11,7 +11,7 @@ export default function DoctorPageHome() {
     const pendingCount = 3;
 
     return (
-        <div className="space-y-6">
+        <Container maxWidth="lg" className="py-6 space-y-6">
             <WelcomeBanner user={user} />
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -65,7 +65,7 @@ export default function DoctorPageHome() {
                     Ve a la sección de "Citas" para gestionar todas las solicitudes.
                 </Typography>
             </div>
-        </div>
+        </Container>
     )
 }
 
