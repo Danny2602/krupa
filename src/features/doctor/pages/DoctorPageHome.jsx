@@ -1,12 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Card, CardContent, Typography, Button, Container } from '@mui/material';
-import { WelcomeBanner } from '../components/WelcomeBanner'
+import { WelcomeBanner } from '@/features/doctor/components/WelcomeBanner'
 import { useAuth } from '@/context/AuthContext';
+import { useAppointment } from '@/features/doctor/hooks/useAppointment';
 export default function DoctorPageHome() {
+    const { loading, error, data, getAppointmentsDoctor } = useAppointment();
+
+    useEffect(() => {
+        getAppointmentsDoctor();
+    }, []);
+
     const { user } = useAuth()
     const navigate = useNavigate();
-
     // Es un contador de citas pendientes
     const pendingCount = 3;
 

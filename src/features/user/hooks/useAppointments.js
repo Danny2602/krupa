@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { appointmentApi } from '@/features/user/api/appointment';
 import { showToast } from "@/lib/toast";
 import { useCallback } from 'react';
