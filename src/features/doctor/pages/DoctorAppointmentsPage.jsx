@@ -16,6 +16,7 @@ import 'dayjs/locale/es';
 import { mockAppointments } from '@/features/doctor/data/mockAppointments';
 import DoctorCalendar from '@/features/doctor/components/DoctorCalendar';
 import { useAppointment } from '@/features/doctor/hooks/useAppointment';
+import { showToast } from '@/lib/toast';
 
 dayjs.locale('es');
 
@@ -23,7 +24,7 @@ export default function DoctorAppointmentsPage() {
     const [viewMode, setViewMode] = useState('list'); // 'lista o calendario
     const [tabValue, setTabValue] = useState(0);
     const [appointments, setAppointments] = useState(mockAppointments);
-    const { loading, error, data, getAppointmentsDoctor } = useAppointment();
+    const { loading, error, data, getAppointmentsDoctor, updateStatusAppointment } = useAppointment();
 
     useEffect(() => {
         appointmentsForDoctor();
@@ -33,7 +34,7 @@ export default function DoctorAppointmentsPage() {
         const data = await getAppointmentsDoctor();
         setAppointments(data);
     }
-    console.log("appointments", appointments);
+
     const handleTabChange = (event, newValue) => {
         setTabValue(newValue);
     };
@@ -44,20 +45,25 @@ export default function DoctorAppointmentsPage() {
         }
     };
 
-    const handleStatusChange = (id, newStatus) => {
-        setAppointments(prev => prev.map(app =>
-            app.id === id ? { ...app, status: newStatus } : app,
-        ));
+    const handleStatusChange = async (id, newStatus) => {
+        const result = await updateStatusAppointment(id, { status: newStatus });
+        console.log("result", result);
+        if (result) {
+            showToast.success(result);
+            setAppointments(prev => prev.map(app =>
+                app.id === id ? { ...app, status: newStatus } : app,
+            ));
+        }
     };
     const getFilteredAppointments = () => {
         const statusMap = {
             0: 'PENDING',
             1: 'CONFIRMED',
-            2: 'CANCELLED' // agrupando canceladas y rechazadas
+            2: 'CANCELED' // agrupando canceladas y rechazadas
         };
 
         if (tabValue === 2) {
-            return appointments.filter(app => ['CANCELLED', 'REJECTED'].includes(app.status));
+            return appointments.filter(app => ['CANCELED', 'REJECTED'].includes(app.status));
         }
 
         return appointments.filter(app => app.status === statusMap[tabValue]);
@@ -69,7 +75,7 @@ export default function DoctorAppointmentsPage() {
         const config = {
             PENDING: { label: 'Pendiente', color: 'warning' },
             CONFIRMED: { label: 'Confirmada', color: 'success' },
-            CANCELLED: { label: 'Cancelada', color: 'error' },
+            CANCELED: { label: 'Cancelada', color: 'error' },
             REJECTED: { label: 'Rechazada', color: 'error' },
             COMPLETED: { label: 'Completada', color: 'info' }
         };
@@ -194,7 +200,7 @@ export default function DoctorAppointmentsPage() {
                                                             variant="text"
                                                             color="error"
                                                             fullWidth
-                                                            onClick={() => handleStatusChange(app.id, 'CANCELLED')}
+                                                            onClick={() => handleStatusChange(app.id, 'CANCELED')}
                                                         >
                                                             Cancelar Cita
                                                         </Button>

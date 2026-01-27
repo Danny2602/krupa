@@ -5,4 +5,8 @@ export const appointmentApi = {
         const result = await api.get('/appointment/doctor');
         return result;
     },
+    updateStatusAppointment: async (id, data) => {
+        const result = await api.patch(`/appointment/${id}/status`, data);
+        return result;
+    }
 }

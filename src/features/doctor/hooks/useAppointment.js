@@ -23,5 +23,21 @@ export const useAppointment = () => {
             setLoading(false);
         }
     }, []);
-    return { loading, error, data, getAppointmentsDoctor };
+    const updateStatusAppointment = useCallback(async (id, data) => {
+        setLoading(true);
+        setError(null);
+        try {
+            const result = await appointmentApi.updateStatusAppointment(id, data);
+            setData(result.data);
+            return result.data;
+        } catch (err) {
+            const errorMessage = err.response?.data?.message || 'Error al actualizar el estado de la cita';
+            setError(errorMessage);
+            showToast.error(errorMessage);
+            return null;
+        } finally {
+            setLoading(false);
+        }
+    }, []);
+    return { loading, error, data, getAppointmentsDoctor, updateStatusAppointment };
 };

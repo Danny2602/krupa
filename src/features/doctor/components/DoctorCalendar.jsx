@@ -24,6 +24,7 @@ export default function DoctorCalendar({ appointments, onEventClick }) {
         id: app.id,
         title: `${app.name} - ${app.notes}`,
         start: app.startTime,
+        end: app.endTime,
         backgroundColor: getEventColor(app.status),
         borderColor: getEventColor(app.status),
         extendedProps: { ...app }
