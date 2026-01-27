@@ -9,10 +9,10 @@ import { Card } from '@mui/material';
 // Function to map status to colors
 const getEventColor = (status) => {
     switch (status) {
-        case 'confirmed': return '#10B981'; // Green
-        case 'pending': return '#F59E0B'; // Amber
-        case 'cancelled': return '#EF4444'; // Red
-        case 'rejected': return '#EF4444';
+        case 'CONFIRMED': return '#10B981'; // Green
+        case 'PENDING': return '#F59E0B'; // Amber
+        case 'CANCELLED': return '#EF4444'; // Red
+        case 'REJECTED': return '#EF4444';
         default: return '#3B82F6'; // Blue
     }
 };
@@ -22,8 +22,8 @@ export default function DoctorCalendar({ appointments, onEventClick }) {
     // Transformar las citas al formato de FullCalendar
     const events = appointments.map(app => ({
         id: app.id,
-        title: `${app.patientName} - ${app.reason}`,
-        start: app.date,
+        title: `${app.name} - ${app.notes}`,
+        start: app.startTime,
         backgroundColor: getEventColor(app.status),
         borderColor: getEventColor(app.status),
         extendedProps: { ...app }

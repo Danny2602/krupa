@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Typography, Box, Tabs, Tab, Button, Card, CardContent, Chip,
     IconButton, Grid, ToggleButton, ToggleButtonGroup, Container
@@ -13,8 +13,9 @@ import {
 } from '@mui/icons-material';
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
-import { mockAppointments } from '../data/mockAppointments';
-import DoctorCalendar from '../components/DoctorCalendar';
+import { mockAppointments } from '@/features/doctor/data/mockAppointments';
+import DoctorCalendar from '@/features/doctor/components/DoctorCalendar';
+import { useAppointment } from '@/features/doctor/hooks/useAppointment';
 
 dayjs.locale('es');
 
@@ -22,7 +23,17 @@ export default function DoctorAppointmentsPage() {
     const [viewMode, setViewMode] = useState('list'); // 'lista o calendario
     const [tabValue, setTabValue] = useState(0);
     const [appointments, setAppointments] = useState(mockAppointments);
+    const { loading, error, data, getAppointmentsDoctor } = useAppointment();
 
+    useEffect(() => {
+        appointmentsForDoctor();
+
+    }, []);
+    const appointmentsForDoctor = async () => {
+        const data = await getAppointmentsDoctor();
+        setAppointments(data);
+    }
+    console.log("appointments", appointments);
     const handleTabChange = (event, newValue) => {
         setTabValue(newValue);
     };
@@ -35,19 +46,18 @@ export default function DoctorAppointmentsPage() {
 
     const handleStatusChange = (id, newStatus) => {
         setAppointments(prev => prev.map(app =>
-            app.id === id ? { ...app, status: newStatus } : app
+            app.id === id ? { ...app, status: newStatus } : app,
         ));
     };
-
     const getFilteredAppointments = () => {
         const statusMap = {
-            0: 'pending',
-            1: 'confirmed',
-            2: 'cancelled' // agrupando canceladas y rechazadas
+            0: 'PENDING',
+            1: 'CONFIRMED',
+            2: 'CANCELLED' // agrupando canceladas y rechazadas
         };
 
         if (tabValue === 2) {
-            return appointments.filter(app => ['cancelled', 'rejected'].includes(app.status));
+            return appointments.filter(app => ['CANCELLED', 'REJECTED'].includes(app.status));
         }
 
         return appointments.filter(app => app.status === statusMap[tabValue]);
@@ -57,11 +67,11 @@ export default function DoctorAppointmentsPage() {
 
     const getStatusChip = (status) => {
         const config = {
-            pending: { label: 'Pendiente', color: 'warning' },
-            confirmed: { label: 'Confirmada', color: 'success' },
-            cancelled: { label: 'Cancelada', color: 'error' },
-            rejected: { label: 'Rechazada', color: 'error' },
-            completed: { label: 'Completada', color: 'info' }
+            PENDING: { label: 'Pendiente', color: 'warning' },
+            CONFIRMED: { label: 'Confirmada', color: 'success' },
+            CANCELLED: { label: 'Cancelada', color: 'error' },
+            REJECTED: { label: 'Rechazada', color: 'error' },
+            COMPLETED: { label: 'Completada', color: 'info' }
         };
         const { label, color } = config[status] || { label: status, color: 'default' };
         return <Chip label={label} color={color} size="small" variant="outlined" />;
@@ -107,7 +117,7 @@ export default function DoctorAppointmentsPage() {
                     <div className="animate-in fade-in zoom-in duration-300 space-y-6">
                         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                             <Tabs value={tabValue} onChange={handleTabChange} aria-label="appointment tabs" variant="scrollable" scrollButtons="auto">
-                                <Tab label={`Por Confirmar (${appointments.filter(a => a.status === 'pending').length})`} />
+                                <Tab label={`Por Confirmar (${appointments.filter(a => a.status === 'PENDING').length})`} />
                                 <Tab label="Confirmadas" />
                                 <Tab label="Canceladas / No Confirmadas" />
                             </Tabs>
@@ -124,12 +134,12 @@ export default function DoctorAppointmentsPage() {
                                 {filteredAppointments.map((app) => (
                                     <Grid item size={{ xs: 12, md: 6, lg: 4 }} key={app.id}>
                                         <Card className="h-full hover:shadow-lg transition-shadow duration-300 border-l-4"
-                                            style={{ borderLeftColor: app.status === 'pending' ? '#F59E0B' : app.status === 'confirmed' ? '#10B981' : '#EF4444' }}>
+                                            style={{ borderLeftColor: app.status === 'PENDING' ? '#F59E0B' : app.status === 'CONFIRMED' ? '#10B981' : '#EF4444' }}>
                                             <CardContent>
                                                 <div className="flex justify-between items-start mb-3">
                                                     <div>
                                                         <Typography variant="h6" className="font-bold">
-                                                            {app.patientName}
+                                                            {app.name}
                                                         </Typography>
                                                         <Typography variant="caption" className="text-gray-500">
                                                             {app.patientAge} años • {app.type}
@@ -142,29 +152,29 @@ export default function DoctorAppointmentsPage() {
                                                     <div className="flex items-center text-gray-700">
                                                         <DateIcon fontSize="small" className="mr-2 text-indigo-500" />
                                                         <Typography variant="body2">
-                                                            {dayjs(app.date).format('dddd, D [de] MMMM')}
+                                                            {dayjs(app.startTime).format('dddd, D [de] MMMM')}
                                                         </Typography>
                                                     </div>
                                                     <div className="flex items-center text-gray-700">
                                                         <TimeIcon fontSize="small" className="mr-2 text-indigo-500" />
                                                         <Typography variant="body2">
-                                                            {dayjs(app.date).format('h:mm A')}
+                                                            {dayjs(app.startTime).format('h:mm A')}
                                                         </Typography>
                                                     </div>
                                                     <Typography variant="body2" className="text-gray-600 bg-gray-100 p-2 rounded-md mt-2">
-                                                        "{app.reason}"
+                                                        "{app.notes}"
                                                     </Typography>
                                                 </div>
 
                                                 <div className="flex gap-2 mt-4 pt-4 border-t border-gray-100">
-                                                    {app.status === 'pending' && (
+                                                    {app.status === 'PENDING' && (
                                                         <>
                                                             <Button
                                                                 variant="contained"
                                                                 color="success"
                                                                 fullWidth
                                                                 startIcon={<CheckIcon />}
-                                                                onClick={() => handleStatusChange(app.id, 'confirmed')}
+                                                                onClick={() => handleStatusChange(app.id, 'CONFIRMED')}
                                                             >
                                                                 Aceptar
                                                             </Button>
@@ -173,18 +183,18 @@ export default function DoctorAppointmentsPage() {
                                                                 color="error"
                                                                 fullWidth
                                                                 startIcon={<CancelIcon />}
-                                                                onClick={() => handleStatusChange(app.id, 'rejected')}
+                                                                onClick={() => handleStatusChange(app.id, 'REJECTED')}
                                                             >
                                                                 Rechazar
                                                             </Button>
                                                         </>
                                                     )}
-                                                    {app.status === 'confirmed' && (
+                                                    {app.status === 'CONFIRMED' && (
                                                         <Button
                                                             variant="text"
                                                             color="error"
                                                             fullWidth
-                                                            onClick={() => handleStatusChange(app.id, 'cancelled')}
+                                                            onClick={() => handleStatusChange(app.id, 'CANCELLED')}
                                                         >
                                                             Cancelar Cita
                                                         </Button>
@@ -194,6 +204,9 @@ export default function DoctorAppointmentsPage() {
                                         </Card>
                                     </Grid>
                                 ))}
+
+
+
                             </Grid>
                         )}
                     </div>
