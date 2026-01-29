@@ -1,6 +1,6 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
-import DoctorPageHome from '@/features/doctor/pages/doctorPageHome'
+import DoctorPageHome from '@/features/doctor/pages/DoctorPageHome'
 import DoctorLayout from '@/layouts/doctor/DoctorLayout'
 import DoctorAppointmentsPage from '@/features/doctor/pages/DoctorAppointmentsPage'
 
