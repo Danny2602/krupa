@@ -5,11 +5,7 @@ import { WelcomeBanner } from '@/features/doctor/components/WelcomeBanner'
 import { useAuth } from '@/context/AuthContext';
 import { useAppointment } from '@/features/doctor/hooks/useAppointment';
 export default function DoctorPageHome() {
-    const { loading, error, data, getAppointmentsDoctor } = useAppointment();
 
-    useEffect(() => {
-        getAppointmentsDoctor();
-    }, []);
 
     const { user } = useAuth()
     const navigate = useNavigate();

@@ -16,7 +16,12 @@ export const authApi = {
     // Verificar estado de la sesión
     checkStatus: async () => {
         const { data } = await api.get('/auth/check-status', {
-            withCredentials: true  // Importante para cookies
+            withCredentials: true,
+            headers: {
+                'Cache-Control': 'no-cache, no-store, must-revalidate',
+                'Pragma': 'no-cache',
+                'Expires': '0'
+            }
         });
         return data;
     },
